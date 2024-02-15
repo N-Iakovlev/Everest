@@ -1,0 +1,13 @@
+﻿@using Everest.API
+@using Everest.Domain
+@model Everest.Domain.AddOrEditEmployeeCommand
+@{
+    Layout = "~/Views/Shared/_DialogLayout.cshtml";
+    ViewData["Title"] = DataResource.Add;
+    ViewData["Url"] = Url.Dispatcher().Push<AddOrEditEmployeeCommand>();
+    ViewData["TriggerId"] = nameof(GetEmployeesQuery);
+}
+
+@Html.HiddenFor(q=>q.Id)
+@Html.ForGroup(q => q.FirstName).TextBox(control => { control.Label.Name = DataResource.First; })
+@Html.ForGroup(q => q.LastName).TextBox(control => { control.Label.Name = DataResource.Last; })

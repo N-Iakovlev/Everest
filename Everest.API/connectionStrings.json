@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "Main": "Data Source=DESKTOP-ME7L5RL\\SQLEXPRESS;Initial Catalog=Everest;Integrated Security=True"
+  }
+}

@@ -1,0 +1,122 @@
+@using Everest.API
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<!-- Navbar -->
+<nav class="main-header navbar navbar-expand navbar-dark">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                <i class="fas fa-bars"></i>
+            </a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="@Url.Action("Index", "Home")" class="nav-link">
+                @DataResource.Admin
+            </a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">
+                @DataResource.Main
+            </a>
+        </li>
+    </ul>
+</nav>
+<!-- /.navbar -->
+
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+        <img src="@Url.Content("~/favicon.png")" alt="Everest Trade" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">EVEREST TRADE</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar os-host os-theme-light os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition">
+        <div class="os-padding">
+            <div class="os-viewport os-viewport-native-scrollbars-invisible" style="overflow-y: scroll;">
+                <div class="os-content" style="padding: 0px 8px; height: 100%; width: 100%;">
+                    <!-- Sidebar user panel (optional) -->
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                            <img src="@Url.Content("~/Images/DefaultUser.png")" class="img-circle elevation-2" alt="User Image">
+                        </div>
+                        <div class="info">
+                            <a href="#" class="d-block">
+
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <!-- Sidebar Menu -->
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            <!-- Add icons to the links using the .nav-icon class
+                            with font-awesome or any other icon font library -->
+                            <li class="nav-item">
+                                @(Html.When(JqueryBind.Click)
+                                      .PreventDefault()
+                                      .OnSuccess(dsl =>
+                                                 {
+                                                     dsl.WithClass("nav-link").JQuery.Attr.RemoveClass(B.Active);
+                                                     dsl.Self().JQuery.Attr.AddClass(B.Active);
+                                                     dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/Admin/Employee/Index.cshtml"), "Employee");
+                                                 })
+                                      .AsHtmlAttributes(new
+                                                        {
+                                                                @class = "nav-link active",
+                                                                href = "Employee"
+                                                        })
+                                      .ToTag(HtmlTag.A,
+                                             @<text>
+                                                  <i class="far fa-circle nav-icon"></i>
+                                                  <p>@DataResource.Employee</p>
+                                             </text>))
+                            </li>
+                            <li class="nav-item">
+                                @(Html.When(JqueryBind.Click)
+                                      .PreventDefault()
+                                      .OnSuccess(dsl =>
+                                                 {
+                                                     dsl.WithClass("nav-link").JQuery.Attr.RemoveClass(B.Active);
+                                                     dsl.Self().JQuery.Attr.AddClass(B.Active);
+                                                     dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/Admin/Product/Index.cshtml"), "Product");
+                                                 })
+                                      .AsHtmlAttributes(new
+                                                        {
+                                                                @class = "nav-link",
+                                                                href = "Product"
+                                                        })
+                                      .ToTag(HtmlTag.A,
+                                             @<text>
+                                                  <i class="far fa-circle nav-icon"></i>
+                                                  <p>@DataResource.Product</p>
+                                             </text>))
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/examples/contact-us.html" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>@DataResource.Content</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- /.sidebar-menu -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.sidebar -->
+</aside>
+
+
+@(Html.When(JqueryBind.InitIncoding | JqueryBind.IncChangeUrl)
+      .Hash()
+      .OnBegin(dsl => { dsl.Break.If(() => Selector.Event.Type == "initincoding" && Selector.JS.Location.Hash == ""); })
+      .OnBreak(dsl => dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/Admin/Employee/Index.cshtml"), "Employee"))
+      .OnSuccess(dsl => { dsl.Self().Insert.Html().If(() => Selector.Result != ""); })
+      .AsHtmlAttributes(classes: "content-wrapper")
+      .ToDiv())

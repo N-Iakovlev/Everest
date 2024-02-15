@@ -1,0 +1,80 @@
+﻿@using Everest.API
+@{
+    var formId = Guid.NewGuid().ToString();
+    var title = ViewData["Title"];
+    var url = ViewData["Url"]?.ToString();
+    var triggerId = ViewData["TriggerId"]?.ToString();
+    if (string.IsNullOrWhiteSpace(url))
+        throw new ArgumentException("Url can't be null");
+    if (string.IsNullOrWhiteSpace(triggerId))
+        throw new ArgumentException("Url can't be null");
+}
+
+<div class="modal fade show" aria-modal="true" role="dialog" style="padding-right: 17px; display: block;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    @title
+                </h4>
+                @(Html.When(JqueryBind.Click)
+                      .OnSuccess(dsl =>
+                                 {
+                                     dsl.WithSelf(q => q.Closest(z => z.Class("modal"))).JQuery.Dom.Remove();
+                                     dsl.With(q => q.Tag(HtmlTag.Body)).JQuery.Attr.RemoveClass("modal-open");
+                                 })
+                      .AsHtmlAttributes(new { @class = "close" })
+                      .ToButton(@<text>
+                                     <span aria-hidden="true">×</span>
+                                 </text>))
+            </div>
+            @using (Html.When(JqueryBind.InitIncoding)
+                        .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).JQuery.Attr.AddClass("modal-open"))
+                        .When(JqueryBind.Submit)
+                        .PreventDefault()
+                        .StopPropagation()
+                        .Submit()
+                        .OnBegin(dsl => dsl.With(r => r.Class("modal-footer").Find(s => s.EqualsAttribute(HtmlAttribute.Type, "submit"))).JQuery.Attr.Set(HtmlAttribute.Disabled))
+                        .OnError(dsl => dsl.Self().Form.Validation.Refresh())
+                        .OnSuccess(dsl =>
+                                   {
+                                       dsl.With(q => q.Tag(HtmlTag.Body)).JQuery.Attr.RemoveClass("modal-open");
+                                       dsl.WithSelf(q => q.Closest(z => z.Class("modal"))).JQuery.Dom.Remove();
+                                       dsl.WithId(triggerId).Trigger.Incoding();
+                                   })
+                        .OnComplete(dsl => dsl.With(r => r.Class("modal-footer").Find(s => s.EqualsAttribute(HtmlAttribute.Type, "submit"))).JQuery.Attr.Remove(HtmlAttribute.Disabled))
+                        .AsHtmlAttributes(new { id = formId })
+                        .ToBeginForm(url))
+            {
+                <div class="modal-body">
+                    <p>
+                        @RenderBody()
+                    </p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    @(Html.When(JqueryBind.Click)
+                          .PreventDefault()
+                          .OnSuccess(dsl =>
+                                     {
+                                         dsl.WithSelf(q => q.Closest(z => z.Class("modal"))).JQuery.Dom.Remove();
+                                         dsl.With(q => q.Tag(HtmlTag.Body)).JQuery.Attr.RemoveClass("modal-open");
+                                     })
+                          .AsHtmlAttributes(new { @class = "btn btn-default" })
+                          .ToButton(@<text>
+                                         @DataResource.Close
+                                     </text>))
+                    @(Html.When(JqueryBind.Click)
+                          .PreventDefault()
+                          .OnSuccess(dsl => dsl.WithId(formId).Trigger.Submit())
+                          .AsHtmlAttributes(new { @class = "btn btn-primary" })
+                          .ToButton(@<text>
+                                         @DataResource.Save
+                                     </text>))
+                </div>
+            }
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

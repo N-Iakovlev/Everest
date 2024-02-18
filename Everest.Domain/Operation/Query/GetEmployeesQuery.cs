@@ -14,7 +14,7 @@ public class GetEmployeesQuery : QueryBase<List<GetEmployeesQuery.Response>>
                          .Select(q => new Response()
                                       {
                                               Id = q.Id,
-                                              FullName = $"{q.FirstName} {q.LastName}"
+                                              FullName = $"{q.FirstName} {q.LastName}",
                                       })
                          .ToList();
     }

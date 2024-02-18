@@ -1,5 +1,6 @@
 @using Everest.API
 @using Everest.Domain
+@using Incoding.Web.Extensions
 @{
     Layout = "~/Views/Shared/_ContentLayout.cshtml";
     ViewData["Header"] = DataResource.Employee;
@@ -15,11 +16,20 @@
                   .ToButton(@<text>
                                  <span>@DataResource.Add</span>
                              </text>))
+            @(Html.When(JqueryBind.KeyUp)
+                .Ajax(Url.Dispatcher().Query(new GetEmployeesQuery()).AsJson().AppendToQueryString(new { Search = Selector.Jquery.Self() }))
+                .OnSuccess(dsl =>
+                {
+                    dsl.WithId(nameof(GetEmployeesQuery)).Insert.WithTemplateByView("~/Views/Admin/Employee/Tmpl.cshtml").Html();
+                })
+                .AsHtmlAttributes(new { placeholder = @DataResource.SearchEmployee })
+                .ToInput(HtmlInputType.Text,String.Empty))
         </div>
     </div>
-    @(Html.When(JqueryBind.InitIncoding)
-          .Ajax(new GetEmployeesQuery())
-          .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/Admin/Employee/Tmpl.cshtml").Html())
-          .AsHtmlAttributes(new { @class = "col-sm-12 col-md-12", id = nameof(GetEmployeesQuery) })
-          .ToDiv())
+   @(Html.When(JqueryBind.InitIncoding)
+         .Ajax(new GetEmployeesQuery())
+         .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/Admin/Employee/Tmpl.cshtml").Html())
+         .AsHtmlAttributes(new { @class = "col-sm-12 col-md-12", id = nameof(GetEmployeesQuery) })
+         .ToDiv())
+   
 </div>

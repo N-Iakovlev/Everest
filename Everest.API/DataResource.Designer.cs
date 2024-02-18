@@ -133,6 +133,15 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Нет совпадений.
+        /// </summary>
+        public static string Empty {
+            get {
+                return ResourceManager.GetString("Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Имя.
         /// </summary>
         public static string First {
@@ -147,6 +156,15 @@ namespace Everest.API {
         public static string FullName {
             get {
                 return ResourceManager.GetString("FullName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не менять фото.
+        /// </summary>
+        public static string IsAvatarAdded {
+            get {
+                return ResourceManager.GetString("IsAvatarAdded", resourceCulture);
             }
         }
         
@@ -178,11 +196,38 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Категория.
+        /// </summary>
+        public static string ProductCategory {
+            get {
+                return ResourceManager.GetString("ProductCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Товар.
+        /// </summary>
+        public static string ProductName {
+            get {
+                return ResourceManager.GetString("ProductName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Сохранить.
         /// </summary>
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Поиск сотрудника.
+        /// </summary>
+        public static string SearchEmployee {
+            get {
+                return ResourceManager.GetString("SearchEmployee", resourceCulture);
             }
         }
     }

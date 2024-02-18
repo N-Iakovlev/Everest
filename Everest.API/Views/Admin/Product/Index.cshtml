@@ -1,5 +1,6 @@
 ﻿@using Everest.API
 @using Everest.Domain
+@using Incoding.Web.Extensions
 @{
     Layout = "~/Views/Shared/_ContentLayout.cshtml";
     ViewData["Header"] = DataResource.Product;
@@ -20,6 +21,14 @@
                 .ToButton(@<text>
                                <span>@DataResource.Add</span>
                            </text>))
+            @(Html.When(JqueryBind.KeyUp)
+                .Ajax(Url.Dispatcher().Query(new GetProductQuery()).AsJson().AppendToQueryString(new { Search = Selector.Jquery.Self() }))
+                .OnSuccess(dsl =>
+                {
+                    dsl.WithId(nameof(GetProductQuery)).Insert.WithTemplateByView("~/Views/Admin/Product/Tmpl.cshtml").Html();
+                })
+                .AsHtmlAttributes(new { placeholder = @DataResource.ProductSearch })
+                .ToInput(HtmlInputType.Text,String.Empty))
         </div>
     </div>
     @(Html.When(JqueryBind.InitIncoding)

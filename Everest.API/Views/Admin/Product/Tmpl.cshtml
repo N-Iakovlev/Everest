@@ -8,15 +8,15 @@
             <tr>
                 <th></th>
                 <th>@DataResource.ProductName</th>
-             @*   <th>@DataResource.ProductCategory</th> *@
-            </tr>
+                <th>@DataResource.ProductPhoto</th>
+                </tr>
             </thead>
             <tbody>
             @using (template.NotEach())
             {
                 <tr>
                     <td colspan="3">
-                        Empty
+                            @DataResource.Empty
                     </td>
                 </tr>
             }
@@ -52,7 +52,9 @@
                         @each.For(q => q.ProductName)
                     </td>
                     <td>
-
+                            <img src="@(Url.Dispatcher()
+                                      .Query<GetPhotoProductQuery>(new {Id = each.For(q=>q.Id)})
+                                      .AsFile(incContentType:"image/jpeg",incFileDownloadName:"avatar"))" />
                     </td>
                 </tr>
             }

@@ -1,0 +1,37 @@
+﻿@using Everest.API
+@using Everest.Domain
+@{
+    using (var template = Html.Incoding().Template<GetContentQuery.Response>())
+    {
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @using (template.NotEach())
+            {
+                <tr>
+                    <td colspan="3">
+                        @DataResource.Empty
+                    </td>
+                </tr>
+            }
+            @using (var each = template.ForEach())
+            {
+                <tr>
+                    <td></td>
+                    <td>
+                        @each.For(q => q.FullName)
+                    </td>
+                    <td></td>
+                </tr>
+            }
+
+            </tbody>
+        </table>
+    }
+}

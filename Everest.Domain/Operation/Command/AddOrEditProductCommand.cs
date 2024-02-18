@@ -1,4 +1,6 @@
-﻿namespace Everest.Domain;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Everest.Domain;
 
 #region << Using >>
 
@@ -19,18 +21,25 @@ public class DeleteProductCommand : CommandBase
 
 public class AddOrEditProductCommand : CommandBase
 {
-    public string ProductName { get; set; }
-
-    public string ProductCategory { get; set; }
-
     public int? Id { get; set; }
+    public string ProductName { get; set; }
+   
+    public IFormFile ProductPhoto { get; set; }
 
     protected override void Execute()
     {
         var isNew = Id.GetValueOrDefault() == 0;
         Product pr = isNew ? new Product() : Repository.GetById<Product>(Id.GetValueOrDefault());
         pr.ProductName = ProductName;
-        pr.ProductCategory = ProductCategory;
+        if (ProductPhoto != null && ProductPhoto.Length > 0)
+        {
+
+            using (var memoryStream = new MemoryStream())
+            {
+                ProductPhoto.CopyTo(memoryStream);
+                pr.ProductPhoto = memoryStream.ToArray(); 
+            }
+        }
         Repository.SaveOrUpdate(pr);
     }
 
@@ -38,9 +47,9 @@ public class AddOrEditProductCommand : CommandBase
     {
         public Validator()
         {
-            RuleFor(q => q.ProductName).NotEmpty();
+            RuleFor(pr => pr.ProductName).NotEmpty();
 
-            RuleFor(q => q.ProductCategory).NotEmpty();
+            
         }
     }
 
@@ -58,7 +67,7 @@ public class AddOrEditProductCommand : CommandBase
                    {
                            Id = pr.Id,
                            ProductName = pr.ProductName,
-                           ProductCategory = pr.ProductCategory,
+                          
                    };
         }
     }

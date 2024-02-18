@@ -12,8 +12,9 @@ using JetBrains.Annotations;
 public class Product : EverestEntityBase
 {
     public virtual string ProductName { get; set; }
+    public virtual byte[] ProductPhoto { get; set; }
 
-    public virtual string ProductCategory { get; set; }
+    
     
 
     [UsedImplicitly, Obsolete(ObsoleteMessage.ClassNotForDirectUsage, true), ExcludeFromCodeCoverage]
@@ -21,9 +22,10 @@ public class Product : EverestEntityBase
     {
         public Map()
         {
-            Id(q => q.Id).GeneratedBy.Identity();
-            MapEscaping(q => q.ProductName);
-            MapEscaping(q => q.ProductCategory);
+            Id(pr => pr.Id).GeneratedBy.Identity();
+            MapEscaping(pr => pr.ProductName);
+            MapEscaping(pr => pr.ProductPhoto);
+
         }
     }
 }

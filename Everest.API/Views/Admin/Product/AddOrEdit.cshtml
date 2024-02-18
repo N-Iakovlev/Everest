@@ -10,4 +10,4 @@
 
 @Html.HiddenFor(q=>q.Id)
 @Html.ForGroup(q => q.ProductName).TextBox(control => { control.Label.Name = DataResource.ProductName; })
-@Html.ForGroup(q => q.ProductCategory).TextBox(control => { control.Label.Name = DataResource.ProductCategory; })
+@Html.ForGroup(q => q.ProductPhoto).File(control => { control.Label.Name = DataResource.ProductPhoto; })

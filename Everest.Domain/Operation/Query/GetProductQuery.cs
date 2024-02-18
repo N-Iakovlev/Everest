@@ -8,23 +8,30 @@ using Incoding.Core.CQRS.Core;
 
 public class GetProductQuery : QueryBase<List<GetProductQuery.Response>>
 {
+    public string Search { get; set; }
     protected override List<Response> ExecuteResult()
     {
-        return Repository.Query<Product>()
-                         .Select(q => new Response()
-                                      {
-                                              Id = q.Id,
-                                              ProductName = q.ProductName,
-                                              ProductCategory = q.ProductCategory
-                                      })
-                         .ToList();
+    
+        var query = Repository.Query<Product>();
+
+        if (!string.IsNullOrEmpty(Search))
+        {
+            query = query.Where(e => e.ProductName.Contains(Search));
+        }
+
+        return query.Select(q => new Response
+            {
+                Id = q.Id,
+                ProductName = q.ProductName,
+            })
+            .ToList();
+    
     }
 
     public class Response
     {
         public int Id { get; set; }
         public string ProductName { get; set; }
-        public string ProductCategory { get; set; }
 
     }
 }

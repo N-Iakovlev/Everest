@@ -196,20 +196,29 @@ namespace Everest.API {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Категория.
-        /// </summary>
-        public static string ProductCategory {
-            get {
-                return ResourceManager.GetString("ProductCategory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Товар.
         /// </summary>
         public static string ProductName {
             get {
                 return ResourceManager.GetString("ProductName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Фото.
+        /// </summary>
+        public static string ProductPhoto {
+            get {
+                return ResourceManager.GetString("ProductPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Поиск товара.
+        /// </summary>
+        public static string ProductSearch {
+            get {
+                return ResourceManager.GetString("ProductSearch", resourceCulture);
             }
         }
         

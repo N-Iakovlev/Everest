@@ -21,9 +21,14 @@ public class DeleteProductCommand : CommandBase
 
 public class AddOrEditProductCommand : CommandBase
 {
-    public int? Id { get; set; }
     public string ProductName { get; set; }
-   
+
+    public decimal Price { get; set; }
+    public int Quantity { get; set; }
+    public string ProductArticl { get; set; }
+    public string Description { get; set; }
+    public string Brand { get; set; }
+    public int? Id { get; set; }
     public IFormFile ProductPhoto { get; set; }
 
     protected override void Execute()
@@ -40,6 +45,11 @@ public class AddOrEditProductCommand : CommandBase
                 pr.ProductPhoto = memoryStream.ToArray(); 
             }
         }
+        pr.Brand = Brand;
+        pr.Price = Price;
+        pr.Quantity = Quantity;
+        pr.ProductArticl = ProductArticl;
+        pr.Description = Description;
         Repository.SaveOrUpdate(pr);
     }
 
@@ -48,8 +58,9 @@ public class AddOrEditProductCommand : CommandBase
         public Validator()
         {
             RuleFor(pr => pr.ProductName).NotEmpty();
+            RuleFor(pr => pr.Price).NotEmpty();
 
-            
+
         }
     }
 

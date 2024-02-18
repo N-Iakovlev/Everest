@@ -177,4 +177,19 @@
   <data name="ProductSearch" xml:space="preserve">
     <value>Поиск товара</value>
   </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="ProductArticl" xml:space="preserve">
+    <value>Артикул</value>
+  </data>
+	<data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Brand" xml:space="preserve">
+    <value>Производитель</value>
+  </data>
 </root>

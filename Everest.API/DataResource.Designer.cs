@@ -88,6 +88,15 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Производитель.
+        /// </summary>
+        public static string Brand {
+            get {
+                return ResourceManager.GetString("Brand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Закрыть.
         /// </summary>
         public static string Close {
@@ -111,6 +120,15 @@ namespace Everest.API {
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Описание.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
             }
         }
         
@@ -187,11 +205,29 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Цена.
+        /// </summary>
+        public static string Price {
+            get {
+                return ResourceManager.GetString("Price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Товары.
         /// </summary>
         public static string Product {
             get {
                 return ResourceManager.GetString("Product", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Артикул.
+        /// </summary>
+        public static string ProductArticl {
+            get {
+                return ResourceManager.GetString("ProductArticl", resourceCulture);
             }
         }
         
@@ -219,6 +255,15 @@ namespace Everest.API {
         public static string ProductSearch {
             get {
                 return ResourceManager.GetString("ProductSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Количество.
+        /// </summary>
+        public static string Quantity {
+            get {
+                return ResourceManager.GetString("Quantity", resourceCulture);
             }
         }
         

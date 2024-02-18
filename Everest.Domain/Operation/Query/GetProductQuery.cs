@@ -16,7 +16,7 @@ public class GetProductQuery : QueryBase<List<GetProductQuery.Response>>
 
         if (!string.IsNullOrEmpty(Search))
         {
-            query = query.Where(e => e.ProductName.Contains(Search));
+            query = query.Where(e => e.ProductName.Contains(Search) || e.ProductArticl.Contains(Search) || e.Brand.Contains(Search));
         }
 
         return query.Select(q => new Response

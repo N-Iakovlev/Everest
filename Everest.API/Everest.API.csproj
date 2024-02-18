@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Admin\Product\" />
     <Folder Include="Views\Application\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\js\app\" />

@@ -16,7 +16,7 @@
             {
                 <tr>
                     <td colspan="3">
-                        Empty
+                        @DataResource.Empty
                     </td>
                 </tr>
             }
@@ -28,9 +28,9 @@
                               .Ajax(Url.Dispatcher()
                                        .Query<AddOrEditEmployeeCommand.AsQuery>(new { Id = each.For(q => q.Id) })
                                        .AsView("~/Views/Admin/Employee/AddOrEdit.cshtml"))
-                              .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
-                              .AsHtmlAttributes()
-                              .ToLink(@<text>
+                                       .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
+                                       .AsHtmlAttributes()
+                                       .ToLink(@<text>
                                            <i class="fas fa-pencil-alt">
                                            </i>
                                            @DataResource.Edit
@@ -38,21 +38,25 @@
 
 
                         @(Html.When(JqueryBind.Click)
-                              .Ajax(Url.Dispatcher().Push<DeleteEmployeeCommand>(new { Id = each.For(q => q.Id) }))
-                              .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
-                              .OnSuccess(dsl => dsl.WithId(nameof(GetEmployeesQuery)).Trigger.Incoding())
-                              .AsHtmlAttributes()
-                              .ToLink(@<text>
-                                           <i class="fas fa-pencil-alt">
-                                           </i>
-                                           @DataResource.Delete
-                                       </text>))
+                              .Ajax(Url.Dispatcher()
+                                       .Push<DeleteEmployeeCommand>(new { Id = each.For(q => q.Id) }))
+                                       .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
+                                       .OnSuccess(dsl => dsl.WithId(nameof(GetEmployeesQuery)).Trigger.Incoding())
+                                       .AsHtmlAttributes()
+                                       .ToLink(@<text>
+                                                    <i class="fas fa-pencil-alt">
+                                                    </i>
+                                                    @DataResource.Delete
+                                                </text>))
                     </td>
                     <td>
                         @each.For(q => q.FullName)
+                        
                     </td>
                     <td>
-
+                        <img src="@(Url.Dispatcher()
+                                      .Query<GetAvatarAndCompressQuery>(new {Id = each.For(q=>q.Id)})
+                                      .AsFile(incContentType:"image/jpeg",incFileDownloadName:"avatar"))" /> 
                     </td>
                 </tr>
             }

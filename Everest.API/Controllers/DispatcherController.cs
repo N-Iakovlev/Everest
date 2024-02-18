@@ -1,3 +1,6 @@
+using Everest.Domain;
+using Incoding.Core.CQRS.Core;
+
 namespace Everest.API.Controllers
 {
     #region << Using >>
@@ -11,6 +14,13 @@ namespace Everest.API.Controllers
     [AllowAnonymous]
     public class HomeController : Controller
     {
+        private readonly IDispatcher _dispatcher;
+
+        public HomeController(IDispatcher dispatcher)
+        {
+            _dispatcher = dispatcher;
+        }
+
         public ActionResult Index()
         {
             return View("~/Views/Admin/Index.cshtml");

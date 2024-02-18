@@ -1,4 +1,6 @@
-﻿namespace Everest.Domain;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Everest.Domain;
 
 #region << Using >>
 
@@ -24,6 +26,8 @@ public class AddOrEditEmployeeCommand : CommandBase
     public string FirstName { get; set; }
 
     public int? Id { get; set; }
+    
+    public IFormFile Avatar { get; set; }
 
     protected override void Execute()
     {
@@ -31,6 +35,15 @@ public class AddOrEditEmployeeCommand : CommandBase
         Employee em = isNew ? new Employee() : Repository.GetById<Employee>(Id.GetValueOrDefault());
         em.FirstName = FirstName;
         em.LastName = LastName;
+        if (Avatar != null && Avatar.Length > 0)
+        {
+            
+            using (var memoryStream = new MemoryStream())
+            {
+                Avatar.CopyTo(memoryStream);
+                em.Avatar = memoryStream.ToArray(); // Сохраняем массив байтов в свойство Avatar
+            }
+        }
         Repository.SaveOrUpdate(em);
     }
 

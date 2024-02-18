@@ -11,3 +11,5 @@
 @Html.HiddenFor(q=>q.Id)
 @Html.ForGroup(q => q.FirstName).TextBox(control => { control.Label.Name = DataResource.First; })
 @Html.ForGroup(q => q.LastName).TextBox(control => { control.Label.Name = DataResource.Last; })
+@Html.ForGroup(q => q.Avatar).File(control => { control.Label.Name = DataResource.Avatar; })
+@*@Html.ForGroup(q => q.IsAvatarAdded).CheckBox(control => { control.Label.Name = DataResource.IsAvatarAdded; })*@

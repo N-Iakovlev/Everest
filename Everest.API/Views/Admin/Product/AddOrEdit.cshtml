@@ -1,0 +1,13 @@
+﻿@using Everest.API
+@using Everest.Domain
+@model Everest.Domain.AddOrEditProductCommand
+@{
+    Layout = "~/Views/Shared/_DialogLayout.cshtml";
+    ViewData["Title"] = DataResource.Add;
+    ViewData["Url"] = Url.Dispatcher().Push<AddOrEditProductCommand>();
+    ViewData["TriggerId"] = nameof(GetProductQuery);
+}
+
+@Html.HiddenFor(q=>q.Id)
+@Html.ForGroup(q => q.ProductName).TextBox(control => { control.Label.Name = DataResource.ProductName; })
+@Html.ForGroup(q => q.ProductCategory).TextBox(control => { control.Label.Name = DataResource.ProductCategory; })

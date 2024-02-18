@@ -159,4 +159,19 @@
   <data name="Delete" xml:space="preserve">
     <value>Удалить</value>
   </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Товар</value>
+  </data>
+  <data name="ProductCategory" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+	<data name="IsAvatarAdded" xml:space="preserve">
+    <value>Не менять фото</value>
+  </data>
+	<data name="SearchEmployee" xml:space="preserve">
+    <value>Поиск сотрудника</value>
+  </data>
+  <data name="Empty" xml:space="preserve">
+    <value>Нет совпадений</value>
+  </data>
 </root>

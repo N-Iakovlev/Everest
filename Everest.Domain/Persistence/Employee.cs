@@ -1,4 +1,6 @@
-﻿namespace Everest.Domain;
+﻿using System.Reflection.Metadata;
+
+namespace Everest.Domain;
 
 #region << Using >>
 
@@ -14,6 +16,8 @@ public class Employee : EverestEntityBase
     public virtual string FirstName { get; set; }
 
     public virtual string LastName { get; set; }
+    public virtual byte[] Avatar { get; set; }
+  
 
     [UsedImplicitly, Obsolete(ObsoleteMessage.ClassNotForDirectUsage, true), ExcludeFromCodeCoverage]
     public class Map : NHibernateEntityMap<Employee>
@@ -23,6 +27,8 @@ public class Employee : EverestEntityBase
             Id(q => q.Id).GeneratedBy.Identity();
             MapEscaping(q => q.FirstName);
             MapEscaping(q => q.LastName);
+            MapEscaping(q => q.Avatar);
+            
         }
     }
 }

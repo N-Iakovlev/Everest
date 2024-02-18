@@ -12,10 +12,4 @@
     <PackageReference Include="Incoding.Web" Version="1.3.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Persistence\" />
-    <Folder Include="Operation\Command\" />
-    <Folder Include="Operation\Query\" />
-  </ItemGroup>
-
 </Project>

@@ -1,0 +1,63 @@
+﻿@using Everest.API
+@using Everest.Domain
+@{
+    using (var template = Html.Incoding().Template<GetProductQuery.Response>())
+    {
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th></th>
+                <th>@DataResource.ProductName</th>
+             @*   <th>@DataResource.ProductCategory</th> *@
+            </tr>
+            </thead>
+            <tbody>
+            @using (template.NotEach())
+            {
+                <tr>
+                    <td colspan="3">
+                        Empty
+                    </td>
+                </tr>
+            }
+            @using (var each = template.ForEach())
+            {
+                <tr>
+                    <td>
+                        @(Html.When(JqueryBind.Click)
+                              .Ajax(Url.Dispatcher()
+                                       .Query<AddOrEditProductCommand.AsQuery>(new { Id = each.For(q => q.Id) })
+                                       .AsView("~/Views/Admin/Product/AddOrEdit.cshtml"))
+                              .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
+                              .AsHtmlAttributes()
+                              .ToLink(@<text>
+                                           <i class="fas fa-pencil-alt">
+                                           </i>
+                                           @DataResource.Edit
+                                       </text>))
+
+
+                        @(Html.When(JqueryBind.Click)
+                              .Ajax(Url.Dispatcher().Push<DeleteProductCommand>(new { Id = each.For(q => q.Id) }))
+                              .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
+                              .OnSuccess(dsl => dsl.WithId(nameof(GetProductQuery)).Trigger.Incoding())
+                              .AsHtmlAttributes()
+                              .ToLink(@<text>
+                                           <i class="fas fa-pencil-alt">
+                                           </i>
+                                           @DataResource.Delete
+                                       </text>))
+                    </td>
+                    <td>
+                        @each.For(q => q.ProductName)
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+            }
+
+            </tbody>
+        </table>
+    }
+}

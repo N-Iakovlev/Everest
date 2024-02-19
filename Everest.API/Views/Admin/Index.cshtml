@@ -116,6 +116,137 @@
                                              <p>@DataResource.Content</p>
                                          </text>))
                             </li>
+                            <li class="nav-item">
+                                @(Html.When(JqueryBind.Click)
+                                    .PreventDefault()
+                                    .OnSuccess(dsl =>
+                                    {
+                                        dsl.WithClass("nav-link").JQuery.Attr.RemoveClass(B.Active);
+                                        dsl.Self().JQuery.Attr.AddClass(B.Active);
+                                        dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/Admin/Contacts/Index.cshtml"), "Contacts");
+                                    })
+                                    .AsHtmlAttributes(new
+                                    {
+                                        @class = "nav-link",
+                                        href = "Contacts"
+                                    })
+                                    .ToTag(HtmlTag.A,
+                                @<text>
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>@DataResource.Contacts</p>
+                                </text>))
+                            </li>
+                            <li class="nav-item">
+                                @(Html.When(JqueryBind.Click)
+                                    .PreventDefault()
+                                    .OnSuccess(dsl =>
+                                    {
+                                        dsl.WithClass("nav-link").JQuery.Attr.RemoveClass(B.Active);
+                                        dsl.Self().JQuery.Attr.AddClass(B.Active);
+                                        dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/Admin/Order/Index.cshtml"), "Order");
+                                    })
+                                    .AsHtmlAttributes(new
+                                    {
+                                        @class = "nav-link",
+                                        href = "Order"
+                                    })
+                                    .ToTag(HtmlTag.A,
+                                        @<text>
+                                             <i class="far fa-circle nav-icon"></i>
+                                             <p>@DataResource.Order</p>
+                                         </text>))
+                            </li>
+                            <li class="nav-item menu-is-opening menu-open">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>
+                                        @DataResource.EditCategory
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview" style="display: none;">
+                                    <li class="nav-item">
+                                        @(Html.When(JqueryBind.Click)
+                                            .PreventDefault()
+                                            .OnSuccess(dsl =>
+                                            {
+                                                dsl.WithClass("nav-link").JQuery.Attr.RemoveClass(B.Active);
+                                                dsl.Self().JQuery.Attr.AddClass(B.Active);
+                                                dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/Admin/Content/Index.cshtml"), "Content");
+                                            })
+                                            .AsHtmlAttributes(new
+                                            {
+                                                @class = "nav-link",
+                                                href = "Content"
+                                            })
+                                            .ToTag(HtmlTag.A,
+                                        @<text>
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>@DataResource.Employee</p>
+                                        </text>))
+                                    </li>
+                                    <li class="nav-item">
+                                        @(Html.When(JqueryBind.Click)
+                                            .PreventDefault()
+                                            .OnSuccess(dsl =>
+                                            {
+                                                dsl.WithClass("nav-link").JQuery.Attr.RemoveClass(B.Active);
+                                                dsl.Self().JQuery.Attr.AddClass(B.Active);
+                                                dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/Admin/Content/Index.cshtml"), "Content");
+                                            })
+                                            .AsHtmlAttributes(new
+                                            {
+                                                @class = "nav-link",
+                                                href = "Content"
+                                            })
+                                            .ToTag(HtmlTag.A,
+                                        @<text>
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>@DataResource.Product</p>
+                                        </text>))
+                                    </li>
+                                    <li class="nav-item">
+                                        @(Html.When(JqueryBind.Click)
+                                            .PreventDefault()
+                                            .OnSuccess(dsl =>
+                                            {
+                                                dsl.WithClass("nav-link").JQuery.Attr.RemoveClass(B.Active);
+                                                dsl.Self().JQuery.Attr.AddClass(B.Active);
+                                                dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/Admin/Content/Index.cshtml"), "Content");
+                                            })
+                                            .AsHtmlAttributes(new
+                                            {
+                                                @class = "nav-link",
+                                                href = "Content"
+                                            })
+                                            .ToTag(HtmlTag.A,
+                                        @<text>
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>@DataResource.Content</p>
+                                        </text>))
+                                    </li>
+                                    <li class="nav-item">
+                                        @(Html.When(JqueryBind.Click)
+                                            .PreventDefault()
+                                            .OnSuccess(dsl =>
+                                            {
+                                                dsl.WithClass("nav-link").JQuery.Attr.RemoveClass(B.Active);
+                                                dsl.Self().JQuery.Attr.AddClass(B.Active);
+                                                dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/Admin/Content/Index.cshtml"), "Content");
+                                            })
+                                            .AsHtmlAttributes(new
+                                            {
+                                                @class = "nav-link",
+                                                href = "Content"
+                                            })
+                                            .ToTag(HtmlTag.A,
+                                        @<text>
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>@DataResource.Order</p>
+                                        </text>))
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </nav>
                     <!-- /.sidebar-menu -->

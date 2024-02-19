@@ -8,6 +8,8 @@
             <tr>
                 <th></th>
                 <th>@DataResource.ProductName</th>
+                <th>Цена</th>
+                <th>Количество</th>
                 <th>@DataResource.ProductPhoto</th>
                 </tr>
             </thead>
@@ -15,7 +17,7 @@
             @using (template.NotEach())
             {
                 <tr>
-                    <td colspan="3">
+                    <td colspan="5">
                             @DataResource.Empty
                     </td>
                 </tr>
@@ -50,6 +52,12 @@
                     </td>
                     <td>
                         @each.For(q => q.ProductName)
+                    </td>
+                    <td>
+                        @each.For(q => q.Price)
+                    </td>
+                    <td>
+                        @each.For(q => q.Quantity)
                     </td>
                     <td>
                             <img src="@(Url.Dispatcher()

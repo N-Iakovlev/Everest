@@ -78,7 +78,11 @@ public class AddOrEditProductCommand : CommandBase
                    {
                            Id = pr.Id,
                            ProductName = pr.ProductName,
-                          
+                           ProductArticl = pr.ProductArticl,
+                           Description = pr.Description,
+                           Price = pr.Price,
+                           Quantity = pr.Quantity,
+                           Brand = pr.Brand
                    };
         }
     }

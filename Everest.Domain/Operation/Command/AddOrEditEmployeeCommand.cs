@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace Everest.Domain;
 
@@ -14,6 +15,7 @@ public class DeleteEmployeeCommand : CommandBase
     public int Id { get; set; }
 
     protected override void Execute()
+
     {
         Repository.Delete(Repository.GetById<Employee>(Id));
     }
@@ -28,13 +30,20 @@ public class AddOrEditEmployeeCommand : CommandBase
     public int? Id { get; set; }
     
     public IFormFile Avatar { get; set; }
-
+    public string Phone { get; set; }
+    public string Email { get; set; }
+    public int? EmployeeCategoryId { get; set; }
+    public IEnumerable<EmployeeCategory> Categories { get; set; }
+    public int? SelectedCategoryId { get; set; }
     protected override void Execute()
     {
         var isNew = Id.GetValueOrDefault() == 0;
         Employee em = isNew ? new Employee() : Repository.GetById<Employee>(Id.GetValueOrDefault());
         em.FirstName = FirstName;
         em.LastName = LastName;
+        em.Phone = Phone;
+        em.Email = Email;
+        em.EmployeeCategoryId = SelectedCategoryId;
         if (Avatar != null && Avatar.Length > 0)
         {
             
@@ -44,6 +53,7 @@ public class AddOrEditEmployeeCommand : CommandBase
                 em.Avatar = memoryStream.ToArray(); // Сохраняем массив байтов в свойство Avatar
             }
         }
+
         Repository.SaveOrUpdate(em);
     }
 
@@ -72,6 +82,9 @@ public class AddOrEditEmployeeCommand : CommandBase
                            Id = em.Id,
                            FirstName = em.FirstName,
                            LastName = em.LastName,
+                           Phone = em.Phone,
+                           Email = em.Email,
+                           EmployeeCategoryId = em.EmployeeCategoryId
                    };
         }
     }

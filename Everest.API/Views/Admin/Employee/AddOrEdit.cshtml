@@ -12,4 +12,7 @@
 @Html.ForGroup(q => q.FirstName).TextBox(control => { control.Label.Name = DataResource.First; })
 @Html.ForGroup(q => q.LastName).TextBox(control => { control.Label.Name = DataResource.Last; })
 @Html.ForGroup(q => q.Avatar).File(control => { control.Label.Name = DataResource.Avatar; })
+@Html.ForGroup(q => q.Phone).TextBox(control => { control.Label.Name = DataResource.Phone; })
+@Html.ForGroup(q => q.Email).TextBox(control => { control.Label.Name = DataResource.Email; })
+@Html.ForGroup(q => q.EmployeeCategoryId).DropDown(control => { control.Label.Name = DataResource.Email; })
 

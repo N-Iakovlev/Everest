@@ -17,13 +17,13 @@
                                  <span>@DataResource.Add</span>
                              </text>))
             @(Html.When(JqueryBind.KeyUp)
-                .Ajax(Url.Dispatcher().Query(new GetEmployeesQuery()).AsJson().AppendToQueryString(new { Search = Selector.Jquery.Self() }))
-                .OnSuccess(dsl =>
-                {
+                  .Ajax(Url.Dispatcher().Query(new GetEmployeesQuery()).AsJson().AppendToQueryString(new { Search = Selector.Jquery.Self() }))
+                  .OnSuccess(dsl =>
+                  {
                     dsl.WithId(nameof(GetEmployeesQuery)).Insert.WithTemplateByView("~/Views/Admin/Employee/Tmpl.cshtml").Html();
-                })
-                .AsHtmlAttributes(new { placeholder = @DataResource.SearchEmployee })
-                .ToInput(HtmlInputType.Text,String.Empty))
+                  })
+                  .AsHtmlAttributes(new { placeholder = @DataResource.SearchEmployee })
+                  .ToInput(HtmlInputType.Text,String.Empty))
         </div>
     </div>
    @(Html.When(JqueryBind.InitIncoding)

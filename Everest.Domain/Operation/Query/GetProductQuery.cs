@@ -23,6 +23,11 @@ public class GetProductQuery : QueryBase<List<GetProductQuery.Response>>
             {
                 Id = q.Id,
                 ProductName = q.ProductName,
+                Price = q.Price,
+                Quantity = q.Quantity,
+                ProductArticl = q.ProductArticl,
+                Brand = q.Brand,
+                Description = q.Description
             })
             .ToList();
     
@@ -32,6 +37,13 @@ public class GetProductQuery : QueryBase<List<GetProductQuery.Response>>
     {
         public int Id { get; set; }
         public string ProductName { get; set; }
+        public decimal Price {get; set; }
+        public int Quantity { get; set; }
+        public string ProductArticl { get; set; }
+        public string Brand { get; set; }
+        public string Description { get; set; }
 
     }
+
+    
 }

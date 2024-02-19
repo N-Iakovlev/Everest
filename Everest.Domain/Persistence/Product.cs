@@ -29,7 +29,7 @@ public class Product : EverestEntityBase
         {
             Id(pr => pr.Id).GeneratedBy.Identity();
             MapEscaping(pr => pr.ProductName);
-            MapEscaping(pr => pr.ProductPhoto);
+            MapEscaping(pr => pr.ProductPhoto).Length(int.MaxValue);
             MapEscaping(pr => pr.Price);
             MapEscaping(pr => pr.Quantity);
             MapEscaping(pr => pr.ProductArticl);

@@ -20,10 +20,15 @@ namespace Everest.API.Controllers
         {
             _dispatcher = dispatcher;
         }
+        [Route("/Admin")]
+        public IActionResult Admin()
+        {
+            return View("~/Views/Admin/Index.cshtml");
+        }
 
         public ActionResult Index()
         {
-            return View("~/Views/Admin/Index.cshtml");
+            return View("~/Views/Application/Index.cshtml");
         }
     }
 
@@ -33,4 +38,5 @@ namespace Everest.API.Controllers
         public DispatcherController(IServiceProvider serviceProvider)
                 : base(serviceProvider) { }
     }
+
 }

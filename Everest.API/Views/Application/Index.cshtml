@@ -1,5 +1,63 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Everest.API
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto">
+                <!-- Добавлен класс mx-auto для центрирования -->
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "Home")">@DataResource.Main</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Admin", "Home")">@DataResource.Admin</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<!-- /.navbar -->
+
+<footer class="bd-footer py-4 py-md-5 mt-5 bg-body-tertiary">
+    <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
+        <div class="row">
+            <div class="col-6 col-lg-2 offset-lg-1 mb-3">
+                <h5>Адреса</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">Юридический адрес:</li>
+                    <li class="mb-2">Фактический адрес:</li>
+                </ul>
+            </div>
+            <div class="col-6 col-lg-2 mb-3">
+                <h5>@DataResource.Contacts</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"></li>
+                    <li class="mb-2">Email:</li>
+                    <li class="mb-2">Tel:</li>
+                    <li class="mb-2">Social:</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>

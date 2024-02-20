@@ -8,6 +8,7 @@
             <tr>
                 <th></th>
                 <th>@DataResource.FullName</th>
+                <th>@DataResource.Contacts</th>
                 <th>@DataResource.Avatar</th>
             </tr>
             </thead>
@@ -15,7 +16,7 @@
             @using (template.NotEach())
             {
                 <tr>
-                    <td colspan="3">
+                    <td colspan="4">
                         @DataResource.Empty
                     </td>
                 </tr>
@@ -52,6 +53,8 @@
                     <td>
                         @each.For(q => q.FullName)
                         
+                    </td>
+                    <td>@each.For(q => q.Contacts)
                     </td>
                     <td>
                         <img src="@(Url.Dispatcher()

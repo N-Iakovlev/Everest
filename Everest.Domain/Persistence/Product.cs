@@ -14,13 +14,9 @@ public class Product : EverestEntityBase
     public virtual string ProductName { get; set; }
     public virtual byte[] ProductPhoto { get; set; }
     public virtual decimal Price { get; set; }
-    public virtual int Quantity { get; set; }
-    public virtual string ProductArticl { get; set; }
-    public virtual string Description { get; set; }
-    public virtual string Brand { get; set; }
-
-
-
+    public virtual string ShortDescription { get; set; }
+    public virtual string LongDescription { get; set; }
+    public virtual int? CategoryId { get; set; }
 
     [UsedImplicitly, Obsolete(ObsoleteMessage.ClassNotForDirectUsage, true), ExcludeFromCodeCoverage]
     public class Map : NHibernateEntityMap<Product>
@@ -31,11 +27,12 @@ public class Product : EverestEntityBase
             MapEscaping(pr => pr.ProductName);
             MapEscaping(pr => pr.ProductPhoto).Length(int.MaxValue);
             MapEscaping(pr => pr.Price);
-            MapEscaping(pr => pr.Quantity);
-            MapEscaping(pr => pr.ProductArticl);
-            MapEscaping(pr => pr.Description);
-            MapEscaping(pr => pr.Brand);
-
+            MapEscaping(pr => pr.ShortDescription);
+            MapEscaping(pr => pr.LongDescription);
+            ReferencesAny(pr => pr.CategoryId).EntityIdentifierColumn("CategoryId")
+                .EntityTypeColumn("CategoryType")
+                .IdentityType<int>()
+                .MetaType<string>(); // Добавлено указание мета-типа
 
         }
     }

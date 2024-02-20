@@ -1,13 +1,22 @@
 ﻿@using Everest.API
 @using Everest.Domain
-@model Everest.Domain.AddOrEditContentCommand
+@model Everest.Domain.AddOrEditCategoryCommand
 @{
     Layout = "~/Views/Shared/_DialogLayout.cshtml";
     ViewData["Title"] = DataResource.Add;
-    ViewData["Url"] = Url.Dispatcher().Push<AddOrEditContentCommand>();
-    ViewData["TriggerId"] = nameof(GetContentQuery);
+    ViewData["Url"] = Url.Dispatcher().Push<AddOrEditCategoryCommand>();
+    ViewData["TriggerId"] = nameof(GetCategoryQuery);
 }
 
 @Html.HiddenFor(q=>q.Id)
+@Html.ForGroup(q => q.Name).TextBox(control => { control.Label.Name = DataResource.CategoryName; })
+@Html.ForGroup(q => q.Type).DropDown(control =>
+    {
+        control.Label.Name = DataResource.CategoryName;
+        control.Input.Data = new List<KeyValueVm>()
+        {
+            new KeyValueVm(Category.OfType.Employee,DataResource.Employee),
+            new KeyValueVm(Category.OfType.Product,DataResource.Product),
+        };
 
-
+    })

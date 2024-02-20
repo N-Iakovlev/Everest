@@ -1,19 +1,20 @@
-﻿using System.Drawing;
+﻿using Incoding.Core.CQRS.Core;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using Everest.Domain;
-using Incoding.Core.CQRS.Core;
+using System.Drawing;
 
-public class GetAvatarAndCompressQuery : QueryBase<byte[]>
+namespace Everest.Domain;
+
+
+public class GetContentProductQuery : QueryBase<byte[]> 
 {
     public int Id { get; set; }
     protected override byte[] ExecuteResult()
     {
-        // Получаем изображение сотрудника по Id
-        byte[] employeeImage = Repository.GetById<Employee>(Id).Avatar;
+        byte[] productImage = Repository.GetById<Content>(Id).ContentPhoto;
 
         // Сжимаем изображение до 80x80
-        using (var stream = new MemoryStream(employeeImage))
+        using (var stream = new MemoryStream(productImage))
         {
             var imgPhoto = Image.FromStream(stream);
             int sourceWidth = imgPhoto.Width;
@@ -37,7 +38,6 @@ public class GetAvatarAndCompressQuery : QueryBase<byte[]>
                     new Rectangle(destX, destY, destWidth, destHeight),
                     new Rectangle(sourceX, sourceY, sourceWidth, sourceHeight),
                     GraphicsUnit.Pixel);
-                // Конвертируем сжатое изображение в массив байтов и возвращаем его
                 using (MemoryStream ms = new MemoryStream())
                 {
                     bmPhoto.Save(ms, ImageFormat.Jpeg);
@@ -46,4 +46,5 @@ public class GetAvatarAndCompressQuery : QueryBase<byte[]>
             }
         }
     }
+
 }

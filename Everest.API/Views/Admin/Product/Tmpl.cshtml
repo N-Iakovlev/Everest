@@ -8,8 +8,8 @@
             <tr>
                 <th></th>
                 <th>@DataResource.ProductName</th>
-                <th>Цена</th>
-                <th>Количество</th>
+                <th>@DataResource.Price</th>
+                <th>@DataResource.ShortDescription</th>
                 <th>@DataResource.ProductPhoto</th>
                 </tr>
             </thead>
@@ -57,7 +57,7 @@
                         @each.For(q => q.Price)
                     </td>
                     <td>
-                        @each.For(q => q.Quantity)
+                        @each.For(q => q.ShortDescription)
                     </td>
                     <td>
                             <img src="@(Url.Dispatcher()

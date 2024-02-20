@@ -3,12 +3,26 @@
 @using Incoding.Web.Extensions
 @{
     Layout = "~/Views/Shared/_ContentLayout.cshtml";
-    ViewData["Header"] = DataResource.EditCategory;
+    ViewData["Header"] = DataResource.Category;
 }
 
 <div class="row">
     <div class="col-sm-12 col-md-12">
         <div class="dt-buttons btn-group flex-wrap">
+            @(Html.When(JqueryBind.Click)
+                .Ajax(Url.Dispatcher().Query(new AddOrEditCategoryCommand.AsQuery()).AsView("~/Views/Admin/Category/AddOrEdit.cshtml"))
+                .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
+                .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5" })
+                .ToButton(@<text>
+                               <span>@DataResource.Add</span>
+                           </text>))
+            
         </div>
     </div>
+    @(Html.When(JqueryBind.InitIncoding)
+        .Ajax(new GetCategoryQuery())
+        .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/Admin/Category/Tmpl.cshtml").Html())
+        .AsHtmlAttributes(new { @class = "col-sm-12 col-md-12", id = nameof(GetCategoryQuery) })
+        .ToDiv())
+   
 </div>

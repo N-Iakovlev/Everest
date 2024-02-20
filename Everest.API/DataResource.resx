@@ -177,17 +177,17 @@
   <data name="ProductSearch" xml:space="preserve">
     <value>Поиск товара</value>
   </data>
-  <data name="Quantity" xml:space="preserve">
-    <value>Количество</value>
+  <data name="Category" xml:space="preserve">
+    <value>Категория</value>
   </data>
   <data name="Price" xml:space="preserve">
-    <value>Цена</value>
+    <value>Стоимость</value>
   </data>
-  <data name="ProductArticl" xml:space="preserve">
-    <value>Артикул</value>
+  <data name="LongDescription" xml:space="preserve">
+    <value>Подробное описание</value>
   </data>
-	<data name="Description" xml:space="preserve">
-    <value>Описание</value>
+	<data name="ShortDescription" xml:space="preserve">
+    <value>Краткое описание</value>
   </data>
   <data name="Brand" xml:space="preserve">
     <value>Производитель</value>
@@ -206,6 +206,9 @@
   </data>
   <data name="EditCategory" xml:space="preserve">
     <value>Подкатегории</value>
+  </data>
+  <data name="CategoryName" xml:space="preserve">
+    <value>Название категории</value>
   </data>
 	
 </root>

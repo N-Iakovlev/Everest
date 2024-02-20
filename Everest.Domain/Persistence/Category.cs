@@ -11,21 +11,28 @@ using JetBrains.Annotations;
 
 #endregion
 
-public class Content : EverestEntityBase
+
+public class Category : EverestEntityBase
 {
-    public virtual string ShortDescription { get; set; }
-    public virtual string LongDescription { get; set; }
-    public virtual byte[] ContentPhoto { get; set; }
+    public  enum OfType
+    {
+        Product,
+        Employee
+    }
+
+
+    public virtual string Name { get; set; }
+
+    public virtual OfType Type { get; set; }
 
     [UsedImplicitly, Obsolete(ObsoleteMessage.ClassNotForDirectUsage, true), ExcludeFromCodeCoverage]
-    public class Map : NHibernateEntityMap<Content>
+    public class Map : NHibernateEntityMap<Category>
     {
         public Map()
         {
             Id(q => q.Id).GeneratedBy.Identity();
-            MapEscaping(q => q.ShortDescription);
-            MapEscaping(q => q.LongDescription);
-            MapEscaping(pr => pr.ContentPhoto).Length(int.MaxValue);
+            MapEscaping(q => q.Name); 
+            MapEscaping(q => q.Type).CustomType<OfType>();
         }
     }
 }

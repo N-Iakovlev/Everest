@@ -14,5 +14,9 @@
 @Html.ForGroup(q => q.Avatar).File(control => { control.Label.Name = DataResource.Avatar; })
 @Html.ForGroup(q => q.Phone).TextBox(control => { control.Label.Name = DataResource.Phone; })
 @Html.ForGroup(q => q.Email).TextBox(control => { control.Label.Name = DataResource.Email; })
-@Html.ForGroup(q => q.EmployeeCategoryId).DropDown(control => { control.Label.Name = DataResource.Email; })
+@Html.ForGroup(q => q.CategoryId).DropDown(control =>
+{
+    control.Label.Name = DataResource.Category;
+    control.Input.Data = Html.Dispatcher().Query(new GetCategoryForDDQuery() { Type = Category.OfType.Employee });
+})
 

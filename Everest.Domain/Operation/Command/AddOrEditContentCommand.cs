@@ -1,13 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace Everest.Domain;
+﻿namespace Everest.Domain;
 
 #region << Using >>
-
 using FluentValidation;
 using HandlebarsDotNet;
 using Incoding.Core.CQRS.Core;
-
 #endregion
 
 public class DeleteContentCommand : CommandBase
@@ -23,16 +19,17 @@ public class DeleteContentCommand : CommandBase
 public class AddOrEditContentCommand : CommandBase
 {
     public int? Id { get; set; }
-    public string ContentName { get; set; }
-   
-    
+    public string ShortDescription { get; set; }
+    public string LongDescription { get; set; }
 
     protected override void Execute()
     {
         var isNew = Id.GetValueOrDefault() == 0;
         Content pr = isNew ? new Content() : Repository.GetById<Content>(Id.GetValueOrDefault());
-        pr.ContentName = ContentName;
-        
+        pr.ShortDescription = ShortDescription;
+        pr.LongDescription = LongDescription;
+
+
         Repository.SaveOrUpdate(pr);
     }
 
@@ -40,7 +37,7 @@ public class AddOrEditContentCommand : CommandBase
     {
         public Validator()
         {
-            RuleFor(pr => pr.ContentName).NotEmpty();
+            RuleFor(pr => pr.ShortDescription).NotEmpty();
 
             
         }
@@ -59,9 +56,9 @@ public class AddOrEditContentCommand : CommandBase
             return new AddOrEditContentCommand()
                    {
                            Id = pr.Id,
-                           ContentName = pr.ContentName,
-                          
-                   };
+                           ShortDescription = pr.ShortDescription,
+                           LongDescription = pr.LongDescription,
+            };
         }
     }
 }

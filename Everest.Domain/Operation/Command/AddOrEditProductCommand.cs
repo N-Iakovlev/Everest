@@ -18,19 +18,15 @@ public class DeleteProductCommand : CommandBase
         Repository.Delete(Repository.GetById<Product>(Id));
     }
 }
-
 public class AddOrEditProductCommand : CommandBase
 {
-    public string ProductName { get; set; }
-
-    public decimal Price { get; set; }
-    public int Quantity { get; set; }
-    public string ProductArticl { get; set; }
-    public string Description { get; set; }
-    public string Brand { get; set; }
     public int? Id { get; set; }
+    public string ProductName { get; set; }
+    public decimal Price { get; set; }
+    public string ShortDescription { get; set; }
+    public string LongDescription { get; set; }
+    public virtual int? CategoryId { get; set; }
     public IFormFile ProductPhoto { get; set; }
-
     protected override void Execute()
     {
         var isNew = Id.GetValueOrDefault() == 0;
@@ -45,25 +41,22 @@ public class AddOrEditProductCommand : CommandBase
                 pr.ProductPhoto = memoryStream.ToArray(); 
             }
         }
-        pr.Brand = Brand;
+        pr.ProductName = ProductName;
         pr.Price = Price;
-        pr.Quantity = Quantity;
-        pr.ProductArticl = ProductArticl;
-        pr.Description = Description;
+        pr.ShortDescription = ShortDescription;
+        pr.LongDescription = LongDescription;
+        pr.CategoryId = CategoryId;
+
         Repository.SaveOrUpdate(pr);
     }
-
     public class Validator : AbstractValidator<AddOrEditProductCommand>
     {
         public Validator()
         {
             RuleFor(pr => pr.ProductName).NotEmpty();
             RuleFor(pr => pr.Price).NotEmpty();
-
-
         }
     }
-
     public class AsQuery : QueryBase<AddOrEditProductCommand>
     {
         public int Id { get; set; }
@@ -78,12 +71,11 @@ public class AddOrEditProductCommand : CommandBase
                    {
                            Id = pr.Id,
                            ProductName = pr.ProductName,
-                           ProductArticl = pr.ProductArticl,
-                           Description = pr.Description,
+                           ShortDescription = pr.ShortDescription,
                            Price = pr.Price,
-                           Quantity = pr.Quantity,
-                           Brand = pr.Brand
-                   };
+                           LongDescription = pr.LongDescription,
+                           CategoryId = pr.CategoryId,
+            };
         }
     }
 }

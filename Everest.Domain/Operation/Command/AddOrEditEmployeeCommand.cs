@@ -24,17 +24,12 @@ public class DeleteEmployeeCommand : CommandBase
 public class AddOrEditEmployeeCommand : CommandBase
 {
     public string LastName { get; set; }
-
     public string FirstName { get; set; }
-
     public int? Id { get; set; }
-    
     public IFormFile Avatar { get; set; }
     public string Phone { get; set; }
     public string Email { get; set; }
-    public int? EmployeeCategoryId { get; set; }
-    public IEnumerable<EmployeeCategory> Categories { get; set; }
-    public int? SelectedCategoryId { get; set; }
+    public int? CategoryId { get; set; }
     protected override void Execute()
     {
         var isNew = Id.GetValueOrDefault() == 0;
@@ -43,10 +38,9 @@ public class AddOrEditEmployeeCommand : CommandBase
         em.LastName = LastName;
         em.Phone = Phone;
         em.Email = Email;
-        em.EmployeeCategoryId = SelectedCategoryId;
+        em.Category = Repository.LoadById<Category>(CategoryId);
         if (Avatar != null && Avatar.Length > 0)
         {
-            
             using (var memoryStream = new MemoryStream())
             {
                 Avatar.CopyTo(memoryStream);
@@ -84,8 +78,8 @@ public class AddOrEditEmployeeCommand : CommandBase
                            LastName = em.LastName,
                            Phone = em.Phone,
                            Email = em.Email,
-                           EmployeeCategoryId = em.EmployeeCategoryId
-                   };
+                           CategoryId = em.Category?.Id
+            };
         }
     }
 }

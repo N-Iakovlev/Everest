@@ -1,10 +1,10 @@
 ﻿@using Everest.API
 @using Everest.Domain
-@model Everest.Domain.AddOrEditContentCommand
+@model Everest.Domain.AddOrEditCategoryCommand
 @{
     Layout = "~/Views/Shared/_DialogLayout.cshtml";
     ViewData["Title"] = DataResource.Add;
-    ViewData["Url"] = Url.Dispatcher().Push<AddOrEditContentCommand>();
+    ViewData["Url"] = Url.Dispatcher().Push<AddOrEditCategoryCommand>();
     ViewData["TriggerId"] = nameof(GetContentQuery);
 }
 

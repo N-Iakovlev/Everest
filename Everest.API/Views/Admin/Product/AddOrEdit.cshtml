@@ -12,8 +12,7 @@
 @Html.ForGroup(q => q.ProductName).TextBox(control => { control.Label.Name = DataResource.ProductName; })
 @Html.ForGroup(q => q.ProductPhoto).File(control => { control.Label.Name = DataResource.Avatar; })
 @Html.ForGroup(q => q.Price).TextBox(control => { control.Label.Name = DataResource.Price; })
-@Html.ForGroup(q => q.Quantity).TextBox(control => { control.Label.Name = DataResource.Quantity; })
-@Html.ForGroup(q => q.ProductArticl).TextBox(control => { control.Label.Name = DataResource.ProductArticl; })
-@Html.ForGroup(q => q.Description).TextBox(control => { control.Label.Name = DataResource.Description; })
-@Html.ForGroup(q => q.Brand).TextBox(control => { control.Label.Name = DataResource.Brand; })
+@Html.ForGroup(q => q.ShortDescription).TextBox(control => { control.Label.Name = DataResource.ShortDescription; })
+@Html.ForGroup(q => q.LongDescription).TextBox(control => { control.Label.Name = DataResource.LongDescription; })
+@Html.ForGroup(q => q.CategoryId).DropDown(control => { control.Label.Name = DataResource.Category; })
 

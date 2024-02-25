@@ -1,9 +1,8 @@
 ﻿using FluentValidation;
 using Incoding.Core.CQRS.Core;
-using static Everest.Domain.Category;
 
-namespace Everest.Domain
-{
+namespace Everest.Domain;
+
     public class DeleteCategoryCommand : CommandBase
     {
         public int Id { get; set; }
@@ -18,7 +17,7 @@ namespace Everest.Domain
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public OfType Type { get; set; }
+        public Category.OfType Type { get; set; }
 
         protected override void Execute()
         {
@@ -57,4 +56,3 @@ namespace Everest.Domain
             }
         }
     }
-}

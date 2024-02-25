@@ -31,6 +31,7 @@ public class AddOrEditProductCommand : CommandBase
     {
         var isNew = Id.GetValueOrDefault() == 0;
         Product pr = isNew ? new Product() : Repository.GetById<Product>(Id.GetValueOrDefault());
+
         pr.ProductName = ProductName;
         if (ProductPhoto != null && ProductPhoto.Length > 0)
         {
@@ -45,7 +46,7 @@ public class AddOrEditProductCommand : CommandBase
         pr.Price = Price;
         pr.ShortDescription = ShortDescription;
         pr.LongDescription = LongDescription;
-        pr.CategoryId = CategoryId;
+        pr.Category = Repository.LoadById<Category>(CategoryId);
 
         Repository.SaveOrUpdate(pr);
     }
@@ -74,7 +75,7 @@ public class AddOrEditProductCommand : CommandBase
                            ShortDescription = pr.ShortDescription,
                            Price = pr.Price,
                            LongDescription = pr.LongDescription,
-                           CategoryId = pr.CategoryId,
+                           CategoryId = pr.Category?.Id,
             };
         }
     }

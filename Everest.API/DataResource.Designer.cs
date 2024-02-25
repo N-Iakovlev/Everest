@@ -70,6 +70,15 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Купить.
+        /// </summary>
+        public static string AddToCart {
+            get {
+                return ResourceManager.GetString("AddToCart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Администрирование.
         /// </summary>
         public static string Admin {
@@ -115,6 +124,15 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Тип категории.
+        /// </summary>
+        public static string CategoryOfType {
+            get {
+                return ResourceManager.GetString("CategoryOfType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Закрыть.
         /// </summary>
         public static string Close {
@@ -129,6 +147,15 @@ namespace Everest.API {
         public static string Contacts {
             get {
                 return ResourceManager.GetString("Contacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Контакты компании.
+        /// </summary>
+        public static string ContactsCompany {
+            get {
+                return ResourceManager.GetString("ContactsCompany", resourceCulture);
             }
         }
         
@@ -160,7 +187,7 @@ namespace Everest.API {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Подкатегории.
+        ///   Looks up a localized string similar to Категории.
         /// </summary>
         public static string EditCategory {
             get {
@@ -259,7 +286,7 @@ namespace Everest.API {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Телефон для связи.
+        ///   Looks up a localized string similar to ы.
         /// </summary>
         public static string Phone {
             get {

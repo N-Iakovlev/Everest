@@ -8,6 +8,7 @@
     ViewData["TriggerId"] = nameof(GetCategoryQuery);
 }
 
+
 @Html.HiddenFor(q=>q.Id)
 @Html.ForGroup(q => q.Name).TextBox(control => { control.Label.Name = DataResource.CategoryName; })
 @Html.ForGroup(q => q.Type).DropDown(control =>
@@ -20,3 +21,4 @@
         };
 
     })
+

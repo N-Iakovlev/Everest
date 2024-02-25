@@ -1,0 +1,32 @@
+﻿@using Everest.Domain
+@using Everest.API
+@using (var template = Html.Incoding().Template<GetProductQuery.Response>())
+{
+    @using (template.NotEach())
+    { 
+        <div>@DataResource.Empty</div>
+    }
+
+    @using (var each = template.ForEach())
+    {
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <img src="@(Url.Dispatcher().Query<GetPhotoProductQuery>(new { Id = each.For(q => q.Id) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: "avatar"))"/>
+                    <h2>@each.For(q => q.ProductName)</h2>
+                    <p>@each.For(q => q.ShortDescription)</p>
+                    <p><strong>@DataResource.Price:</strong> $@each.For(q => q.Price)</p>
+                    <div class="dt-buttons btn-group flex-wrap">
+                    @(Html.When(JqueryBind.Click)
+                        .Ajax(Url.Dispatcher().Query(new AddOrEditProductCommand.AsQuery()).AsView("~/Views/Admin/Product/AddOrEdit.cshtml"))
+                        .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
+                        .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5" })
+                        .ToButton(@<text>
+                                       <span>@DataResource.AddToCart</span>
+                                   </text>))
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

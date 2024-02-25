@@ -17,7 +17,7 @@
             @using (template.NotEach())
             {
                 <tr>
-                    <td colspan="5">
+                    <td colspan="4">
                             @DataResource.Empty
                     </td>
                 </tr>
@@ -53,6 +53,7 @@
                     <td>
                         @each.For(q => q.ProductName)
                     </td>
+                    
                     <td>
                         @each.For(q => q.Price)
                     </td>

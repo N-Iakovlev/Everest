@@ -1,6 +1,10 @@
 ﻿using System.Reflection.Metadata;
 
+using System.ComponentModel.DataAnnotations;
+
 namespace Everest.Domain;
+
+using System.ComponentModel;
 
 #region << Using >>
 
@@ -14,13 +18,11 @@ using JetBrains.Annotations;
 
 public class Category : EverestEntityBase
 {
-    public  enum OfType
+    public enum OfType
     {
         Product,
         Employee
     }
-
-
     public virtual string Name { get; set; }
 
     public virtual OfType Type { get; set; }

@@ -14,5 +14,10 @@
 @Html.ForGroup(q => q.Price).TextBox(control => { control.Label.Name = DataResource.Price; })
 @Html.ForGroup(q => q.ShortDescription).TextBox(control => { control.Label.Name = DataResource.ShortDescription; })
 @Html.ForGroup(q => q.LongDescription).TextBox(control => { control.Label.Name = DataResource.LongDescription; })
-@Html.ForGroup(q => q.CategoryId).DropDown(control => { control.Label.Name = DataResource.Category; })
+@*@Html.ForGroup(q => q.CategoryId).DropDown(control => { control.Label.Name = DataResource.Category; })*@
+@Html.ForGroup(q => q.CategoryId).DropDown(control =>
+    {
+        control.Label.Name = DataResource.Category;
+        control.Input.Data = Html.Dispatcher().Query(new GetCategoryForDDQuery() { Type = Category.OfType.Product });
+    })
 

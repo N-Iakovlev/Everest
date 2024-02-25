@@ -1,17 +1,18 @@
 ﻿@using Everest.API
 @using Everest.Domain
-@{
-    using (var template = Html.Incoding().Template<GetCategoryQuery.Response>())
-    {
-        <table class="table table-bordered table-hover">
-            <thead>
+@using System.Diagnostics.Tracing
+
+@using (var template = Html.Incoding().Template<GetCategoryQuery.Response>())
+{
+    <table class="table table-bordered table-hover">
+        <thead>
             <tr>
                 <th></th>
                 <th>@DataResource.CategoryName</th>
-                <th>Type</th>
+                <th>@DataResource.CategoryOfType</th>
             </tr>
-            </thead>
-            <tbody>
+        </thead>
+        <tbody>
             @using (template.NotEach())
             {
                 <tr>
@@ -25,42 +26,38 @@
                 <tr>
                     <td>
                         @(Html.When(JqueryBind.Click)
-                              .Ajax(Url.Dispatcher()
-                                       .Query<AddOrEditCategoryCommand.AsQuery>(new { Id = each.For(q => q.Id) })
-                                       .AsView("~/Views/Admin/Category/AddOrEdit.cshtml"))
-                                       .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
-                                       .AsHtmlAttributes()
-                                       .ToLink(@<text>
-                                           <i class="fas fa-pencil-alt">
-                                           </i>
-                                           @DataResource.Edit
-                                       </text>))
+                            .Ajax(Url.Dispatcher()
+                            .Query<AddOrEditCategoryCommand.AsQuery>(new { Id = each.For(q => q.Id) })
+                            .AsView("~/Views/Admin/Category/AddOrEdit.cshtml"))
+                            .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
+                            .AsHtmlAttributes()
+                            .ToLink(@<text>
+                    <i class="fas fa-pencil-alt">
+                    </i>
+                    @DataResource.Edit
+                </text>))
 
 
                         @(Html.When(JqueryBind.Click)
-                              .Ajax(Url.Dispatcher()
-                                       .Push<DeleteCategoryCommand>(new { Id = each.For(q => q.Id) }))
-                                       .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
-                                       .OnSuccess(dsl => dsl.WithId(nameof(GetCategoryQuery)).Trigger.Incoding())
-                                       .AsHtmlAttributes()
-                                       .ToLink(@<text>
-                                                    <i class="fas fa-pencil-alt">
-                                                    </i>
-                                                    @DataResource.Delete
-                                                </text>))
+                            .Ajax(Url.Dispatcher()
+                            .Push<DeleteCategoryCommand>(new { Id = each.For(q => q.Id) }))
+                            .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
+                            .OnSuccess(dsl => dsl.WithId(nameof(GetCategoryQuery)).Trigger.Incoding())
+                            .AsHtmlAttributes()
+                            .ToLink(@<text>
+                    <i class="fas fa-pencil-alt">
+                    </i>
+                    @DataResource.Delete
+                </text>))
                     </td>
                     <td>
                         @each.For(q => q.Name)
                     </td>
-                    <td>@each.For(q =>q.Type)
+                    <td>
+                        @each.For(q => q.TypeName)
                     </td>
-                <td>
-                
-                </td>
                 </tr>
             }
-
-            </tbody>
-        </table>
-    }
+        </tbody>
+    </table>
 }

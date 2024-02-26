@@ -58,7 +58,7 @@ public class AddOrEditContentCommand : CommandBase
                            Id = pr.Id,
                            ShortDescription = pr.ShortDescription,
                            LongDescription = pr.LongDescription,
-            };
+                    };
         }
     }
 }

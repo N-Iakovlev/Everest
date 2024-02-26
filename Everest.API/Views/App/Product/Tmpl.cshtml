@@ -17,16 +17,33 @@
                     <p>@each.For(q => q.ShortDescription)</p>
                     <p><strong>@DataResource.Price:</strong> $@each.For(q => q.Price)</p>
                     <div class="dt-buttons btn-group flex-wrap">
+                     @(Html.When(JqueryBind.Click)
+                           .Ajax(Url.Dispatcher()
+                            .Query<AddOrEditCartLineCommand>(new
+                            { Id = each.For(q => q.Id) })
+                             .AsView("~/Views/App/Product/AddToCart.cshtml"))
+                           .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
+                           .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5" })
+                           .ToButton(
+                              @<text>
+                                  <span>@DataResource.AddToCart</span>
+                              </text> ))   
+                        
                     @(Html.When(JqueryBind.Click)
-                        .Ajax(Url.Dispatcher().Query(new AddOrEditProductCommand.AsQuery()).AsView("~/Views/Admin/Product/AddOrEdit.cshtml"))
-                        .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
-                        .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5" })
-                        .ToButton(@<text>
-                                       <span>@DataResource.AddToCart</span>
-                                   </text>))
+                          .Ajax(Url.Dispatcher()
+                            .Query<AddOrEditCartLineCommand.AsQuery>(new { Id = each.For(q => q.Id) })
+                            .AsView("~/Views/App/Product/AddOrEdit.cshtml"))
+                          .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
+                            .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5" })
+                          .ToButton(@<text>
+                                         <span>@DataResource.AddToCart</span>
+                                     </text>))
+
+
                     </div>
                 </div>
             </div>
         </div>
     }
 }
+

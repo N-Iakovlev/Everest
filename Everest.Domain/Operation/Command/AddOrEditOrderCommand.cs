@@ -70,9 +70,7 @@ public class AddOrEditOrderCommand : CommandBase
                 Id = order.Id,
                 StatusChangeDate = order.StatusChangeDate,
                 CreateDate = order.CreateDate,
-
                 Phone = order.Phone,
-
                 StatusOrder = order.StatusOrder,
                 Creator = order.Creator,
                 Notes = order.Notes

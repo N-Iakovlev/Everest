@@ -70,7 +70,7 @@ namespace Everest.API {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Купить.
+        ///   Looks up a localized string similar to Добавить в корзину.
         /// </summary>
         public static string AddToCart {
             get {
@@ -340,6 +340,15 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Количество.
+        /// </summary>
+        public static string Quantity {
+            get {
+                return ResourceManager.GetString("Quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Сохранить.
         /// </summary>
         public static string Save {
@@ -363,6 +372,15 @@ namespace Everest.API {
         public static string ShortDescription {
             get {
                 return ResourceManager.GetString("ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Всего.
+        /// </summary>
+        public static string Total {
+            get {
+                return ResourceManager.GetString("Total", resourceCulture);
             }
         }
     }

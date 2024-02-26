@@ -1,0 +1,46 @@
+﻿@using Everest.API
+@using Everest.Domain
+@{
+    using (var template = Html.Incoding().Template<GetShoppingCartQuery.Response>())
+    {
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>@DataResource.ProductName</th>
+                    <th>@DataResource.Price</th>
+                    <th>@DataResource.Quantity</th>
+                    <th>@DataResource.Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @using (template.NotEach())
+                {
+                    <tr>
+                        <td colspan="4">
+                            @DataResource.Empty
+                        </td>
+                    </tr>
+                }
+                @using (var each = template.ForEach())
+                {
+                    <tr>
+                        <td>
+                           
+                        </td>
+
+                        <td>
+                           
+                        </td>
+                        <td>
+                            
+                        </td>
+                        <td>
+     
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
+}

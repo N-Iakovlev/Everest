@@ -217,7 +217,12 @@
     <value>Тип категории</value>
   </data>
   <data name="AddToCart" xml:space="preserve">
-    <value>Купить</value>
+    <value>Добавить в корзину</value>
   </data>
-	
+  <data name="Total" xml:space="preserve">
+    <value>Всего</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Количество</value>
+  </data>
 </root>

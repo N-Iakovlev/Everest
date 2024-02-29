@@ -9,10 +9,7 @@ public class GetCartQuery : QueryBase<List<GetCartQuery.Response>>
         return query.Select(q => new Response
             {
                 Id = q.Id,
-                UserId = q.User.Id,
-                
-                
-                
+                UserId = q.User.Id
             })
             .ToList();
     }

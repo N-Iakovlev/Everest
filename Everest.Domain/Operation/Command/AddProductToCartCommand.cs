@@ -19,7 +19,7 @@ public class DeleteCartCommand : CommandBase
 public class AddProductToCartCommand : CommandBase
 {
     public  int ProductId { get; set; }
-
+    
     protected override void Execute()
     {
         var currentUser = Dispatcher.Query(new GetCurrentUserQuery());

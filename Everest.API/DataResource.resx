@@ -231,4 +231,7 @@
   <data name="Comment" xml:space="preserve">
     <value>Коментарий</value>
   </data>
+  <data name="ProductsAddToCart" xml:space="preserve">
+    <value>Товар добавлен в корзину</value>
+  </data>
 </root>

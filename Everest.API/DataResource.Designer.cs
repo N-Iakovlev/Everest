@@ -349,6 +349,15 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Товар добавлен в корзину.
+        /// </summary>
+        public static string ProductsAddToCart {
+            get {
+                return ResourceManager.GetString("ProductsAddToCart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Поиск товара.
         /// </summary>
         public static string ProductSearch {

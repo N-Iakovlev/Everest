@@ -2,7 +2,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
     <div class="container-fluid">
@@ -22,11 +21,13 @@
 <!-- /.navbar -->
 
 
+
 <!-- Brand Logo -->
 <a href="#" class="brand-link">
     <img src="@Url.Content("~/favicon.png")" alt="Everest Trade" class="brand-image img-circle elevation-3" style="opacity: .8">
     <span class="brand-text font-weight-light">EVEREST TRADE</span>
 </a>
+
 <!-- Body -->
 <div class="container">
     <!-- Nav tabs -->
@@ -66,10 +67,30 @@
                     href = "Employee"
                 })
                 .ToTag(HtmlTag.A,
-            @<text>
-                <i class="far fa-circle nav-icon"></i>
-                <p>@DataResource.Employee</p>
-            </text>))
+                    @<text>
+                         <i class="far fa-circle nav-icon"></i>
+                         <p>@DataResource.Employee</p>
+                     </text>))
+        </li>
+        <li class="nav-item">
+            @(Html.When(JqueryBind.Click)
+                .PreventDefault()
+                .OnSuccess(dsl =>
+                {
+                    dsl.WithClass("nav-link").JQuery.Attr.RemoveClass(B.Active);
+                    dsl.Self().JQuery.Attr.AddClass(B.Active);
+                    dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/App/Cart/Index.cshtml"), "Cart");
+                })
+                .AsHtmlAttributes(new
+                {
+                    @class = "nav-link",
+                    href = "Cart"
+                })
+                .ToTag(HtmlTag.A,
+                    @<text>
+                         <i class="far fa-circle nav-icon"></i>
+                         <p>@DataResource.Cart</p>
+                     </text>))
         </li>
     </ul>
 

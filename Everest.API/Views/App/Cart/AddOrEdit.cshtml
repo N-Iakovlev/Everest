@@ -1,0 +1,23 @@
+﻿@using Everest.API
+@using Everest.Domain
+@model Everest.Domain.AddOrEditProductCommand
+@{
+    Layout = "~/Views/Shared/_DialogLayout.cshtml";
+    ViewData["Title"] = DataResource.Add;
+    ViewData["Url"] = Url.Dispatcher().Push<AddOrEditProductCommand>();
+    ViewData["TriggerId"] = nameof(GetProductQuery);
+}
+
+@Html.HiddenFor(q=>q.Id)
+@Html.ForGroup(q => q.ProductName).TextBox(control => { control.Label.Name = DataResource.ProductName; })
+@Html.ForGroup(q => q.ProductPhoto).File(control => { control.Label.Name = DataResource.Avatar; })
+@Html.ForGroup(q => q.Price).TextBox(control => { control.Label.Name = DataResource.Price; })
+@Html.ForGroup(q => q.ShortDescription).TextBox(control => { control.Label.Name = DataResource.ShortDescription; })
+@Html.ForGroup(q => q.LongDescription).TextBox(control => { control.Label.Name = DataResource.LongDescription; })
+@*@Html.ForGroup(q => q.CategoryId).DropDown(control => { control.Label.Name = DataResource.Category; })*@
+@Html.ForGroup(q => q.CategoryId).DropDown(control =>
+    {
+        control.Label.Name = DataResource.Category;
+        control.Input.Data = Html.Dispatcher().Query(new GetCategoryForDDQuery() { Type = Category.OfType.Product });
+    })
+

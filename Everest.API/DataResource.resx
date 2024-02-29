@@ -234,4 +234,7 @@
   <data name="ProductsAddToCart" xml:space="preserve">
     <value>Товар добавлен в корзину</value>
   </data>
+  <data name="Cart" xml:space="preserve">
+    <value>Корзина покупок</value>
+  </data>
 </root>

@@ -1,17 +1,13 @@
 ﻿@using Everest.API
 @using Everest.Domain
-@model Everest.Domain.AddOrEditCartLineCommand
+@model Everest.Domain.AddProductToCartCommand
 @{
     Layout = "~/Views/Shared/_DialogLayout.cshtml";
     ViewData["Title"] = DataResource.AddToCart;
-    ViewData["Url"] = Url.Dispatcher().Push<AddOrEditCartLineCommand>();
-    ViewData["TriggerId"] = nameof(GetCartLineQuery);
+    ViewData["Url"] = Url.Dispatcher().Push<AddProductToCartCommand>();
+    ViewData["TriggerId"] = nameof(GetCartQuery);
 }
 
-@Html.HiddenFor(q=>q.Id)
-@Html.ForGroup(q => q.Quantity).TextBox(control => { control.Label.Name = DataResource.Quantity; })
-@Html.ForGroup(q => q.Product).TextBox(control => { control.Label.Name = DataResource.ProductName; })
-
-
+@Html.HiddenFor(q => q.ProductId)
 
 

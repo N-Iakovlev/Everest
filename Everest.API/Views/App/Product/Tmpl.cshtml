@@ -1,5 +1,6 @@
 ﻿@using Everest.Domain
 @using Everest.API
+@using Incoding.Web.Extensions
 @using (var template = Html.Incoding().Template<GetProductQuery.Response>())
 {
     @using (template.NotEach())
@@ -17,28 +18,27 @@
                     <p>@each.For(q => q.ShortDescription)</p>
                     <p><strong>@DataResource.Price:</strong> $@each.For(q => q.Price)</p>
                     <div class="dt-buttons btn-group flex-wrap">
-                     @(Html.When(JqueryBind.Click)
-                           .Ajax(Url.Dispatcher()
-                            .Query<AddOrEditCartLineCommand>(new
-                            { Id = each.For(q => q.Id) })
-                             .AsView("~/Views/App/Product/AddToCart.cshtml"))
-                           .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
-                           .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5" })
-                           .ToButton(
-                              @<text>
-                                  <span>@DataResource.AddToCart</span>
-                              </text> ))   
-                        
+                    @(Html.When(JqueryBind.Click) // Начало цепочки методов для определения действий при клике
+                        .Ajax(Url.Dispatcher() // Создание AJAX-запроса
+                            .Push<AddProductToCartCommand>(new { Id = each.For(q => q.Id) })) // Отправка команды на сервер с идентификатором продукта
+                            .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure Add to cart ?"))) // Перед отправкой запроса, вывод диалогового окна для подтверждения действия
+                            .OnSuccess(dsl => dsl.WithId(nameof(GetProductQuery)).Trigger.Incoding()) // После успешного завершения запроса, обновление данных страницы
+                            .AsHtmlAttributes(new { @class = "btn btn-primary" }) // Добавление HTML-атрибутов
+                            .ToLink(@<text> <!-- Создание ссылки с указанным содержимым -->
+                                     <i class="fas fa-pencil-alt"></i> <!-- Иконка -->
+                                     @DataResource.AddToCart <!-- Текст ссылки -->
+                                 </text>)
+                    )
                     @(Html.When(JqueryBind.Click)
-                          .Ajax(Url.Dispatcher()
-                            .Query<AddOrEditCartLineCommand.AsQuery>(new { Id = each.For(q => q.Id) })
-                            .AsView("~/Views/App/Product/AddOrEdit.cshtml"))
-                          .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
-                            .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5" })
-                          .ToButton(@<text>
-                                         <span>@DataResource.AddToCart</span>
-                                     </text>))
+                        .Ajax(Url.Dispatcher().Query(new AddProductToCartCommand()).AsView("~/Views/App/Product/AddToCart.cshtml"))
+                        .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
+                        .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5" })
+                        .ToButton(@<text>
+                                       <span>@DataResource.Add</span>
+                                   </text>))
 
+
+                    
 
                     </div>
                 </div>
@@ -46,4 +46,3 @@
         </div>
     }
 }
-

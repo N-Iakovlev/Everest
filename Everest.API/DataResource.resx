@@ -225,4 +225,10 @@
   <data name="Quantity" xml:space="preserve">
     <value>Количество</value>
   </data>
+	<data name="Action" xml:space="preserve">
+    <value>Действие</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Коментарий</value>
+  </data>
 </root>

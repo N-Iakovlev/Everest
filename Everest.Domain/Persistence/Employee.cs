@@ -1,5 +1,4 @@
-﻿using System.Reflection.Metadata;
-namespace Everest.Domain;
+﻿namespace Everest.Domain;
 
 #region << Using >>
 using System.Diagnostics.CodeAnalysis;

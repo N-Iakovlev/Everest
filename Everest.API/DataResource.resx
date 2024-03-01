@@ -237,4 +237,10 @@
   <data name="Cart" xml:space="preserve">
     <value>Корзина покупок</value>
   </data>
+  <data name="DeleteFromCart" xml:space="preserve">
+    <value>Удалить из корзины</value>
+  </data>
+  <data name="Checkout" xml:space="preserve">
+    <value>Оформить заказ</value>
+  </data>
 </root>

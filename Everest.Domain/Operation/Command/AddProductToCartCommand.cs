@@ -11,7 +11,7 @@ public class DeleteCartCommand : CommandBase
 
     protected override void Execute()
     {
-        Repository.Delete(Repository.GetById<Cart>(Id));
+        Repository.Delete(Repository.GetById<CartItem>(Id));
     }
 }
 
@@ -23,7 +23,7 @@ public class AddProductToCartCommand : CommandBase
     protected override void Execute()
     {
         var currentUser = Dispatcher.Query(new GetCurrentUserQuery());
-        var cart = Repository.Query<Cart>().FirstOrDefault(q => q.User.Id == currentUser.Id) ?? new Cart()
+        var cart = Repository.Query<Cart>().FirstOrDefault(q => q.Id == currentUser.Id) ?? new Cart()
         {
             User = Repository.LoadById<User>(currentUser.Id)
         };
@@ -33,9 +33,16 @@ public class AddProductToCartCommand : CommandBase
         Repository.Save(new CartItem()
         {
             Cart = cart,
-            Product = Repository.LoadById<Product>(ProductId)
-           
+            Product = Repository.LoadById<Product>(ProductId),
         });
         
+    }
+}
+public class DeleteCartItemComman1d :CommandBase
+{
+    public int Id { get; set; }
+    protected override void Execute()
+    {
+        Repository.Delete(Repository.GetById<CartItem>(Id));
     }
 }

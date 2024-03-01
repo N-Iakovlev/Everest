@@ -1,46 +1,22 @@
 ﻿@using Everest.API
-<table class="table table-bordered table-striped">
-    <thead>
-    <tr>
-        <th>@DataResource.Product</th>
-            <th>@DataResource.Quantity</th>
-        <th class="text-right">@DataResource.Price</th>
-        <th class="text-right">@DataResource.Total</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            <td class="text-left"></td>
-            <td class="text-center"></td>
-            <td class="text-right"></td>
-            <td class="text-right">
-               
-            </td>
-            <td>
-                <form asp-action="RemoveFromCart" method="post">
-                    <input type="hidden" >
-                    <input type="hidden" >
-                    <button type="submit" class="btn btn-sm btn-danger">
-                        @DataResource.Delete
-                    </button>
-                </form>
-            </td>
-        </tr>
-    </tbody>
-    <tfoot>
-    <tr>
-        <td colspan="3" class="text-right">@DataResource.Total:</td>
-        <td class="text-right">
-           
-        </td>
-    </tr>
-    </tfoot>
-</table>
+@using Everest.Domain
 
-<div class="text-center">
-    <a class="btn btn-primary">Продожить покупки</a>
-    <a class="btn btn-primary" asp-action="Checkout" asp-controller="Order">
-        
-    </a>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div class="dt-buttons btn-group flex-wrap">
+            @(Html.When(JqueryBind.InitIncoding)
+                .Ajax(new GetCartItemsByCurrentUserQuery())
+                .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/App/Cart/Tmpl.cshtml").Html())
+                .AsHtmlAttributes(new { @class = "col-sm-12 col-md-12", id = nameof(GetCartItemsByCurrentUserQuery) })
+                .ToDiv())
+            @(Html.When(JqueryBind.Click)
+                .Ajax(Url.Dispatcher().Query(new AddOrEditOrderCommand.AsQuery()).AsView("~/Views/App/Order/Index.cshtml"))
+                .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
+                .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5" })
+                .ToButton(@<text>
+                               <span>@DataResource.Checkout</span>
+                           </text>))
+
+        </div>
+    </div>
 </div>

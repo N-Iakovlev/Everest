@@ -151,6 +151,15 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Оформить заказ.
+        /// </summary>
+        public static string Checkout {
+            get {
+                return ResourceManager.GetString("Checkout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Закрыть.
         /// </summary>
         public static string Close {
@@ -201,6 +210,15 @@ namespace Everest.API {
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Удалить из корзины.
+        /// </summary>
+        public static string DeleteFromCart {
+            get {
+                return ResourceManager.GetString("DeleteFromCart", resourceCulture);
             }
         }
         

@@ -10,7 +10,7 @@
                 .AsHtmlAttributes(new { @class = "col-sm-12 col-md-12", id = nameof(GetCartItemsByCurrentUserQuery) })
                 .ToDiv())
             @(Html.When(JqueryBind.Click)
-                .Ajax(Url.Dispatcher().Query(new AddOrEditOrderCommand.AsQuery()).AsView("~/Views/App/Order/Index.cshtml"))
+                .Ajax(Url.Dispatcher().Query(new AddOrderCommand()).AsView("~/Views/App/Order/Index.cshtml"))
                 .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
                 .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5" })
                 .ToButton(@<text>

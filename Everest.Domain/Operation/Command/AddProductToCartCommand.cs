@@ -38,7 +38,7 @@ public class AddProductToCartCommand : CommandBase
         
     }
 }
-public class DeleteCartItemComman1d :CommandBase
+public class DeleteCartItemCommand :CommandBase
 {
     public int Id { get; set; }
     protected override void Execute()

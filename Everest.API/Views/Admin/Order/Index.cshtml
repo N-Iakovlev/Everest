@@ -9,6 +9,13 @@
 <div class="row">
     <div class="col-sm-12 col-md-12">
         <div class="dt-buttons btn-group flex-wrap">
+          
         </div>
     </div>
+    @(Html.When(JqueryBind.InitIncoding)
+        .Ajax(new GetOrderQuery())
+        .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/Admin/Order/Tmpl.cshtml").Html())
+        .AsHtmlAttributes(new { @class = "col-sm-12 col-md-12", id = nameof(GetOrderQuery) })
+        .ToDiv())
+   
 </div>

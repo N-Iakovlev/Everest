@@ -20,9 +20,9 @@ public class GetCartItemsByCurrentUserQuery : QueryBase<List<GetCartItemsByCurre
 
     protected override List<Response> ExecuteResult()
     {
-        var currentUser = Dispatcher.Query(new GetCurrentUserQuery());
+        var currentUser = Dispatcher.Query(new GetCurrentUserQuery()).Id;
          return Repository.Query<CartItem>()
-            .Where(q => q.Cart.Id == currentUser.Id)
+            .Where(q => q.Cart.User.Id == currentUser)
             .Select(q => new Response()
             {
                 Product = q.Product.ProductName,

@@ -1,6 +1,7 @@
 ﻿using Incoding.Core.Block.IoC;
 using Incoding.Core.CQRS.Core;
 using Microsoft.AspNetCore.Http;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,7 @@ public class NewUserCommand : CommandBase
 {
     protected override void Execute()
     {
-        Repository.Save(new User() { TempId = this.TempId });
+        Repository.Save(new User() { TempId = TempId });
     }
 
     public string TempId { get; set; }

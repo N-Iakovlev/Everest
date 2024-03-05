@@ -23,7 +23,7 @@ public class AddProductToCartCommand : CommandBase
     protected override void Execute()
     {
         var currentUser = Dispatcher.Query(new GetCurrentUserQuery());
-        var cart = Repository.Query<Cart>().FirstOrDefault(q => q.Id == currentUser.Id) ?? new Cart()
+        var cart = Repository.Query<Cart>().FirstOrDefault(q => q.User.Id == currentUser.Id) ?? new Cart()
         {
             User = Repository.LoadById<User>(currentUser.Id)
         };

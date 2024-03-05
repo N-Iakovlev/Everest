@@ -5,39 +5,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Everest.Domain;
-
-public class GetOrderQuery : QueryBase<List<GetOrderQuery.Response>>
+namespace Everest.Domain
 {
-    public class Response
+    public class GetOrderQuery : QueryBase<List<GetOrderQuery.Response>>
     {
-        public int Id { get; set; }
-        public string Status { get; set; } // Изменил тип на string, чтобы хранить строковое представление статуса
-        public string? NoteFromEmploee { get; set; }
-        public IList<OrderDetail> Details { get; set; }
-        
-        
-
-    }
-    protected override List<Response> ExecuteResult()
-    {
-        var currentUser = Dispatcher.Query(new GetCurrentUserQuery());
-        var statusMappings = new Dictionary<Order.OfStatus, string>
+        public class Response
         {
-            { Order.OfStatus.New, "Новый" },
-            { Order.OfStatus.Processing, "В обработке" },
-            { Order.OfStatus.Shipped, "Отправлен" },
-            { Order.OfStatus.Completed, "Завершен" },
-        };
-        return Repository.Query<Order>()
-            .Where(q => q.UserId == currentUser.Id) //  проверку UserId
-            .Select(q => new Response()
+            public int Id { get; set; }
+            public string Status { get; set; }
+            public int UserId { get; set; }
+            public string Comment { get; set; }
+            public string Email { get; set; }
+            public IList<OrderDetail> OrderDetails { get; set; }
+            public string NameOfOrder { get; set; }
+        }
+
+        protected override List<Response> ExecuteResult()
+        {
+            var currentUser = Dispatcher.Query(new GetCurrentUserQuery());
+            var statusMappings = new Dictionary<Order.OfStatus, string>
             {
-                Id = q.Id,
-                Status = statusMappings[q.Status], // Получаем строковое представление статуса из словаря
-               
-                Details = q.OrderDetails // Предполагается, что у заказа есть свойство OrderDetails, содержащее список деталей заказа
-            })
-            .ToList();
+                { Order.OfStatus.New, "Новый" },
+                { Order.OfStatus.Processing, "В обработке" },
+                { Order.OfStatus.Shipped, "Отправлен" },
+                { Order.OfStatus.Completed, "Завершен" },
+            };
+
+            return Repository.Query<Order>()
+                .Where(q => q.UserId == currentUser.Id)
+                .Select(q => new Response()
+                {
+                    Id = q.Id,
+                    Status = statusMappings[q.Status],
+                    UserId = q.UserId,
+                    Comment = q.Comment,
+                    Email = q.Email,
+                    OrderDetails = q.OrderDetails,
+                    NameOfOrder = q.NameOfOrder
+                })
+                .ToList();
+        }
     }
 }

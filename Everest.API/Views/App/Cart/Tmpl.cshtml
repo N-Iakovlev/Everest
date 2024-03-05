@@ -31,7 +31,7 @@
                         @each.For(q => q.Price)
                     </td>
                     <td>@(Html.When(JqueryBind.Click)
-                            .Ajax(Url.Dispatcher().Push<DeleteCartCommand>(new { Id = each.For(q => q.Id) }))
+                            .Ajax(Url.Dispatcher().Push<DeleteCartItemCommand>(new { Id = each.For(q => q.Id) }))
                               .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
                             .OnSuccess(dsl => dsl.WithId(nameof(GetCartItemsByCurrentUserQuery)).Trigger.Incoding())
                               .AsHtmlAttributes()

@@ -22,6 +22,9 @@ public class Order : EverestEntityBase
     public  virtual DateTime OrderDate { get; set; }
     public virtual IList<OrderDetail> OrderDetails { get; set; }
     public virtual int UserId { get; set; }
+    public virtual string Comment { get; set; }
+    public virtual string Email { get; set; }
+    public virtual string NameOfOrder { get; set; }
 
 
     [UsedImplicitly, Obsolete(ObsoleteMessage.ClassNotForDirectUsage, true), ExcludeFromCodeCoverage]
@@ -31,6 +34,10 @@ public class Order : EverestEntityBase
         {
 
             Id(o => o.Id).GeneratedBy.Identity();
+            MapEscaping(o => o.UserId);
+            MapEscaping(o => o.Comment);
+            MapEscaping(o => o.Email);
+            MapEscaping(o => o.NameOfOrder);
             MapEscaping(o => o.Status).CustomType<OfStatus>();
             MapEscaping(o => o.OrderDate);
             HasMany(o => o.OrderDetails);
@@ -40,7 +47,7 @@ public class Order : EverestEntityBase
 
 public class OrderDetail : EverestEntityBase
 {
-    public virtual int CartId { get; set; }
+    public virtual int OrderId { get; set; }
     public virtual int ProductId { get; set; }
 
    
@@ -54,7 +61,7 @@ public class OrderDetail : EverestEntityBase
         public Map()
         {
             Id(o => o.Id).GeneratedBy.Identity();
-            MapEscaping(o => o.CartId); // Ссылка на корзину, в которой находится продукт
+            MapEscaping(o => o.OrderId); // Ссылка на корзину, в которой находится продукт
             MapEscaping(o => o.ProductId); // Ссылка на сам продукт
         }
     }

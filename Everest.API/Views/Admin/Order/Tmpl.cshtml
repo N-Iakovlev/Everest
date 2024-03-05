@@ -1,7 +1,7 @@
 ﻿@using Everest.API
 @using Everest.Domain
 @{
-    using (var template = Html.Incoding().Template<GetContentQuery.Response>())
+    using (var template = Html.Incoding().Template<GetOrderQuery.Response>())
     {
         <table class="table table-bordered table-hover">
             <thead>
@@ -24,8 +24,7 @@
             {
                 <tr>
                     <td>
-
-                    </td>
+                        </td>@each.For(q => q.Status)
                     <td>
                        
                     </td>

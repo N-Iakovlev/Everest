@@ -1,66 +1,84 @@
-﻿using Incoding.Core.CQRS.Core;
+﻿using Everest.Domain;
+using FluentValidation;
+using Incoding.Core.CQRS.Core;
+using Incoding.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Everest.Domain;
-
-public class DeleteOrderCommand : CommandBase
+namespace Everest.Domain
 {
-    public int Id { get; set; }
-
-    protected override void Execute()
+    public class AddOrderCommand : CommandBase
     {
-        Repository.Delete(Repository.GetById<Order>(Id));
-    }
-}
+        public int? Id { get; set; }
+        public string NameOfOrder { get; set; }
+        public string Email { get; set; }
+        public DateTime OrderDate { get; set; }
+        public string Comment { get; set; }
+        public Order.OfStatus Status { get; set; }
+        public int UserId { get; set; }
+        public IList<OrderDetail> OrderDetails { get; set; }
 
-public class AddOrderCommand : CommandBase
-{
-    public int? Id { get; set; }
-    public List<CartItem> CartItems { get; set; }
-
-    protected override void Execute()
-    {
-        var currentUser = Dispatcher.Query(new GetCurrentUserQuery());
-        Order order;
-
-        if (Id.HasValue) // Если указан идентификатор заказа, обновляем существующий заказ
+        protected override void Execute()
         {
-            order = Repository.GetById<Order>(Id.Value);
+            var currentUser = Dispatcher.Query(new GetCurrentUserQuery()).Id;
+            var isNew = Id == 0;
+            Order order = isNew ? new Order() : Repository.GetById<Order>(Id);
 
-            // Проверяем, принадлежит ли заказ текущему пользователю, чтобы избежать изменения заказов других пользователей
-            if (order.UserId != currentUser.Id)
+            order.UserId = UserId;
+            order.Comment = Comment;
+            order.Email = Email;
+            order.NameOfOrder = NameOfOrder;
+            order.OrderDate = OrderDate;
+            order.Status = Status;
+
+            if (isNew)
             {
-                throw new UnauthorizedAccessException("You are not authorized to edit this order.");
+                order.Status = Order.OfStatus.New;
+                order.OrderDate = DateTime.UtcNow;
+                order.OrderDetails = Repository.Query<CartItem>()
+                                                .Where(cartItem => cartItem.Cart.User.Id == currentUser)
+                                                .Select(cartItem => new OrderDetail
+                                                {
+                                                    OrderId = order.Id,
+                                                    ProductId = cartItem.Product.Id
+                                                })
+                                                .ToList();
+
+                Repository.SaveOrUpdate(order);
             }
-
-            // Очищаем существующие детали заказа перед добавлением новых
-            order.OrderDetails.Clear();
         }
-        else // Иначе создаем новый заказ
+
+        public class AddOrderCommandValidator : AbstractValidator<AddOrderCommand>
         {
-            order = new Order
+            public AddOrderCommandValidator()
             {
-                Status = Order.OfStatus.New,
-                OrderDate = DateTime.Now,
-                UserId = currentUser.Id
-            };
+                RuleFor(x => x.UserId).NotEmpty().WithMessage("User Id is required");
+            }
         }
 
-        // Добавляем элементы корзины в заказ
-        foreach (var cartItem in CartItems)
+        public class AsQuery : QueryBase<AddOrderCommand>
         {
-            var orderDetail = new OrderDetail
-            {
-                CartId = cartItem.Cart.Id,
-                ProductId = cartItem.Product.Id
-            };
-            order.OrderDetails.Add(orderDetail);
-        }
+            public int Id { get; set; }
 
-        Repository.Save(order);
-        
+            protected override AddOrderCommand ExecuteResult()
+            {
+                var order = Repository.GetById<Order>(Id);
+                if (order == null)
+                    return new AddOrderCommand();
+
+                return new AddOrderCommand()
+                {
+                    Id = order.Id,
+                    Email = order.Email,
+                    NameOfOrder = order.NameOfOrder,
+                    OrderDetails = order.OrderDetails,
+                    Comment = order.Comment,
+                    OrderDate = order.OrderDate,
+                    Status = order.Status,
+                    UserId = order.UserId,
+                };
+            }
+        }
     }
 }
-

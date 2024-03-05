@@ -231,19 +231,24 @@ namespace Everest.API
 
             app.UseEndpoints(endpoints =>
             {
+                
                 endpoints.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Main}/{id?}");
                 foreach (var name in new[]
-                                     {
-                                                              "Employee",
-                                                              "Product",
-                                                              "Order",
-                                                              "Contacts",
-                                                              "Category",
-                                                              "Content"
-                                                      })
+                         {
+                             "Employee",
+                             "Product",
+                             "Order",
+                             "Contacts",
+                             "Category",
+                             "Content",
+                             "Cart"
+                         })
                 {
+                    endpoints.MapControllerRoute(name, name, new { controller = "Home", action = "Main", incView = $"~/Views/App/{name}/Index.cshtml" });
                     endpoints.MapControllerRoute(name, name, new { controller = "Home", action = "Admin", incView = $"~/Views/Admin/{name}/Index.cshtml" });
                 }
+            
+
 
 
                 //endpoints.MapControllers().RequireAuthorization();

@@ -9,9 +9,6 @@ namespace Everest.Domain;
 public class Cart : EverestEntityBase
 {
     public virtual User User { get; set; }
-   
-
-
 
     [UsedImplicitly]
     [Obsolete(ObsoleteMessage.ClassNotForDirectUsage, true)]

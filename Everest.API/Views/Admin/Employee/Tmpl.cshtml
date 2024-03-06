@@ -8,7 +8,6 @@
             <tr>
                 <th></th>
                 <th>@DataResource.FullName</th>
-                <th>@DataResource.Category</th>
                 <th>@DataResource.Contacts</th>
                 <th>@DataResource.Avatar</th>
                 
@@ -56,14 +55,11 @@
                         @each.For(q => q.FullName)
                         
                     </td>
-                    <td>
-
-                    </td>
                     <td>@each.For(q => q.Contacts)
                     </td>
                     <td>
                         <img src="@(Url.Dispatcher()
-                                      .Query<GetAvatarAndCompressQuery>(new {Id = each.For(q=>q.Id)})
+                                      .Query<GetAvatarTestQuery>(new {Id = each.For(q=>q.Id)})
                                       .AsFile(incContentType:"image/jpeg",incFileDownloadName:"avatar"))" /> 
                     </td>
                 </tr>

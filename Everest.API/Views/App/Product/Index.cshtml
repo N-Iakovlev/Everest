@@ -4,14 +4,12 @@
 
 
 <div class="row">
-    <div>@(Html.When(JqueryBind.KeyUp)
-         .Ajax(Url.Dispatcher().Query(new GetProductQuery()).AsJson().AppendToQueryString(new { Search = Selector.Jquery.Self() }))
-         .OnSuccess(dsl =>
-         {
-             dsl.WithId(nameof(GetProductQuery)).Insert.WithTemplateByView("~/Views/App/Product/Tmpl.cshtml").Html();
-         })
-         .AsHtmlAttributes(new { placeholder = @DataResource.ProductSearch })
-         .ToInput(HtmlInputType.Text,String.Empty))
+    <div>
+        @(Html.When(JqueryBind.KeyUp)
+            .Ajax(Url.Dispatcher().Query(new GetProductQuery()).AsJson().AppendToQueryString(new { Search = Selector.Jquery.Self() }))
+            .OnSuccess(dsl => { dsl.WithId(nameof(GetProductQuery)).Insert.WithTemplateByView("~/Views/App/Product/Tmpl.cshtml").Html(); })
+            .AsHtmlAttributes(new { placeholder = @DataResource.ProductSearch })
+            .ToInput(HtmlInputType.Text, String.Empty))
         <div>
             @(Html.When(JqueryBind.InitIncoding)
                 .Ajax(new GetProductQuery())

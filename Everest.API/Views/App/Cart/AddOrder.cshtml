@@ -7,7 +7,7 @@
     ViewData["Url"] = Url.Dispatcher().Push<AddOrderCommand>();
     ViewData["TriggerId"] = nameof(GetOrderQuery);
 }
-
+@Html.HiddenFor(q => q.Id)
 @Html.ForGroup(q => q.Comment).TextBox(control => { control.Label.Name = DataResource.Comment; })
 @Html.ForGroup(q => q.Email).TextBox(control => { control.Label.Name = DataResource.Email; })
-@Html.ForGroup(q => q.NameOfOrder).TextBox(control => { control.Label.Name = DataResource.FullName; })
+@Html.ForGroup(q => q.CreatorOrder).TextBox(control => { control.Label.Name = DataResource.FullName; })

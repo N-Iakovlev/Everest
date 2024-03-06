@@ -62,7 +62,7 @@
                     </td>
                     <td>
                             <img src="@(Url.Dispatcher()
-                                      .Query<GetPhotoProductQuery>(new {Id = each.For(q=>q.Id)})
+                                      .Query<GetAvatarProductQuery>(new {Id = each.For(q=>q.Id)})
                                       .AsFile(incContentType:"image/jpeg",incFileDownloadName:"avatar"))" />
                     </td>
                 </tr>

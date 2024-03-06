@@ -1,7 +1,14 @@
+@using Everest.API
 @using Everest.Domain
 @using Incoding.Web.Extensions
 
 
-<div>
-    Wait content
+<div class="row">
+    <div>
+            @(Html.When(JqueryBind.InitIncoding)
+                .Ajax(new GetEmployeesQuery())
+                .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/App/Employee/Tmpl.cshtml").Html())
+            .AsHtmlAttributes(new { @class = "row", id = nameof(GetEmployeesQuery) })
+                .ToDiv())
+    </div>
 </div>

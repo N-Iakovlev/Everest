@@ -1,10 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Xml.Linq;
 using Incoding.Core.Quality;
 using Incoding.Data.NHibernate;
 using JetBrains.Annotations;
-using Microsoft.AspNetCore.SignalR;
-using NHibernate.Mapping;
 
 
 namespace Everest.Domain;
@@ -19,12 +16,11 @@ public class Order : EverestEntityBase
         Completed
     }
     public virtual OfStatus Status { get; set; }
-    public  virtual DateTime OrderDate { get; set; }
-    public virtual IList<OrderDetail> OrderDetails { get; set; }
+    public virtual DateTime OrderDate { get; set; }
     public virtual int UserId { get; set; }
     public virtual string Comment { get; set; }
     public virtual string Email { get; set; }
-    public virtual string NameOfOrder { get; set; }
+    public virtual string CreatorOrder { get; set; }
 
 
     [UsedImplicitly, Obsolete(ObsoleteMessage.ClassNotForDirectUsage, true), ExcludeFromCodeCoverage]
@@ -37,32 +33,31 @@ public class Order : EverestEntityBase
             MapEscaping(o => o.UserId);
             MapEscaping(o => o.Comment);
             MapEscaping(o => o.Email);
-            MapEscaping(o => o.NameOfOrder);
+            MapEscaping(o => o.CreatorOrder);
             MapEscaping(o => o.Status).CustomType<OfStatus>();
             MapEscaping(o => o.OrderDate);
-            HasMany(o => o.OrderDetails);
         }
     }
 }
 
-public class OrderDetail : EverestEntityBase
+public class OrderItem : EverestEntityBase
 {
-    public virtual int OrderId { get; set; }
-    public virtual int ProductId { get; set; }
+    public virtual Order Order { get; set; }
+    public virtual Product Product { get; set; }
 
-   
-    
-    
+
+
+
 
 
     [UsedImplicitly, Obsolete(ObsoleteMessage.ClassNotForDirectUsage, true), ExcludeFromCodeCoverage]
-    public class Map : NHibernateEntityMap<OrderDetail>
+    public class Map : NHibernateEntityMap<OrderItem>
     {
         public Map()
         {
             Id(o => o.Id).GeneratedBy.Identity();
-            MapEscaping(o => o.OrderId); // Ссылка на корзину, в которой находится продукт
-            MapEscaping(o => o.ProductId); // Ссылка на сам продукт
+            References(o => o.Product);
+            References(o => o.Order);
         }
     }
 }

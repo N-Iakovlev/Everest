@@ -16,7 +16,7 @@ namespace Everest.Domain
             public int UserId { get; set; }
             public string Comment { get; set; }
             public string Email { get; set; }
-            public IList<OrderDetail> OrderDetails { get; set; }
+            public IList<OrderItem> OrderDetails { get; set; }
             public string NameOfOrder { get; set; }
         }
 
@@ -40,8 +40,7 @@ namespace Everest.Domain
                     UserId = q.UserId,
                     Comment = q.Comment,
                     Email = q.Email,
-                    OrderDetails = q.OrderDetails,
-                    NameOfOrder = q.NameOfOrder
+                    NameOfOrder = q.CreatorOrder
                 })
                 .ToList();
         }

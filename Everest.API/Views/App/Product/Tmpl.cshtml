@@ -4,32 +4,38 @@
 @using (var template = Html.Incoding().Template<GetProductQuery.Response>())
 {
     @using (template.NotEach())
-    { 
+    {
         <div>@DataResource.Empty</div>
     }
 
     @using (var each = template.ForEach())
     {
         <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <img src="@(Url.Dispatcher().Query<GetPhotoProductQuery>(new { Id = each.For(q => q.Id) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: "avatar"))"/>
+            <div class="card d-flex justify-content-center align-items-center">
+                <!-- Добавлены классы d-flex, justify-content-center и align-items-center -->
+                <div class="card-body text-center">
+                    <!-- Добавлен класс text-center для центрирования содержимого -->
+                    <div class="mb-3">
+                        <!-- Обернутые контейнеры для кнопки фото и заголовка -->
+                        <img src="@(Url.Dispatcher().Query<GetAvatarProductQuery>(new { Id = each.For(q => q.Id) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: "avatar"))" />
+                    </div>
+
                     <h2>@each.For(q => q.ProductName)</h2>
                     <p>@each.For(q => q.ShortDescription)</p>
                     <p><strong>@DataResource.Price:</strong> $@each.For(q => q.Price)</p>
                     <div class="dt-buttons btn-group flex-wrap">
-                        
 
-                        @(Html.When(JqueryBind.Click) 
-                            .Ajax(Url.Dispatcher() 
+
+                        @(Html.When(JqueryBind.Click)
+                            .Ajax(Url.Dispatcher()
                             .Push<AddProductToCartCommand>(new { ProductId = each.For(q => q.Id) })) // Отправка команды на сервер с идентификатором продукта
                             .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm(@DataResource.ProductsAddToCart))) // Перед отправкой запроса, вывод диалогового окна для подтверждения действия
-                            //.OnSuccess(dsl => dsl.WithId(nameof(GetProductQuery)).Trigger.Incoding()) // После успешного завершения запроса, обновление данных страницы
+                                                                                                                       //.OnSuccess(dsl => dsl.WithId(nameof(GetProductQuery)).Trigger.Incoding()) // После успешного завершения запроса, обновление данных страницы
                             .AsHtmlAttributes(new { @class = "btn btn-primary" }) // Добавление HTML-атрибутов
-                            .ToLink(@<text> 
-                                         <i class="fas fa-pencil-alt"></i>
-                                         @DataResource.AddToCart
-                                     </text>))
+                            .ToLink(@<text>
+                    <i class="fas fa-pencil-alt"></i>
+                    @DataResource.AddToCart
+                </text>))
                     </div>
                 </div>
             </div>

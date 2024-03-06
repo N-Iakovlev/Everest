@@ -18,15 +18,16 @@ namespace Everest.Domain
         {
             var currentUser = Dispatcher.Query(new GetCurrentUserQuery()).Id;
             return Repository.Query<CartItem>()
-                .Where(q => q.Cart.User.Id == currentUser)
-                .Select(q => new Response()
-                {
-                    Product = q.Product.ProductName,
-                    Price = q.Product.Price,
-                    ProductId = q.Product.Id,
-                    Id = q.Id
-                })
-                .ToList();
+                             .Where(q => q.Cart.User.Id == currentUser)
+                             .Select(q => new Response()
+                             {
+                                 Product = q.Product.ProductName,
+                                 Price = q.Product.Price,
+                                 ProductId = q.Product.Id,
+                                 Id = q.Id
+
+                             })
+                             .ToList();
         }
     }
 }

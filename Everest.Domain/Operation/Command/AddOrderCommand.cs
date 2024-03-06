@@ -2,6 +2,8 @@
 using FluentValidation;
 using Incoding.Core.CQRS.Core;
 using Incoding.Core.Data;
+using Microsoft.AspNetCore.Components;
+using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,49 +13,44 @@ namespace Everest.Domain
     public class AddOrderCommand : CommandBase
     {
         public int? Id { get; set; }
-        public string NameOfOrder { get; set; }
+        public string CreatorOrder { get; set; }
         public string Email { get; set; }
         public DateTime OrderDate { get; set; }
         public string Comment { get; set; }
         public Order.OfStatus Status { get; set; }
         public int UserId { get; set; }
-        public IList<OrderDetail> OrderDetails { get; set; }
+        public IList<CartItem> CartItems { get; set; }
 
         protected override void Execute()
         {
-            var currentUser = Dispatcher.Query(new GetCurrentUserQuery()).Id;
-            var isNew = Id == 0;
-            Order order = isNew ? new Order() : Repository.GetById<Order>(Id);
+            var isNew = Id.GetValueOrDefault() == 0;
+            Order order = isNew ? new Order() : Repository.GetById<Order>(Id.GetValueOrDefault());
+            var currentUser = Dispatcher.Query(new GetCurrentUserQuery());
+            
 
-            order.UserId = UserId;
+            order.CreatorOrder = CreatorOrder;
+            order.UserId = currentUser.Id;
+            order.Status = Order.OfStatus.New;
+            order.OrderDate = DateTime.UtcNow;
             order.Comment = Comment;
             order.Email = Email;
-            order.NameOfOrder = NameOfOrder;
-            order.OrderDate = OrderDate;
-            order.Status = Status;
 
-            if (isNew)
-            {
-                order.Status = Order.OfStatus.New;
-                order.OrderDate = DateTime.UtcNow;
-                order.OrderDetails = Repository.Query<CartItem>()
-                                                .Where(cartItem => cartItem.Cart.User.Id == currentUser)
-                                                .Select(cartItem => new OrderDetail
-                                                {
-                                                    OrderId = order.Id,
-                                                    ProductId = cartItem.Product.Id
-                                                })
-                                                .ToList();
+            Repository.SaveOrUpdate(order);
+            Repository.Save(new OrderItem()
+                {
+                    Order = order,
+                    Product = Repository.LoadById<Product>(CartItems),
+                });
+            // Добавляем блок для удаления CartItems
 
-                Repository.SaveOrUpdate(order);
-            }
         }
+
 
         public class AddOrderCommandValidator : AbstractValidator<AddOrderCommand>
         {
             public AddOrderCommandValidator()
             {
-                RuleFor(x => x.UserId).NotEmpty().WithMessage("User Id is required");
+
             }
         }
 
@@ -71,8 +68,7 @@ namespace Everest.Domain
                 {
                     Id = order.Id,
                     Email = order.Email,
-                    NameOfOrder = order.NameOfOrder,
-                    OrderDetails = order.OrderDetails,
+                    CreatorOrder = order.CreatorOrder,
                     Comment = order.Comment,
                     OrderDate = order.OrderDate,
                     Status = order.Status,
@@ -82,3 +78,4 @@ namespace Everest.Domain
         }
     }
 }
+

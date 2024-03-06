@@ -6,9 +6,16 @@
     ViewData["Header"] = DataResource.Product;
 }
 
+
 <div class="row">
     <div class="col-sm-12 col-md-12">
         <div class="dt-buttons btn-group flex-wrap">
+
+            <!-- Выпадающий список для выбора категории продукта -->
+         
+
+            
+
             @(Html.When(JqueryBind.Click)
                 .Ajax(Url.Dispatcher().Query(new AddOrEditProductCommand.AsQuery()).AsView("~/Views/Admin/Product/AddOrEdit.cshtml"))
                 .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
@@ -18,12 +25,9 @@
                            </text>))
             @(Html.When(JqueryBind.KeyUp)
                 .Ajax(Url.Dispatcher().Query(new GetProductQuery()).AsJson().AppendToQueryString(new { Search = Selector.Jquery.Self() }))
-                .OnSuccess(dsl =>
-                {
-                    dsl.WithId(nameof(GetProductQuery)).Insert.WithTemplateByView("~/Views/Admin/Product/Tmpl.cshtml").Html();
-                })
+                .OnSuccess(dsl => { dsl.WithId(nameof(GetProductQuery)).Insert.WithTemplateByView("~/Views/Admin/Product/Tmpl.cshtml").Html(); })
                 .AsHtmlAttributes(new { placeholder = @DataResource.ProductSearch })
-                .ToInput(HtmlInputType.Text,String.Empty))
+                .ToInput(HtmlInputType.Text, String.Empty))
         </div>
     </div>
     @(Html.When(JqueryBind.InitIncoding)

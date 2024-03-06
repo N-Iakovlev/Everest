@@ -19,7 +19,7 @@ public class Cart : EverestEntityBase
         {
             Id(ca => ca.Id).GeneratedBy.Identity();
             References(ca => ca.User);
-            
+
         }
     }
 }

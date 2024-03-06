@@ -250,6 +250,15 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Настрйки Email.
+        /// </summary>
+        public static string EmailSettings {
+            get {
+                return ResourceManager.GetString("EmailSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Сотрудники.
         /// </summary>
         public static string Employee {
@@ -331,11 +340,29 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Пароль.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ы.
         /// </summary>
         public static string Phone {
             get {
                 return ResourceManager.GetString("Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Port.
+        /// </summary>
+        public static string Port {
+            get {
+                return ResourceManager.GetString("Port", resourceCulture);
             }
         }
         
@@ -430,11 +457,29 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SmtpServer.
+        /// </summary>
+        public static string SmtpServer {
+            get {
+                return ResourceManager.GetString("SmtpServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Всего.
         /// </summary>
         public static string Total {
             get {
                 return ResourceManager.GetString("Total", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Имя пользователя.
+        /// </summary>
+        public static string Username {
+            get {
+                return ResourceManager.GetString("Username", resourceCulture);
             }
         }
     }

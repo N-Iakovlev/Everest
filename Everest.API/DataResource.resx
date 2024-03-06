@@ -243,4 +243,22 @@
   <data name="Checkout" xml:space="preserve">
     <value>Оформить заказ</value>
   </data>
+  <data name="EmailSettings" xml:space="preserve">
+    <value>Настрйки Email</value>
+  </data>
+  <data name="SmtpServer" xml:space="preserve">
+    <value>SmtpServer</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Имя пользователя</value>
+  </data>
+	<data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+
+
+
 </root>

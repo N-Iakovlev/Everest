@@ -1,0 +1,64 @@
+﻿@using Everest.API
+@using Everest.Domain
+@{
+    using (var template = Html.Incoding().Template<GetEmailSettingsQuery.Response>())
+    {
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th></th>
+                <th>@DataResource.SmtpServer</th>
+                <th>@DataResource.Email</th>
+                </tr>
+            </thead>
+            <tbody>
+            @using (template.NotEach())
+            {
+                <tr>
+                    <td colspan="3">
+                            @DataResource.Empty
+                    </td>
+                </tr>
+            }
+            @using (var each = template.ForEach())
+            {
+                <tr>
+                    <td>
+                        @(Html.When(JqueryBind.Click)
+                              .Ajax(Url.Dispatcher()
+                                       .Query<AddOrEditEmailSettingsCommand.AsQuery>(new { Id = each.For(q => q.Id) })
+                                       .AsView("~/Views/Admin/EmailSettings/AddOrEdit.cshtml"))
+                              .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
+                              .AsHtmlAttributes()
+                              .ToLink(@<text>
+                                           <i class="fas fa-pencil-alt">
+                                           </i>
+                                           @DataResource.Edit
+                                       </text>))
+
+
+                        @(Html.When(JqueryBind.Click)
+                            .Ajax(Url.Dispatcher().Push<DeleteEmailSettingsCommand>(new { Id = each.For(q => q.Id) }))
+                              .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
+                            .OnSuccess(dsl => dsl.WithId(nameof(GetEmailSettingsQuery)).Trigger.Incoding())
+                              .AsHtmlAttributes()
+                              .ToLink(@<text>
+                                           <i class="fas fa-pencil-alt">
+                                           </i>
+                                           @DataResource.Delete
+                                       </text>))
+                    </td>
+                    <td>
+                        @each.For(q => q.SmtpServer)
+                    </td>
+                    <td>
+                        @each.For(q => q.Username)
+                    </td>
+                            
+                </tr>
+            }
+
+            </tbody>
+        </table>
+    }
+}

@@ -1,0 +1,28 @@
+@using Everest.API
+@using Everest.Domain
+@using Incoding.Web.Extensions
+@{
+    Layout = "~/Views/Shared/_ContentLayout.cshtml";
+    ViewData["Header"] = DataResource.EmailSettings;
+}
+
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div class="dt-buttons btn-group flex-wrap">
+            @(Html.When(JqueryBind.Click)
+                .Ajax(Url.Dispatcher().Query(new AddOrEditEmailSettingsCommand.AsQuery()).AsView("~/Views/Admin/EmailSettings/AddOrEdit.cshtml"))
+                .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
+                .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5" })
+                .ToButton(@<text>
+                               <span>@DataResource.Add</span>
+                           </text>))
+            Настройка SMTP,
+            Настройка Автосообщений.
+        </div>
+    </div>
+    @(Html.When(JqueryBind.InitIncoding)
+        .Ajax(new GetEmailSettingsQuery())
+        .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/Admin/EmailSettings/Tmpl.cshtml").Html())
+        .AsHtmlAttributes(new { @class = "col-sm-12 col-md-12", id = nameof(GetEmailSettingsQuery) })
+        .ToDiv())
+</div>

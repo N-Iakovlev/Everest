@@ -11,8 +11,8 @@
                 .ToDiv())
             
 
-            @(Html.When(JqueryBind.Click)
-                .Ajax(Url.Dispatcher().Query(new AddOrderCommand.AsQuery()).AsView("~/Views/App/Cart/AddOrder.cshtml"))
+           @(Html.When(JqueryBind.Click)
+                .Ajax(Url.Dispatcher().Query(new AddOrderCommand()).AsView("~/Views/App/Cart/AddOrder.cshtml"))
                 .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
                 .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5" })
                 .ToButton(@<text>

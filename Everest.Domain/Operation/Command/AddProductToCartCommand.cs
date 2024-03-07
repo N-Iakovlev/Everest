@@ -1,41 +1,40 @@
-﻿using Everest.Domain;
+﻿using Microsoft.AspNetCore.Http;
+namespace Everest.Domain;
+#region << Using >>
 using FluentValidation;
-using Incoding.Core.Block.IoC;
 using Incoding.Core.CQRS.Core;
-using Microsoft.AspNetCore.Http;
+#endregion
 
-namespace Everest.Domain
+public class AddProductToCartCommand : CommandBase
 {
-    public class AddProductToCartCommand : CommandBase
+    public int ProductId { get; set; }
+    
+
+    protected override void Execute()
     {
-        public int ProductId { get; set; }
-        public int UserId { get; set; }
+        // Получаем идентификатор текущего пользователя
+        var currentUser = Dispatcher.Query(new GetCurrentUserQuery()).Id;
 
-        protected override void Execute()
+        // Ищем корзину пользователя
+        var cart = Repository.Query<Cart>().FirstOrDefault(q => q.User.Id == currentUser)
+                   ?? new Cart()
+                   {
+                       User = Repository.LoadById<User>(currentUser)
+
+                   };
+        Repository.SaveOrUpdate(cart);
+        // Создаем новый объект CartItem и добавляем его в корзину
+        var cartItem = new CartItem()
         {
-            // Получаем идентификатор текущего пользователя
-            var currentUser = Dispatcher.Query(new GetCurrentUserQuery()).Id;
-
-            // Ищем корзину пользователя
-            var cart = Repository.Query<Cart>().FirstOrDefault(q => q.User.Id == currentUser)
-                       ?? new Cart()
-                       {
-                           User = Repository.LoadById<User>(currentUser)
-                       };
-
-            // Сохраняем или обновляем корзину
-            Repository.SaveOrUpdate(cart);
-
-            // Создаем новый объект CartItem и добавляем его в корзину
-            Repository.Save(new CartItem()
-            {
-                Cart = cart,
-                Product = Repository.GetById<Product>(ProductId) // Получаем продукт по его идентификатору
-            });
-        }
+            Cart = cart,
+            Product = Repository.GetById<Product>(ProductId) // Получаем продукт по его идентификатору
+        };
+        Repository.Save(cartItem);
     }
 }
-public class DeleteCartItemCommand :CommandBase
+
+
+public class DeleteCartItemCommand : CommandBase
 {
     public int Id { get; set; }
     protected override void Execute()

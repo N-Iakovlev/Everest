@@ -2,6 +2,7 @@
 using Incoding.Core.Quality;
 using Incoding.Data.NHibernate;
 using JetBrains.Annotations;
+using NHibernate.Mapping;
 
 
 namespace Everest.Domain;
@@ -12,16 +13,17 @@ public class Order : EverestEntityBase
     {
         New,
         Processing,
-        Shipped,
-        Completed
+        Completed,
+        Сanceled
     }
     public virtual OfStatus Status { get; set; }
     public virtual DateTime OrderDate { get; set; }
-    public virtual int UserId { get; set; }
     public virtual string Comment { get; set; }
     public virtual string Email { get; set; }
     public virtual string CreatorOrder { get; set; }
-
+    public virtual User User { get; set; }
+    
+    
 
     [UsedImplicitly, Obsolete(ObsoleteMessage.ClassNotForDirectUsage, true), ExcludeFromCodeCoverage]
     public class Map : NHibernateEntityMap<Order>
@@ -30,12 +32,12 @@ public class Order : EverestEntityBase
         {
 
             Id(o => o.Id).GeneratedBy.Identity();
-            MapEscaping(o => o.UserId);
             MapEscaping(o => o.Comment);
             MapEscaping(o => o.Email);
+            MapEscaping(o => o.OrderDate);
             MapEscaping(o => o.CreatorOrder);
             MapEscaping(o => o.Status).CustomType<OfStatus>();
-            MapEscaping(o => o.OrderDate);
+            References(o => o.User);
         }
     }
 }
@@ -44,10 +46,6 @@ public class OrderItem : EverestEntityBase
 {
     public virtual Order Order { get; set; }
     public virtual Product Product { get; set; }
-
-
-
-
 
 
     [UsedImplicitly, Obsolete(ObsoleteMessage.ClassNotForDirectUsage, true), ExcludeFromCodeCoverage]

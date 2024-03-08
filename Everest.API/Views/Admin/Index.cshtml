@@ -176,26 +176,7 @@
                                              <p>@DataResource.EditCategory</p>
                                          </text>))
                             </li>
-                            <li class="nav-item">
-                                @(Html.When(JqueryBind.Click)
-                                    .PreventDefault()
-                                    .OnSuccess(dsl =>
-                                    {
-                                        dsl.WithClass("nav-link").JQuery.Attr.RemoveClass(B.Active);
-                                        dsl.Self().JQuery.Attr.AddClass(B.Active);
-                                        dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/Admin/EmailSettings/Index.cshtml"), "EmailSettings");
-                                    })
-                                    .AsHtmlAttributes(new
-                                    {
-                                        @class = "nav-link",
-                                        href = "EmailSettings"
-                                    })
-                                    .ToTag(HtmlTag.A,
-                                @<text>
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>@DataResource.EmailSettings</p>
-                                </text>))
-                            </li>
+                         
                         </ul>
                     </nav>
                     <!-- /.sidebar-menu -->

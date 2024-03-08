@@ -1,3 +1,5 @@
+using System.Net.Mail;
+
 namespace Everest.API
 {
     #region << Using >>
@@ -48,6 +50,7 @@ namespace Everest.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var smtpSettings = this.configuration.GetSection("MailSettings").Get<MailSettings>();
             var connectionString = this.configuration.GetConnectionString("Main");
             LoggingFactory.Instance.Initialize(logging =>
             {
@@ -70,6 +73,9 @@ namespace Everest.API
                 options.MinimumSameSitePolicy = SameSiteMode.None;
                 options.Secure = CookieSecurePolicy.SameAsRequest;
             });
+            services.AddSingleton<IEmailService>(provider =>
+                new EmailService(smtpSettings.Server, smtpSettings.Port, smtpSettings.UserName, smtpSettings.Password));
+
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             services.AddAuthorization(options =>

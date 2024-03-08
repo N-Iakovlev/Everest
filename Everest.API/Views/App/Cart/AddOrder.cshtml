@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_DialogLayout.cshtml";
     ViewData["Title"] = DataResource.Order;
     ViewData["Url"] = Url.Dispatcher().Push<AddOrderCommand>();
-    ViewData["TriggerId"] = nameof(GetCartItemsByCurrentUserQuery);
+    ViewData["TriggerId"] = nameof(GetOrderQuery);
 }
 
 @Html.ForGroup(q => q.Comment).TextBox(control => { control.Label.Name = DataResource.Comment; })

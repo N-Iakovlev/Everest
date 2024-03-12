@@ -12,11 +12,8 @@
     {
         <div class="col-md-4">
             <div class="card d-flex justify-content-center align-items-center">
-                <!-- Добавлены классы d-flex, justify-content-center и align-items-center -->
                 <div class="card-body text-center">
-                    <!-- Добавлен класс text-center для центрирования содержимого -->
                     <div class="mb-3">
-                        <!-- Обернутые контейнеры для кнопки фото и заголовка -->
                         <img src="@(Url.Dispatcher().Query<GetAvatarProductQuery>(new { Id = each.For(q => q.Id) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: "avatar"))" />
                     </div>
 
@@ -30,7 +27,7 @@
                             .Ajax(Url.Dispatcher()
                             .Push<AddProductToCartCommand>(new { ProductId = each.For(q => q.Id) })) // Отправка команды на сервер с идентификатором продукта
                             .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm(@DataResource.ProductsAddToCart))) // Перед отправкой запроса, вывод диалогового окна для подтверждения действия
-                                                                                                                       //.OnSuccess(dsl => dsl.WithId(nameof(GetProductQuery)).Trigger.Incoding()) // После успешного завершения запроса, обновление данных страницы
+                            //.OnSuccess(dsl => dsl.WithId(nameof(GetProductQuery)).Trigger.Incoding()) // После успешного завершения запроса, обновление данных страницы
                             .AsHtmlAttributes(new { @class = "btn btn-primary" }) // Добавление HTML-атрибутов
                             .ToLink(@<text>
                     <i class="fas fa-pencil-alt"></i>

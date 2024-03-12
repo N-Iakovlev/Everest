@@ -448,6 +448,15 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Выбор категории.
+        /// </summary>
+        public static string SelectCategory {
+            get {
+                return ResourceManager.GetString("SelectCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Краткое описание.
         /// </summary>
         public static string ShortDescription {

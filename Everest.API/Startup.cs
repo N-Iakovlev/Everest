@@ -1,5 +1,3 @@
-using System.Net.Mail;
-
 namespace Everest.API
 {
     #region << Using >>
@@ -25,6 +23,7 @@ namespace Everest.API
     using Microsoft.AspNetCore.Http.Features;
     using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
     using Microsoft.AspNetCore.ResponseCompression;
+    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.DependencyInjection.Extensions;
     using Microsoft.Net.Http.Headers;
     using NHibernate.Cfg;
@@ -50,8 +49,8 @@ namespace Everest.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var smtpSettings = this.configuration.GetSection("MailSettings").Get<MailSettings>();
             var connectionString = this.configuration.GetConnectionString("Main");
+            var smtpSettings = configuration.GetSection("SmtpSettings").Get<MailSettings>();
             LoggingFactory.Instance.Initialize(logging =>
             {
                 var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Log");
@@ -66,16 +65,13 @@ namespace Everest.API
                     logging.WithPolicy(policy => policy.For(LogType.Trace).Use(FileLogger.WithoutReplace(path, () => "Trace_{0}.txt".F(DateTime.Now.ToString("yyyyMMdd")))));
                 }
             });
-
+            services.AddSingleton<EmailService>(provider => new EmailService(smtpSettings, provider.GetRequiredService<ILogger<EmailService>>()));
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
                 options.Secure = CookieSecurePolicy.SameAsRequest;
             });
-            services.AddSingleton<IEmailService>(provider =>
-                new EmailService(smtpSettings.Server, smtpSettings.Port, smtpSettings.UserName, smtpSettings.Password));
-
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             services.AddAuthorization(options =>

@@ -9,7 +9,7 @@ using Incoding.Core.CQRS.Core;
 public class GetProductQuery : QueryBase<List<GetProductQuery.Response>>
 {
     public string Search { get; set; }
-    public int CategoryId { get; set; } // Добавляем новое свойство для идентификатора категории
+    public int? CategoryId { get; set; } // Добавляем новое свойство для идентификатора категории
     protected override List<Response> ExecuteResult()
     {
     
@@ -20,9 +20,9 @@ public class GetProductQuery : QueryBase<List<GetProductQuery.Response>>
             query = query.Where(e => e.ProductName.Contains(Search));
         }
         // Фильтрация по категории продукта
-        if (CategoryId != 0) // Если выбрана конкретная категория
+        if (CategoryId.HasValue) // Если выбрана конкретная категория
         {
-            query = query.Where(e => e.Category.Id == CategoryId);
+            query = query.Where(e => e.Category.Id == CategoryId.Value);
         }
 
         return query.Select(q => new Response

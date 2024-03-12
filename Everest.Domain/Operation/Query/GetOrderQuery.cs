@@ -1,9 +1,4 @@
 ﻿using Incoding.Core.CQRS.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Everest.Domain
 {
@@ -40,8 +35,7 @@ namespace Everest.Domain
                     UserId = q.User.Id,
                     Comment = q.Comment,
                     Email = q.Email,
-                    
-                   
+
                 })
                 .ToList();
         }

@@ -9,17 +9,15 @@
                 .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/App/Cart/Tmpl.cshtml").Html())
                 .AsHtmlAttributes(new { @class = "col-sm-12 col-md-12", id = nameof(GetCartItemsByCurrentUserQuery) })
                 .ToDiv())
-            
-
-           @(Html.When(JqueryBind.Click)
-                .Ajax(Url.Dispatcher().Query(new AddOrderCommand()).AsView("~/Views/App/Cart/AddOrder.cshtml"))
+            @(Html.When(JqueryBind.Click)
+                .Ajax(Url.Dispatcher().Query(new AddOrderCommand.AsQuery()).AsView("~/Views/App/Cart/AddOrder.cshtml"))
                 .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
-                .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5" })
+                .OnSuccess(dsl => dsl.WithId(nameof(GetCartItemsByCurrentUserQuery)).Trigger.Incoding())
+                .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5 mt-3"  })
                 .ToButton(@<text>
                                <span>@DataResource.Checkout</span>
                            </text>))
             
-           
-        </div>
+            </div>
     </div>
 </div>

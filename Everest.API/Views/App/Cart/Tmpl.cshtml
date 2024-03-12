@@ -18,7 +18,7 @@
                 <tr>
                     <td colspan="3">
                         @DataResource.AddToCart @DataResource.Product
-                        </td>
+                    </td>
                 </tr>
             }
             @using (var each = template.ForEach())
@@ -32,17 +32,20 @@
                     </td>
                     <td>@(Html.When(JqueryBind.Click)
                             .Ajax(Url.Dispatcher().Push<DeleteCartItemCommand>(new { Id = each.For(q => q.Id) }))
-                              .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
+                            .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
                             .OnSuccess(dsl => dsl.WithId(nameof(GetCartItemsByCurrentUserQuery)).Trigger.Incoding())
-                              .AsHtmlAttributes()
-                              .ToLink(@<button type="submit" class="btn btn-sm btn-danger">
+                            .AsHtmlAttributes()
+                            .ToLink(@<button type="submit" class="btn btn-sm btn-danger">
                                 @DataResource.DeleteFromCart
-                              </button>))
-                </td>
+                            </button>))
+                    </td>
+
                 </tr>
+               
             }
 
             </tbody>
         </table>
+        
     }
 }

@@ -1,0 +1,134 @@
+﻿@using Everest.API
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-start">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a href="@Url.Action("Main", "Home")" class="brand-link">
+                <img src="@Url.Content("~/favicon.png")" alt="Everest Trade" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light">EVEREST TRADE</span>
+            </a>
+        </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="@Url.Action("Admin", "Home")" class="nav-link">
+                @DataResource.Admin
+            </a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="@Url.Action("Main", "Home")" class="nav-link">
+                @DataResource.Main
+            </a>
+        </li>
+    </ul>
+</nav>
+<!-- /.navbar -->
+<!-- Body -->
+<div class="container-fluid mx-1000 my-6">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs justify-content-center" role="tablist">
+        <li class="nav-item">
+            @(Html.When(JqueryBind.Click)
+                .PreventDefault()
+                .OnSuccess(dsl =>
+                {
+                    dsl.WithClass("nav-link").JQuery.Attr.RemoveClass(B.Active);
+                    dsl.Self().JQuery.Attr.AddClass(B.Active);
+                    dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/App/Product/Index.cshtml"), "Product");
+                })
+                .AsHtmlAttributes(new
+                {
+                    @class = "nav-link active",
+                    href = "Product"
+                })
+                .ToTag(HtmlTag.A,
+            @<text>
+                <i class="far fa-circle nav-icon"></i>
+                <p>@DataResource.Product</p>
+            </text>))
+        </li>
+        <li class="nav-item">
+            @(Html.When(JqueryBind.Click)
+                .PreventDefault()
+                .OnSuccess(dsl =>
+                {
+                    dsl.WithClass("nav-link").JQuery.Attr.RemoveClass(B.Active);
+                    dsl.Self().JQuery.Attr.AddClass(B.Active);
+                    dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/App/Employee/Index.cshtml"), "Employee");
+                })
+                .AsHtmlAttributes(new
+                {
+                    @class = "nav-link",
+                    href = "Employee"
+                })
+                .ToTag(HtmlTag.A,
+                    @<text>
+                         <i class="far fa-circle nav-icon"></i>
+                         <p>@DataResource.Employee</p>
+                     </text>))
+        </li>
+        <li class="nav-item">
+            @(Html.When(JqueryBind.Click)
+                .PreventDefault()
+                .OnSuccess(dsl =>
+                {
+                    dsl.WithClass("nav-link").JQuery.Attr.RemoveClass(B.Active);
+                    dsl.Self().JQuery.Attr.AddClass(B.Active);
+                    dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/App/Cart/Index.cshtml"), "Cart");
+                })
+                .AsHtmlAttributes(new
+                {
+                    @class = "nav-link",
+                    href = "Cart"
+                })
+                .ToTag(HtmlTag.A,
+                    @<text>
+                         <i class="far fa-circle nav-icon"></i>
+                         <p>@DataResource.Cart</p>
+                     </text>))
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div>
+            <div>
+                @(Html.When(JqueryBind.InitIncoding | JqueryBind.IncChangeUrl)
+                    .Hash()
+                    .OnBegin(dsl => { dsl.Break.If(() => Selector.Event.Type == "initincoding" && Selector.JS.Location.Hash == ""); })
+                    .OnBreak(dsl => dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/App/Product/Index.cshtml"), "Product"))
+                    .OnSuccess(dsl => { dsl.Self().Insert.Html().If(() => Selector.Result != ""); })
+                    .AsHtmlAttributes(classes: "row")
+                    .ToDiv())
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+<footer class="bd-footer py-4 py-md-5 mt-5 bg-body-tertiary">
+    <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
+        <div class="row">
+            <div class="col-6 col-lg-2 offset-lg-1 mb-3">
+                <h5>Адреса</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">Юридический адрес:</li>
+                    <li class="mb-2">Фактический адрес:</li>
+                </ul>
+            </div>
+            <div class="col-6 col-lg-2 mb-3">
+                <h5>@DataResource.Contacts</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"></li>
+                    <li class="mb-2">Email:</li>
+                    <li class="mb-2">Tel:</li>
+                    <li class="mb-2">Social:</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- /.footer -->

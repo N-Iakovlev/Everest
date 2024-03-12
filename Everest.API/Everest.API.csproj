@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\NewFolder\index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Incoding.Core" Version="1.3.0" />
     <PackageReference Include="Incoding.Web" Version="1.3.0" />
     <PackageReference Include="LigerShark.WebOptimizer.Core" Version="3.0.405" />
@@ -21,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\NewFolder\" />
     <Folder Include="wwwroot\js\app\" />
   </ItemGroup>
 
@@ -50,6 +55,13 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Views\Admin\Employee\tmpl.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\App\index.cshtml" />
+    <None Include="wwwroot\resources\images\apple.svg" />
+    <None Include="wwwroot\resources\images\dell.svg" />
+    <None Include="wwwroot\resources\images\hp.svg" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/aurora-1.1.json" /></VisualStudio></ProjectExtensions>

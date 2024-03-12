@@ -25,3 +25,34 @@
         </div>
     }
 }
+<div class="people">
+    <img src="@(Url.Dispatcher().Query<GetAvatarTestQuery>(new { Id = each.For(q => q.Id) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: "avatar"))" />
+
+    <span>
+        @each.For(q => q.FullName)
+    </span>
+
+    <span>
+        Главный бухгалтер
+    </span>
+
+    <a href="tel:+70000000002">
+        <span class="material-symbols-outlined">
+            @DataResource.Contacts:
+        </span>
+
+        <span>
+            @each.For(q => q.Contacts)
+        </span>
+    </a>
+
+    <a href="mailto:lermontov@mail.com">
+        <span class="material-symbols-outlined">
+            mail
+        </span>
+
+        <span>
+            lermontov@mail.com
+        </span>
+    </a>
+</div>

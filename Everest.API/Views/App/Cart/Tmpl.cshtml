@@ -23,29 +23,30 @@
             }
             @using (var each = template.ForEach())
             {
-                <tr>
-                    <td>
-                        @each.For(q => q.Product)
-                    </td>
-                    <td>
-                        @each.For(q => q.Price)
-                    </td>
-                    <td>@(Html.When(JqueryBind.Click)
-                            .Ajax(Url.Dispatcher().Push<DeleteCartItemCommand>(new { Id = each.For(q => q.Id) }))
-                            .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
-                            .OnSuccess(dsl => dsl.WithId(nameof(GetCartItemsByCurrentUserQuery)).Trigger.Incoding())
-                            .AsHtmlAttributes()
-                            .ToLink(@<button type="submit" class="btn btn-sm btn-danger">
-                                @DataResource.DeleteFromCart
-                            </button>))
-                    </td>
+            <tr>
+                <td>
+                    @each.For(q => q.Product)
+                </td>
+                <td>
+                    @each.For(q => q.Price)
+                </td>
+                <td>@(Html.When(JqueryBind.Click)
 
-                </tr>
-               
+                        .Ajax(Url.Dispatcher()
+                        .Push<DeleteCartItemCommand>(new { Id = each.For(q => q.Id) }))
+                        .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
+                        .OnSuccess(dsl => dsl.WithId(nameof(GetCartItemsByCurrentUserQuery)).Trigger.Incoding())
+                        .AsHtmlAttributes()
+                        .ToLink(@<button type="submit" class="btn btn-sm btn-danger">
+                            @DataResource.DeleteFromCart</button>))
+                </td>
+            </tr>
             }
-
+        <tr>
+        </tr>
             </tbody>
         </table>
         
     }
+
 }

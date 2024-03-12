@@ -20,7 +20,7 @@ public class Order : EverestEntityBase
     public virtual DateTime OrderDate { get; set; }
     public virtual string Comment { get; set; }
     public virtual string Email { get; set; }
-    public virtual string CreatorOrder { get; set; }
+    public virtual string CreatorOrderName { get; set; }
     public virtual User User { get; set; }
     
     
@@ -35,7 +35,7 @@ public class Order : EverestEntityBase
             MapEscaping(o => o.Comment);
             MapEscaping(o => o.Email);
             MapEscaping(o => o.OrderDate);
-            MapEscaping(o => o.CreatorOrder);
+            MapEscaping(o => o.CreatorOrderName);
             MapEscaping(o => o.Status).CustomType<OfStatus>();
             References(o => o.User);
         }

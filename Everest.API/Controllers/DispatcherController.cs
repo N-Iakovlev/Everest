@@ -17,12 +17,10 @@ namespace Everest.API.Controllers
     public class HomeController : Controller
     {
         private readonly IDispatcher _dispatcher;
-        private readonly EmailService _emailService;
 
-        public HomeController(IDispatcher dispatcher, EmailService emailService)
+        public HomeController(IDispatcher dispatcher)
         {
             _dispatcher = dispatcher;
-            _emailService = emailService;
         }
         public IActionResult Admin()
         {
@@ -32,19 +30,6 @@ namespace Everest.API.Controllers
         public IActionResult Main()
         {
             return View("~/Views/App/Index.cshtml");
-        }
-
-        public async Task<IActionResult> SendEmailDefault(string to, string subject, string body)
-        {
-           
-            await _emailService.SendEmailDefault(to, subject, body);
-            return Ok();
-        }
-
-
-        public IActionResult Index()
-        {
-            return View();
         }
     }
 

@@ -9,8 +9,9 @@
 <div class="row">
     <div class="col-sm-12 col-md-12">
         <div class="dt-buttons btn-group flex-wrap">
+     
             @(Html.When(JqueryBind.Click)
-                  .Ajax(Url.Dispatcher().Query(new AddOrEditEmployeeCommand.AsQuery()).AsView("~/Views/Admin/Employee/AddOrEdit.cshtml"))
+                .Ajax(Url.Dispatcher().Query(new AddOrEditEmployeeCommand.AsQuery()).AsView("~/Views/Admin/Employee/AddOrEdit.cshtml"))
                   .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
                   .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5" })
                   .ToButton(@<text>

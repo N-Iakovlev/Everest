@@ -11,6 +11,8 @@ namespace Everest.Domain
     public class GetCartItemsByCurrentUserQuery : QueryBase<List<GetCartItemsByCurrentUserQuery.Response>>
     {
         
+
+
         public class Response
         {
             public int Id { get; set; }

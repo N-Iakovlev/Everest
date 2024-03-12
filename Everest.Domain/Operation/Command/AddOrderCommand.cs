@@ -19,9 +19,10 @@ public class DeleteOrderCommand : CommandBase
 public class AddOrderCommand : CommandBase
 {
     public int Id { get; set; }
-    public string CreatorOrder { get; set; }
+    public string CreatorOrderName { get; set; }
     public string Email { get; set; }
     public string Comment { get; set; }
+    private readonly EmailService _emailService;
 
     protected override void Execute()
     {
@@ -32,18 +33,8 @@ public class AddOrderCommand : CommandBase
             .Where(q => q.Cart.User.Id == currentUser)
             .ToList();
 
-        // Проверяем, есть ли товары в корзине
-        if (cartItems.Count == 0)
-        {
-            // Если корзина пуста, выходим из метода
-            return;
-        }
-
-        // Создаем новый заказ
-        
-
         // Заполняем данные заказа
-        order.CreatorOrder = CreatorOrder;
+        order.CreatorOrderName = CreatorOrderName;
         order.Email = Email;
         order.Comment = Comment;
         order.Status = Order.OfStatus.New;
@@ -71,6 +62,22 @@ public class AddOrderCommand : CommandBase
         {
             Repository.Delete(cartItem);
         }
+        SendEmail(order);
+    }
+
+    private void SendEmail(Order order)
+    {
+        try
+        {
+            string subject = "Ваш заказ успешно создан";
+            string body = $"Ваш заказ №{order.Id} успешно создан.";
+            _emailService.SendEmailDefault(order.Email, subject, body).Wait();
+        }
+        catch (Exception ex)
+        {
+            // Обработка ошибок при отправке письма
+            Console.WriteLine("Ошибка при отправке письма: " + ex.Message);
+        }
     }
 
     public class Validator : AbstractValidator<AddOrderCommand>
@@ -78,7 +85,7 @@ public class AddOrderCommand : CommandBase
         public Validator()
         {
             RuleFor(order => order.Email).NotEmpty();
-            RuleFor(order => order.CreatorOrder).NotEmpty();
+            RuleFor(order => order.CreatorOrderName).NotEmpty();
         }
     }
     public class AsQuery : QueryBase<AddOrderCommand>
@@ -94,7 +101,7 @@ public class AddOrderCommand : CommandBase
             return new AddOrderCommand()
             {
                 Id = order.Id,
-                CreatorOrder = order.CreatorOrder,
+                CreatorOrderName = order.CreatorOrderName,
                 Email = order.Email,
                 Comment = order.Comment,
             };

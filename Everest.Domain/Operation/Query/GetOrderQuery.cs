@@ -22,7 +22,7 @@ namespace Everest.Domain
             {
                 { Order.OfStatus.New, "Новый" },
                 { Order.OfStatus.Processing, "В обработке" },
-                { Order.OfStatus.Сanceled, "Отправлен" },
+                { Order.OfStatus.Сanceled, "Отменен" },
                 { Order.OfStatus.Completed, "Завершен" },
             };
 

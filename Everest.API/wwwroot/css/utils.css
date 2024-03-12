@@ -1,0 +1,144 @@
+.d-flex {
+    display: flex;
+    flex-direction: row;
+}
+
+.d-flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.padding-05 {
+    padding: .5em;
+}
+
+.padding-1 {
+    padding: 1em;
+}
+
+.gap-05 {
+    gap: .5em;
+}
+
+.gap-1 {
+    gap: 1em;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 64;
+}
+
+.margin-l-auto {
+    margin-left: auto;
+}
+
+.width-fit {
+    width: fit-content;
+}
+
+.rounded {
+    border-radius: 1em;
+}
+
+.bordered {
+    border: solid 1px black;
+}
+
+.width-16 {
+    width: 16em;
+}
+
+.width-15 {
+    width: 15em;
+}
+
+.height-15 {
+    height: 15em;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.top-05 {
+    top: .5em;
+}
+
+.left-05 {
+    left: .5em;
+}
+
+.bg-white {
+    background-color: #fff;
+}
+
+.padding-x-05 {
+    padding-left: .5em;
+    padding-right: .5em;
+}
+
+.bottom-n05 {
+    bottom: -.5em;
+}
+
+.left-6 {
+    left: 6em;
+}
+
+.margin-b-1 {
+    margin-bottom: 1em;
+}
+
+.text-align-justify {
+    text-align: justify;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.width-half {
+    width: 50%;
+}
+
+.width-full {
+    width: 100%;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.padding-4 {
+    padding: 4em;
+}
+
+.bg-yellow {
+    background-color: #ffe600;
+}
+
+.shadowed {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.align-self-end {
+    align-self: end;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.overflow-x-hidden {
+    overflow-x: hidden;
+}

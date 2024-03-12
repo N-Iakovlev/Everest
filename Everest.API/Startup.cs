@@ -65,7 +65,7 @@ namespace Everest.API
                     logging.WithPolicy(policy => policy.For(LogType.Trace).Use(FileLogger.WithoutReplace(path, () => "Trace_{0}.txt".F(DateTime.Now.ToString("yyyyMMdd")))));
                 }
             });
-            services.AddSingleton<EmailService>(provider => new EmailService(smtpSettings, provider.GetRequiredService<ILogger<EmailService>>()));
+            services.AddSingleton<EmailService>(provider => new EmailService(smtpSettings));
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;

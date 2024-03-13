@@ -10,6 +10,13 @@
             .OnSuccess(dsl => { dsl.WithId(nameof(GetProductQuery)).Insert.WithTemplateByView("~/Views/App/Product/Tmpl.cshtml").Html(); })
             .AsHtmlAttributes(new { placeholder = @DataResource.ProductSearch })
             .ToInput(HtmlInputType.Text, String.Empty))
+            
+        @await Html.PartialAsync("~/Views/Shared/DropDown.cshtml", new DropDownModel
+        {
+            Text = "Фильтры",
+            Url = Url.Dispatcher().Query<GetCategoryForDDQuery>().AsJson(),
+            Template = "~/Views/Shared/DropDownItem_Tmpl.cshtml"
+        })
         <div>
             @(Html.When(JqueryBind.InitIncoding)
                 .Ajax(new GetProductQuery())

@@ -1,0 +1,9 @@
+﻿@using (var template = Html.Incoding().Template<KeyValueVm>())
+{
+    @using (var each = template.ForEach())
+    {
+        <li><a class="dropdown-item" href="javascript:void(0)" data-value="@each.For(s => s.Value)">@each.For(s => s.Text)</a></li>
+
+
+    }
+}

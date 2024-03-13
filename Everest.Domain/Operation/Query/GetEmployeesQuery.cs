@@ -19,6 +19,8 @@ public class GetEmployeesQuery : QueryBase<List<GetEmployeesQuery.Response>>
                             Id = q.Id,
                             FullName = $"{q.FirstName} {q.LastName}",
                             Contacts = $"{q.Phone} {q.Email}",
+                            Email = q.Email,
+                            Phone = q.Phone
                     })
                     .ToList();
     }
@@ -29,6 +31,8 @@ public class GetEmployeesQuery : QueryBase<List<GetEmployeesQuery.Response>>
 
         public string FullName { get; set; }
         public string Contacts { get; set; }
+        public string Phone {get; set; }
+        public string Email { get; set; }
     }
     
 }

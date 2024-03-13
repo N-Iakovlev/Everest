@@ -9,50 +9,35 @@
 
     @using (var each = template.ForEach())
     {
-        <div class="col-md-6">
-            <div class="card mb-6" style="max-width: 200px;">
-                <div class="card-body">
+        <div class="people">
+            <img src="@(Url.Dispatcher().Query<GetAvatarTestQuery>(new { Id = each.For(q => q.Id) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: "avatar"))"/>
+            <span>
+                @each.For(q => q.FullName)
+            </span>
 
-                    <td>
-                        <img src="@(Url.Dispatcher().Query<GetAvatarTestQuery>(new { Id = each.For(q => q.Id) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: "avatar"))"/>
-                    </td>
+            <span>
+                Должность
+            </span>
 
-                    
-                    <p class="card-text">@each.For(q => q.FullName)</p>
-                    @DataResource.Contacts: @each.For(q => q.Contacts)
-                </div>
-            </div>
+            <a href="tel:@each.For(q => q.Phone)">
+                <span class="material-symbols-outlined">
+                    call
+                </span>
+
+                <span>
+                    @each.For(q => q.Phone)
+                </span>
+            </a>
+
+            <a href="@each.For(q => q.Email)">
+                <span class="material-symbols-outlined">
+                    mail
+                </span>
+
+                <span>
+                    @each.For(q => q.Email)
+                </span>
+            </a>
         </div>
     }
 }
-<div class="people">
-    <img src="@(Url.Dispatcher().Query<GetAvatarTestQuery>(new { Id = each.For(q => q.Id) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: "avatar"))" />
-
-    <span>
-        @each.For(q => q.FullName)
-    </span>
-
-    <span>
-        Главный бухгалтер
-    </span>
-
-    <a href="tel:+70000000002">
-        <span class="material-symbols-outlined">
-            @DataResource.Contacts:
-        </span>
-
-        <span>
-            @each.For(q => q.Contacts)
-        </span>
-    </a>
-
-    <a href="mailto:lermontov@mail.com">
-        <span class="material-symbols-outlined">
-            mail
-        </span>
-
-        <span>
-            lermontov@mail.com
-        </span>
-    </a>
-</div>

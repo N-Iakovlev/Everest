@@ -58,7 +58,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\App\index.cshtml" />
+    <None Include="Views\App\Index.cshtml" />
     <None Include="wwwroot\resources\images\apple.svg" />
     <None Include="wwwroot\resources\images\dell.svg" />
     <None Include="wwwroot\resources\images\hp.svg" />

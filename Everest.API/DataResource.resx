@@ -217,7 +217,7 @@
     <value>Тип категории</value>
   </data>
   <data name="AddToCart" xml:space="preserve">
-    <value>Добавить в корзину</value>
+    <value>В корзину</value>
   </data>
   <data name="Total" xml:space="preserve">
     <value>Всего</value>

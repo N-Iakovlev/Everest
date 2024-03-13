@@ -10,32 +10,33 @@
 
     @using (var each = template.ForEach())
     {
-        <div class="col-md-4">
-            <div class="card d-flex justify-content-center align-items-center">
-                <div class="card-body text-center">
-                    <div class="mb-3">
-                        <img src="@(Url.Dispatcher().Query<GetAvatarProductQuery>(new { Id = each.For(q => q.Id) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: "avatar"))" />
-                    </div>
-
-                    <h2>@each.For(q => q.ProductName)</h2>
-                    <p>@each.For(q => q.ShortDescription)</p>
-                    <p><strong>@DataResource.Price:</strong> $@each.For(q => q.Price)</p>
-                    <div class="dt-buttons btn-group flex-wrap">
-
-
-                        @(Html.When(JqueryBind.Click)
-                            .Ajax(Url.Dispatcher()
-                            .Push<AddProductToCartCommand>(new { ProductId = each.For(q => q.Id) })) // Отправка команды на сервер с идентификатором продукта
-                            .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm(@DataResource.ProductsAddToCart))) // Перед отправкой запроса, вывод диалогового окна для подтверждения действия
-                            //.OnSuccess(dsl => dsl.WithId(nameof(GetProductQuery)).Trigger.Incoding()) // После успешного завершения запроса, обновление данных страницы
-                            .AsHtmlAttributes(new { @class = "btn btn-primary" }) // Добавление HTML-атрибутов
-                            .ToLink(@<text>
-                    <i class="fas fa-pencil-alt"></i>
-                    @DataResource.AddToCart
-                </text>))
-                    </div>
-                </div>
+        <div class="position-relative margin-b-1">
+            <div class="d-flex position-absolute top-05 left-05 gap-05">
+                <span class="bg-yellow rounded padding-x-05">
+                    @each.For(q => q.ProductName)
+                </span>
             </div>
+
+            <img src="@(Url.Dispatcher().Query<GetAvatarProductQuery>(new { Id = each.For(q => q.Id) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: "avatar"))" class="width-15 height-15 rounded">
+
+            
+                <!-- Кнопка для добавления товара в корзину с иконкой корзины и текстом -->
+                @(Html.When(JqueryBind.Click)
+                    .Ajax(Url.Dispatcher()
+                        .Push<AddProductToCartCommand>(new { ProductId = each.For(q => q.Id) }))
+                    .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm(@DataResource.ProductsAddToCart)))
+                    .AsHtmlAttributes(new { @class = "btn" })
+                    .ToLink(@<span>
+                        <i class="material-symbols-outlined">shopping_cart</i> <!-- Иконка корзины -->
+                        @DataResource.AddToCart
+                    </span>))
+           
+        </div>
+
+        <div class="padding-x-1"> 
+            <span class="text-align-justify">
+                @each.For(q => q.ShortDescription)
+            </span>
         </div>
     }
 }

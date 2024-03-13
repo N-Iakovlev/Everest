@@ -79,7 +79,7 @@ namespace Everest.API {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавить в корзину.
+        ///   Looks up a localized string similar to В корзину.
         /// </summary>
         public static string AddToCart {
             get {

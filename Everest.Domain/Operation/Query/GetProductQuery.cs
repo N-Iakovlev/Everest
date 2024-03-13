@@ -35,6 +35,7 @@ public class GetProductQuery : QueryBase<List<GetProductQuery.Response>>
                 ProductPhoto = q.ProductPhoto,
 
         })
+            
             .ToList();
     
     }

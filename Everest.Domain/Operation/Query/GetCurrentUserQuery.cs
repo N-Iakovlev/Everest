@@ -2,12 +2,6 @@
 using Incoding.Core.CQRS.Core;
 using Microsoft.AspNetCore.Http;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Everest.Domain;
 public class GetCurrentUserQuery : QueryBase<GetCurrentUserQuery.Response>
 {

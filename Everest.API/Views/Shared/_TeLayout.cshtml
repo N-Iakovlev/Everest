@@ -1,16 +1,14 @@
-﻿<html>
+@using Everest.API
+<html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Everest</title>
-    
-    
-
-    <link type="text/css" rel="stylesheet" href="@Url.Content("~/css/styles.css")" />
-    <link type="text/css" rel="stylesheet" href="@Url.Content("~/css/utils.css")" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <link rel="stylesheet" href="@Url.Content("~/css/styles.css")" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
     <link rel="shortcut icon" href="@Url.Content("~/favicon.png")" type="image/png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-VYQMSfv4YK5zjw8r2j9JbGJqKFqvvON1u9//gC5iJHs+3Ltwqf6+1Zb5bKkkXIEX4cXdPnEyLsjBfI1ULddqGg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js" integrity="sha512-emPswKmLFtjIzEQnECO0K1syIQhO9ZVE5eG+PtirksDTRPj4pDxBqnr8kF64UHO0kO/E6lYVAfCi/4X2aOk6Nw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -19,17 +17,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" integrity="sha512-7fNh7OUGa7bdpmSQ81iNxgBywspNTxVxBxfbT1gSnQ124VGfksj3AR/QGhdYaO8ZLHBLSoaa+VsVDgw795eBaw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="js/scripts.js"></script>
     <script src="@Url.Content("~/js/libs.js")"></script>
     @await RenderSectionAsync("Head", required: false)
+
     <script>
         TemplateFactory.Version = '@Guid.NewGuid().ToString()';
         ExecutableBase.IsDebug = true;
     </script>
+
 </head>
 
- <body>
+<body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="wrapper">
     @RenderBody()
+</div>
 </body>
 </html>

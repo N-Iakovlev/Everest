@@ -1,13 +1,15 @@
 ﻿@using Everest.API
 @using Everest.Domain
-@model Everest.Domain.AddOrEditCategoryCommand
+@model Everest.Domain.AddOrEditContentCommand
 @{
     Layout = "~/Views/Shared/_DialogLayout.cshtml";
     ViewData["Title"] = DataResource.Add;
-    ViewData["Url"] = Url.Dispatcher().Push<AddOrEditCategoryCommand>();
+    ViewData["Url"] = Url.Dispatcher().Push<AddOrEditContentCommand>();
     ViewData["TriggerId"] = nameof(GetContentQuery);
 }
 
 @Html.HiddenFor(q=>q.Id)
-
+@Html.ForGroup(q => q.ShortDescription).TextBox(control => { control.Label.Name = DataResource.ShortDescription; })
+@Html.ForGroup(q => q.LongDescription).TextBox(control => { control.Label.Name = DataResource.LongDescription; })
+@Html.ForGroup(q => q.ContentImage).File(control => { control.Label.Name = DataResource.Avatar; })
 

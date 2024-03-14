@@ -10,7 +10,7 @@
     @using (var each = template.ForEach())
     {
         <div class="people">
-            <img src="@(Url.Dispatcher().Query<GetAvatarTestQuery>(new { Id = each.For(q => q.Id) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: "avatar"))" />
+            <img src="@(Url.Dispatcher().Query<GetAvatarEmployeeQuery>(new { Id = each.For(q => q.Id) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: "avatar"))" />
             <span>
                 @each.For(q => q.FullName)
             </span>

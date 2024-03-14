@@ -1,0 +1,36 @@
+@using Everest.API
+@using Everest.Domain
+@using Incoding.Web.Extensions
+@{
+    Layout = "~/Views/Shared/_ContentLayout.cshtml";
+    ViewData["Header"] = DataResource.Partners;
+}
+
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div class="dt-buttons btn-group flex-wrap">
+     
+            @(Html.When(JqueryBind.Click)
+                .Ajax(Url.Dispatcher().Query(new AddOrEditPartnerCommand.AsQuery()).AsView("~/Views/Admin/Partners/AddOrEdit.cshtml"))
+                  .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
+                  .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5" })
+                  .ToButton(@<text>
+                                 <span>@DataResource.Add</span>
+                             </text>))
+            @(Html.When(JqueryBind.KeyUp)
+                  .Ajax(Url.Dispatcher().Query(new GetPartnerQuery()).AsJson().AppendToQueryString(new { Search = Selector.Jquery.Self() }))
+                  .OnSuccess(dsl =>
+                  {
+                    dsl.WithId(nameof(GetPartnerQuery)).Insert.WithTemplateByView("~/Views/Admin/Partner/Tmpl.cshtml").Html();
+                  })
+                  .AsHtmlAttributes(new { placeholder = @DataResource.SearchEmployee })
+                  .ToInput(HtmlInputType.Text,String.Empty))
+        </div>
+    </div>
+   @(Html.When(JqueryBind.InitIncoding)
+        .Ajax(new GetPartnerQuery())
+         .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/Admin/Employee/Tmpl.cshtml").Html())
+        .AsHtmlAttributes(new { @class = "col-sm-12 col-md-12", id = nameof(GetPartnerQuery) })
+         .ToDiv())
+   
+</div>

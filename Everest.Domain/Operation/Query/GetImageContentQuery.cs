@@ -6,20 +6,24 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace Everest.Domain;
 
-public  class GetAvatarProductQuery : QueryBase<byte[]>
+
+public class GetImageContentQuery : QueryBase<byte[]> 
 {
     public int Id { get; set; }
     protected override byte[] ExecuteResult()
     {
-        byte[] productImage = Repository.GetById<Product>(Id).ProductPhoto;
-    
-        // Сжимаем изображение до 290x300
-        using (var stream = new MemoryStream(productImage))
+        // Получаем изображение сотрудника по Id
+        byte[] contentImage = Repository.GetById<Content>(Id).ContentImage;
+
+        // Сжимаем изображение до 1920x1080
+        using (var stream = new MemoryStream(contentImage))
         {
             using (Image<Rgb24> image = Image.Load<Rgb24>(stream))
-    
+
             {
-                image.Mutate(x => x.Resize(290, 300));
+                image.Mutate(x => x.Resize(1920, 1080));
+
+                // Конвертируем сжатое изображение в массив байтов и возвращаем его
                 using (MemoryStream ms = new MemoryStream())
                 {
                     image.Save(ms, new JpegEncoder());
@@ -28,4 +32,5 @@ public  class GetAvatarProductQuery : QueryBase<byte[]>
             }
         }
     }
+
 }

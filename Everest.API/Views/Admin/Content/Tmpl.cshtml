@@ -7,8 +7,8 @@
             <thead>
             <tr>
                 <th></th>
-                <th></th>
-                <th></th>
+                <th>@DataResource.ShortDescription</th>
+                <th>@DataResource.Avatar</th>
             </tr>
             </thead>
             <tbody>
@@ -24,13 +24,38 @@
             {
                 <tr>
                     <td>
+                        @(Html.When(JqueryBind.Click)
+                            .Ajax(Url.Dispatcher()
+                                .Query<AddOrEditContentCommand.AsQuery>(new { Id = each.For(q => q.Id) })
+                                .AsView("~/Views/Admin/Content/AddOrEdit.cshtml"))
+                            .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
+                            .AsHtmlAttributes()
+                            .ToLink(@<text>
+                                         <i class="fas fa-pencil-alt">
+                                         </i>
+                                         @DataResource.Edit
+                                     </text>))
+
+                        @(Html.When(JqueryBind.Click)
+                            .Ajax(Url.Dispatcher()
+                            .Push<AddOrEditContentCommand>(new { Id = each.For(q => q.Id) }))
+                            .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
+                            .OnSuccess(dsl => dsl.WithId(nameof(GetContentQuery)).Trigger.Incoding())
+                            .AsHtmlAttributes()
+                            .ToLink(@<text>
+                                         <i class="fas fa-pencil-alt">
+                                         </i>
+                                         @DataResource.Delete
+                                     </text>))
 
                     </td>
                     <td>
-                       
+                        @each.For(q => q.LongDescription)
                     </td>
-                    <td>
-
+                        <td>
+                            <img src="@(Url.Dispatcher()
+                                      .Query<GetAvatarContentQuery>(new {Id = each.For(q=>q.Id)})
+                                      .AsFile(incContentType:"image/jpeg",incFileDownloadName:"avatar"))" />
                     </td>
                 </tr>
             }

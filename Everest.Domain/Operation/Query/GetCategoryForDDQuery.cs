@@ -1,5 +1,4 @@
-﻿using Everest.Domain;
-using Incoding.Core.CQRS.Core;
+﻿using Incoding.Core.CQRS.Core;
 using Incoding.Core.ViewModel;
 
 namespace Everest.Domain;

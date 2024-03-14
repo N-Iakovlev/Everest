@@ -1,18 +1,9 @@
 ﻿using Incoding.Core.CQRS.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Everest.Domain
 {
-    
     public class GetCartItemsByCurrentUserQuery : QueryBase<List<GetCartItemsByCurrentUserQuery.Response>>
     {
-        
-
-
         public class Response
         {
             public int Id { get; set; }
@@ -35,10 +26,7 @@ namespace Everest.Domain
                     Product = q.Product.ProductName,
                     ProductId = q.Product.Id,
                     Price = q.Product.Price,
-                    
-                 
                 })
-                                                       
                 .ToList();
         }
     }

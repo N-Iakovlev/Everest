@@ -4,6 +4,7 @@
 using FluentValidation;
 using HandlebarsDotNet;
 using Incoding.Core.CQRS.Core;
+using Microsoft.AspNetCore.Http;
 #endregion
 
 public class DeleteContentCommand : CommandBase
@@ -19,27 +20,36 @@ public class DeleteContentCommand : CommandBase
 public class AddOrEditContentCommand : CommandBase
 {
     public int? Id { get; set; }
+    public IFormFile ContentImage { get; set; }
     public string ShortDescription { get; set; }
     public string LongDescription { get; set; }
 
     protected override void Execute()
     {
         var isNew = Id.GetValueOrDefault() == 0;
-        Content pr = isNew ? new Content() : Repository.GetById<Content>(Id.GetValueOrDefault());
-        pr.ShortDescription = ShortDescription;
-        pr.LongDescription = LongDescription;
+        Content content = isNew ? new Content() : Repository.GetById<Content>(Id.GetValueOrDefault());
+        content.ShortDescription = ShortDescription;
+        content.LongDescription = LongDescription;
+        if (ContentImage != null && ContentImage.Length > 0)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                ContentImage.CopyTo(memoryStream);
+                content.ContentImage = memoryStream.ToArray(); 
+            }
+        }
 
-
-        Repository.SaveOrUpdate(pr);
+        Repository.SaveOrUpdate(content);
     }
 
     public class Validator : AbstractValidator<AddOrEditContentCommand>
     {
         public Validator()
         {
-            RuleFor(pr => pr.ShortDescription).NotEmpty();
-
+            RuleFor(content => content.ShortDescription).NotEmpty();
             
+
+
         }
     }
 
@@ -49,15 +59,15 @@ public class AddOrEditContentCommand : CommandBase
 
         protected override AddOrEditContentCommand ExecuteResult()
         {
-            var pr = Repository.GetById<Content>(Id);
-            if (pr == null)
+            var content = Repository.GetById<Content>(Id);
+            if (content == null)
                 return new AddOrEditContentCommand();
 
             return new AddOrEditContentCommand()
                    {
-                           Id = pr.Id,
-                           ShortDescription = pr.ShortDescription,
-                           LongDescription = pr.LongDescription,
+                           Id = content.Id,
+                           ShortDescription = content.ShortDescription,
+                           LongDescription = content.LongDescription,
                     };
         }
     }

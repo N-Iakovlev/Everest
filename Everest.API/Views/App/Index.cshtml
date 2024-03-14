@@ -1,168 +1,104 @@
-@using Everest.API
+п»ї@using Everest.API
 @using Everest.Domain
 @{
-Layout = "~/Views/Shared/_TestLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="content">
-    <div class="header">
+<!-- Navbar -->
+<div class="header">
     <div class="d-flex gap-05">
-        <a href="#content-info" class="btn">
+        <a href="@Url.Action("Main", "Home")" class="btn">
             <span class="material-symbols-outlined">
                 home
             </span>
-            <span>
-                Главная
-            </span>
+            <span>@DataResource.Main</span>
         </a>
-        <a href="#content-products" class="btn">
-            Продукция
-        </a>
-        <a href="#content-about" class="btn">
-            О нас
-        </a>
+        <a href="#content-products" class="btn">@DataResource.Product</a>
+        <a href="#content-about" class="btn">@DataResource.About</a>
     </div>
-    <div class="d-flex gap-05">
-        <a href="#contacts" class="btn">
-            Контакты
-        </a>
-        <a class="btn">
-            <span class="material-symbols-outlined">
-                shopping_cart
-            </span>
-            <span>
-                Корзина
-            </span>
-        </a>
-    </div>
-</div>
-    <div class="body d-flex-column">
-        <div id="content-info" class="height-full">
-    <div class="carousel">
-        <a class="prev btn" id="carousel-prev">
-            <span class="material-symbols-outlined">
-                chevron_left
-            </span>
-        </a>
-        <div class="d-flex overflow-x-hidden" id="carousel-container">
-            <div class="carousel-content show" name="carousel-item">
-                <img src="resources/images/carousel-1.jpg" class="image">
-                <div class="text">
-                    <h1>
-                        Нижегородский Кремль
-                    </h1>
-                    <span class="description">
-                        Крепость в историческом центре Нижнего Новгорода и его древнейшая часть, главный общественно-политический и историко-художественный комплекс города
-                    </span>
-                </div>
-            </div>
-            <div class="carousel-content" name="carousel-item">
-                <img src="resources/images/carousel-1.jpg" class="image">
-                <div class="text">
-                    <h1>
-                        Нижегородский Кремль
-                    </h1>
-                    <span class="description">
-                        Крепость в историческом центре Нижнего Новгорода и его древнейшая часть, главный общественно-политический и историко-художественный комплекс города
-                    </span>
-                </div>
-            </div>
-            <div class="carousel-content" name="carousel-item">
-                <img src="resources/images/carousel-1.jpg" class="image">
-                <div class="text">
-                    <h1>
-                        Нижегородский Кремль
-                    </h1>
-                    <span class="description">
-                        Крепость в историческом центре Нижнего Новгорода и его древнейшая часть, главный общественно-политический и историко-художественный комплекс города
-                    </span>
-                </div>
-            </div>
-        </div>
-        <a class="next btn" id="carousel-next">
-            <span class="material-symbols-outlined">
-                chevron_right
-            </span>
+    <div class="d-flex gap-05" style="margin-left: auto;">
+        <a href="#contacts" class="btn">@DataResource.Contacts</a>
+            @(Html.When(JqueryBind.Click)
+                .PreventDefault()
+                .OnSuccess(dsl => dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/App/Cart/Index.cshtml"), "Cart"))
+                .AsHtmlAttributes(new
+                {
+                    href = "Cart",
+                    @class = "btn"
+                })
+                .ToTag(HtmlTag.A,
+                    @<span>
+                        <span class="material-symbols-outlined">shopping_cart</span>
+                        @DataResource.Cart
+                    </span>))
+        <a href="@Url.Action("Admin", "Home")" class="btn">
+            <span>@DataResource.Admin</span>
         </a>
     </div>
 </div>
-        <div id="content-partners" class="d-flex-column gap-1 padding-1">
-    <h1>
-        Наши партнёры
-    </h1>
-    <div class="partners-list">
-        <a href="https://www.apple.com" class="partner">
-            <img src="resources/images/apple.svg">
-            <span>
-                Apple
-            </span>
-        </a>
-        <a href="https://www.hp.com" class="partner">
-            <img src="resources/images/hp.svg">
-            <span>
-                HP
-            </span>
-        </a>
-        <a href="https://www.dell.com" class="partner">
-            <img src="resources/images/dell.svg">
-            <span>
-                Dell
-            </span>
-        </a>
-        <a href="https://www.apple.com" class="partner">
-            <img src="resources/images/apple.svg">
-            <span>
-                Apple
-            </span>
-        </a>
-        <a href="https://www.hp.com" class="partner">
-            <img src="resources/images/hp.svg">
-            <span>
-                HP
-            </span>
-        </a>
-        <a href="https://www.dell.com" class="partner">
-            <img src="resources/images/dell.svg">
-            <span>
-                Dell
-            </span>
-        </a>
-        <a href="https://www.apple.com" class="partner">
-            <img src="resources/images/apple.svg">
-            <span>
-                Apple
-            </span>
-        </a>
-    </div>
-</div>
-        <div id="content-products" class="d-flex-column gap-1 padding-1">
-    <h1>
-        Продукция
-    </h1>
-    <div class="d-flex-column">
-        <div class="d-flex gap-05 padding-05">
-            <button class="btn">
-                <span class="material-symbols-outlined">
-                    sort
-                </span>
-                <span>
-                    Сортировка
-                </span>
-            </button>
-            <button class="btn">
-                <span class="material-symbols-outlined">
-                    filter_list
-                </span>
-                <span>
-                    Тип
-                </span>
-            </button>
-        </div>
-        @(Html.When(JqueryBind.InitIncoding)
-                 .Ajax(new GetProductQuery())
-                 .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/App/Product/Tmpl.cshtml").Html())
-                    .AsHtmlAttributes(new { @class = "d-flex gap-1 padding-05 overflow-x-hidden", id = "content-products" })
-                 .ToDiv())
+<!-- /navbar -->
+
         
+               
+<!-- Body -->
+<div class="body d-flex-column">
+    <div id="content-info" class="height-full">
+        <div class="carousel">
+            <a class="prev btn" id="carousel-prev">
+                <span class="material-symbols-outlined">
+                    chevron_left
+                </span>
+            </a>
+            <div class="d-flex overflow-x-hidden" id="carousel-container">
+                @(Html.When(JqueryBind.InitIncoding)
+                    .Ajax(new GetContentQuery())
+                    .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/App/Content/Tmpl.cshtml").Html())
+                    .AsHtmlAttributes(new { @class = "d-flex overflow-x-hiddenn", id = "carousel-container" })
+                    .ToDiv())
+            </div>
+            <a class="next btn" id="carousel-next">
+                <span class="material-symbols-outlined">
+                    chevron_right
+                </span>
+            </a>
+        </div>
+    </div>
+    <div id="content-partners" class="d-flex-column gap-1 padding-1">
+        <h1>
+            @DataResource.Partners
+        </h1>
+
+    </div>
+    <div id="content-products" class="d-flex-column gap-1 padding-1">
+        <h1>
+            @DataResource.Product
+        </h1>
+
+        <div class="d-flex-column">
+            <div class="d-flex gap-05 padding-05">
+                <button class="btn">
+                    <span class="material-symbols-outlined">
+                        sort
+                    </span>
+                    <span>
+                        РЎРѕСЂС‚РёСЂРѕРІРєР°
+                    </span>
+                </button>
+
+                <button class="btn">
+                    <span class="material-symbols-outlined">
+                        filter_list
+                    </span>
+
+                    <span>
+                        РўРёРї
+                    </span>
+                </button>
+            </div>
+            @(Html.When(JqueryBind.InitIncoding)
+                .Ajax(new GetProductQuery())
+                .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/App/Product/Tmpl.cshtml").Html())
+                .AsHtmlAttributes(new { @class = "d-flex gap-1 padding-05 overflow-x-hidden", id = "products" })
+                .ToDiv())
             <div class="padding-05">
                 <div class="d-flex gap-05 margin-l-auto width-fit">
                     <button class="btn" id="products-left">
@@ -170,140 +106,106 @@ Layout = "~/Views/Shared/_TestLayout.cshtml";
                             chevron_left
                         </span>
                     </button>
+
                     <button class="btn" id="products-right">
                         <span class="material-symbols-outlined">
                             chevron_right
                         </span>
                     </button>
+
                     <button class="btn">
-                        Показать всё
+                        РџРѕРєР°Р·Р°С‚СЊ РІСЃС‘
                     </button>
                 </div>
             </div>
         </div>
     </div>
-        <div id="content-contact" class="d-flex-column gap-1 padding-1">
+    <div id="content-contact" class="d-flex-column gap-1 padding-1">
         <h1>
-            Остались вопросы?
+            РћСЃС‚Р°Р»РёСЃСЊ РІРѕРїСЂРѕСЃС‹?
         </h1>
+
         <div class="d-flex-column gap-1">
             <span>
-                Позвоните по номеру +7 (000) 000-00-00 или напишите на почту mail@mail.com
+                РџРѕР·РІРѕРЅРёС‚Рµ РїРѕ РЅРѕРјРµСЂСѓ +7 (000) 000-00-00 РёР»Рё РЅР°РїРёС€РёС‚Рµ РЅР° РїРѕС‡С‚Сѓ mail@mail.com
             </span>
+
             <span>
-                Или оставьте свои контакты и мы с Вами свяжемся.
+                РР»Рё РѕСЃС‚Р°РІСЊС‚Рµ СЃРІРѕРё РєРѕРЅС‚Р°РєС‚С‹ Рё РјС‹ СЃ Р’Р°РјРё СЃРІСЏР¶РµРјСЃСЏ.
             </span>
+
             <div class="width-half d-flex-column gap-1 padding-1 bg-white rounded">
                 <div class="textbox">
                     <label>
-                        Как к вам обращаться?
+                        РљР°Рє Рє РІР°Рј РѕР±СЂР°С‰Р°С‚СЊСЃСЏ?
                     </label>
-                    <input type="text" placeholder="Имя" />
+
+                    <input type="text" placeholder="РРјСЏ" />
                 </div>
+
                 <div class="textbox">
                     <label>
-                        Как с вами связаться?
+                        РљР°Рє СЃ РІР°РјРё СЃРІСЏР·Р°С‚СЊСЃСЏ?
                     </label>
-                    <input type="text" placeholder="Номер телефона, email" />
+
+                    <input type="text" placeholder="РќРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°, email" />
                 </div>
+
                 <div class="textbox">
                     <label>
-                        Дополнительная информация
+                        Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ
                     </label>
-                    <textarea rows="8" placeholder="Опишите подробнее вашу проблему"></textarea>
+
+                    <textarea rows="8" placeholder="РћРїРёС€РёС‚Рµ РїРѕРґСЂРѕР±РЅРµРµ РІР°С€Сѓ РїСЂРѕР±Р»РµРјСѓ"></textarea>
                 </div>
+
                 <button class="btn width-fit align-self-end">
                     <span class="material-symbols-outlined">
                         mail
                     </span>
+
                     <span>
-                        Отправить запрос
+                        РћС‚РїСЂР°РІРёС‚СЊ Р·Р°РїСЂРѕСЃ
                     </span>
                 </button>
             </div>
         </div>
     </div>
-        <div id="content-about" class="d-flex-column gap-1 padding-1">
+    <div id="content-about" class="d-flex-column gap-1 padding-1">
         <h1>
-            О нас
+            Рћ РЅР°СЃ
         </h1>
+
         <div class="d-flex gap-1 about">
             <div class="d-flex-column gap-1 justify-content-between">
                 <span>
-                    Здание построено по проекту архитектора А. Т. Тимофеева в 1901 году по мотивам московско-ярославского зодчества XVII века.
+                    Р—РґР°РЅРёРµ РїРѕСЃС‚СЂРѕРµРЅРѕ РїРѕ РїСЂРѕРµРєС‚Сѓ Р°СЂС…РёС‚РµРєС‚РѕСЂР° Рђ. Рў. РўРёРјРѕС„РµРµРІР° РІ 1901 РіРѕРґСѓ РїРѕ РјРѕС‚РёРІР°Рј РјРѕСЃРєРѕРІСЃРєРѕ-СЏСЂРѕСЃР»Р°РІСЃРєРѕРіРѕ Р·РѕРґС‡РµСЃС‚РІР° XVII РІРµРєР°.
                     <br />
                     <br />
-                    Здание двухэтажное, кирпичное, в плане в форме буквы Г, имеет круговой опоясыващий и завершающий карнизы с сухариками. В здании высокие крыши со слуховыми окнами, широкие балконы по фасаду. На первом этаже здания — полуциркульные окна. Архитектурные элементы здания выделяются жёлтым и красным цветом. Территория перед музеем благоустроена. Здание имеет пристройки.
+                    Р—РґР°РЅРёРµ РґРІСѓС…СЌС‚Р°Р¶РЅРѕРµ, РєРёСЂРїРёС‡РЅРѕРµ, РІ РїР»Р°РЅРµ РІ С„РѕСЂРјРµ Р±СѓРєРІС‹ Р“, РёРјРµРµС‚ РєСЂСѓРіРѕРІРѕР№ РѕРїРѕСЏСЃС‹РІР°С‰РёР№ Рё Р·Р°РІРµСЂС€Р°СЋС‰РёР№ РєР°СЂРЅРёР·С‹ СЃ СЃСѓС…Р°СЂРёРєР°РјРё. Р’ Р·РґР°РЅРёРё РІС‹СЃРѕРєРёРµ РєСЂС‹С€Рё СЃРѕ СЃР»СѓС…РѕРІС‹РјРё РѕРєРЅР°РјРё, С€РёСЂРѕРєРёРµ Р±Р°Р»РєРѕРЅС‹ РїРѕ С„Р°СЃР°РґСѓ. РќР° РїРµСЂРІРѕРј СЌС‚Р°Р¶Рµ Р·РґР°РЅРёСЏ вЂ” РїРѕР»СѓС†РёСЂРєСѓР»СЊРЅС‹Рµ РѕРєРЅР°. РђСЂС…РёС‚РµРєС‚СѓСЂРЅС‹Рµ СЌР»РµРјРµРЅС‚С‹ Р·РґР°РЅРёСЏ РІС‹РґРµР»СЏСЋС‚СЃСЏ Р¶С‘Р»С‚С‹Рј Рё РєСЂР°СЃРЅС‹Рј С†РІРµС‚РѕРј. РўРµСЂСЂРёС‚РѕСЂРёСЏ РїРµСЂРµРґ РјСѓР·РµРµРј Р±Р»Р°РіРѕСѓСЃС‚СЂРѕРµРЅР°. Р—РґР°РЅРёРµ РёРјРµРµС‚ РїСЂРёСЃС‚СЂРѕР№РєРё.
                 </span>
+
                 <span>
-                    Адрес: Советская улица, 1, Камышин, Волгоградская область
+                    РђРґСЂРµСЃ: РЎРѕРІРµС‚СЃРєР°СЏ СѓР»РёС†Р°, 1, РљР°РјС‹С€РёРЅ, Р’РѕР»РіРѕРіСЂР°РґСЃРєР°СЏ РѕР±Р»Р°СЃС‚СЊ
                 </span>
             </div>
+
             <div class="d-flex-column gap-1">
                 <img class="image shadowed" src="resources/images/kamyshyn.png" alt="photo">
+
                 <img class="map shadowed" src="resources/images/map.png" alt="map">
             </div>
         </div>
     </div>
-        <div id="content-peoples" class="d-flex-column gap-1 padding-1">
+    <div id="content-peoples" class="d-flex-column gap-1 padding-1">
         <h1>
             @DataResource.Employee
         </h1>
-                @(Html.When(JqueryBind.InitIncoding)
-                    .Ajax(new GetEmployeesQuery())
-                    .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/App/Employee/Tmpl.cshtml").Html())
-                .AsHtmlAttributes(new { @class = "d-flex justify-content-center gap-1", id = "content-peoples" })
-                    .ToDiv())
-    </div>
-    </div>
-    <div class="footer" id="contacts">
-        <div class="navigation">
-            <span>Навигация по сайту</span>
-            <a href="#content-info">
-                Главная
-            </a>
-            <a href="#content-partners">
-                Наши партнёры
-            </a>
-            <a href="#content-products">
-                Продукция
-            </a>
-            <a href="#content-contact">
-                Оставить заявку
-            </a>
-            <a href="#content-about">
-                О нас
-            </a>
-            <a href="#content-peoples">
-                Представители
-            </a>
-            <a href="#cart">
-                Корзина
-            </a>
-        </div>
-        <div class="d-flex-column gap-1 info">
-            <a href="tel:+70000000000" class="d-flex gap-05">
-                <span class="material-symbols-outlined">
-                    call
-                </span>
-                <span>
-                    +7 (000) 000-00-00
-                </span>
-            </a>
-            <a href="mailto:company@mail.com" class="d-flex gap-05">
-                <span class="material-symbols-outlined">
-                    mail
-                </span>
-                <span>
-                    company@mail.com
-                </span>
-            </a>
-            <span>
-                OOO "OOO"
-            </span>
-            <span>
-                Российская Федерация, Ростовская область, город Таганрог, улица Фрунзе, дом 41
-            </span>
-        </div>
+          @(Html.When(JqueryBind.InitIncoding)
+              .Ajax(new GetEmployeesQuery())
+              .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/App/Employee/Tmpl.cshtml").Html())
+              .AsHtmlAttributes(new { @class = "d-flex justify-content-center gap-1"})
+              .ToDiv())
     </div>
 </div>
+<!-- /body -->

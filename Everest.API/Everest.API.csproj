@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\NewFolder\index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Incoding.Core" Version="1.3.0" />
     <PackageReference Include="Incoding.Web" Version="1.3.0" />
     <PackageReference Include="LigerShark.WebOptimizer.Core" Version="3.0.405" />
@@ -25,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\NewFolder\" />
     <Folder Include="wwwroot\js\app\" />
   </ItemGroup>
 
@@ -50,6 +45,8 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\Admin\Employee\tmpl.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Admin\Partners\AddOrEdit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Admin\Partners\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Shared\_ContentLayout.cshtml" />
   </ItemGroup>
 
@@ -58,12 +55,31 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\App\Index.cshtml" />
+    <None Include="Views\App\NewFolder\Index.cshtml" />
     <None Include="wwwroot\resources\images\apple.svg" />
     <None Include="wwwroot\resources\images\dell.svg" />
     <None Include="wwwroot\resources\images\hp.svg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Admin\Partners\Tmpl.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Shared\_Layout.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/aurora-1.1.json" /></VisualStudio></ProjectExtensions>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Admin\Partners\AddOrEdit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Admin\Partners\Index.cshtml" />
+  </ItemGroup>
 
 </Project>

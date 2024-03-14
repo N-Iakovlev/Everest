@@ -1,0 +1,27 @@
+﻿@using Everest.Domain
+@using Everest.API
+@using Incoding.Web.Extensions
+@using (var template = Html.Incoding().Template<GetContentQuery.Response>())
+{
+    @using (template.NotEach())
+    {
+        <div>@DataResource.Empty</div>
+    }
+
+    @using (var each = template.ForEach())
+    {
+        <div class="carousel-content" name="carousel-item">
+            <img src="@(Url.Dispatcher().Query<GetImageContentQuery>(new { Id = each.For(q => q.Id) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: "avatar"))" class="image">
+
+            <div class="text">
+                <h1>
+                    @each.For(q => q.ShortDescription)
+                </h1>
+
+                <span class="description">
+                    @each.For(q => q.LongDescription)
+                </span>
+            </div>
+        </div>
+    }
+}

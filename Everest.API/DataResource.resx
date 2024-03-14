@@ -174,8 +174,8 @@
   <data name="Empty" xml:space="preserve">
     <value>Нет совпадений</value>
   </data>
-  <data name="ProductSearch" xml:space="preserve">
-    <value>Поиск товара</value>
+  <data name="Search" xml:space="preserve">
+    <value>Поиск</value>
   </data>
   <data name="Category" xml:space="preserve">
     <value>Категория</value>
@@ -199,7 +199,7 @@
     <value>Электронная почта</value>
   </data>
   <data name="Contacts" xml:space="preserve">
-    <value>Контакты для связи</value>
+    <value>Контакты</value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Заказы</value>
@@ -235,7 +235,7 @@
     <value>Товар добавлен в корзину</value>
   </data>
   <data name="Cart" xml:space="preserve">
-    <value>Корзина покупок</value>
+    <value>Корзина</value>
   </data>
   <data name="DeleteFromCart" xml:space="preserve">
     <value>Удалить из корзины</value>
@@ -261,6 +261,19 @@
   <data name="SelectCategory" xml:space="preserve">
     <value>Выбор категории</value>
   </data>
-
-
+  <data name="About" xml:space="preserve">
+    <value>О нас</value>
+  </data>
+	<data name="Partners" xml:space="preserve">
+    <value>Патрнеры</value>
+  </data>
+	<data name="Lable" xml:space="preserve">
+    <value>Этикетка</value>
+  </data>
+  <data name="Site" xml:space="preserve">
+    <value>Сайт</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Компания</value>
+  </data>
 </root>

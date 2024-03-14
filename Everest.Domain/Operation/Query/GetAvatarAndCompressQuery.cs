@@ -12,7 +12,7 @@ public class GetAvatarAndCompressQuery : QueryBase<byte[]>
         // Получаем изображение сотрудника по Id
         byte[] employeeImage = Repository.GetById<Employee>(Id).Avatar;
 
-        // Сжимаем изображение до 80x80
+        // Сжимаем изображение до 235x210
         using (var stream = new MemoryStream(employeeImage))
         {
             var imgPhoto = Image.FromStream(stream);
@@ -24,8 +24,8 @@ public class GetAvatarAndCompressQuery : QueryBase<byte[]>
             int destY = 0;
 
             float nPercent = 0;
-            int destWidth = 80;
-            int destHeight = 80;
+            int destWidth = 235;
+            int destHeight = 210;
 
             Bitmap bmPhoto = new Bitmap(destWidth, destHeight, PixelFormat.Format24bppRgb);
             bmPhoto.SetResolution(imgPhoto.HorizontalResolution, imgPhoto.VerticalResolution);

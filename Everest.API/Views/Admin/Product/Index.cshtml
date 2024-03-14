@@ -22,7 +22,7 @@
                           @(Html.When(JqueryBind.KeyUp)
                               .Ajax(Url.Dispatcher().Query(new GetProductQuery()).AsJson().AppendToQueryString(new { Search = Selector.Jquery.Self() }))
                               .OnSuccess(dsl => { dsl.WithId(nameof(GetProductQuery)).Insert.WithTemplateByView("~/Views/Admin/Product/Tmpl.cshtml").Html(); })
-                              .AsHtmlAttributes(new { placeholder = @DataResource.ProductSearch })
+                              .AsHtmlAttributes(new { placeholder = @DataResource.Search })
                               .ToInput(HtmlInputType.Text, String.Empty))
                       </div>
     </div>

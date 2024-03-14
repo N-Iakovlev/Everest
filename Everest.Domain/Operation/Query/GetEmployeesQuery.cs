@@ -22,7 +22,6 @@ public class GetEmployeesQuery : QueryBase<List<GetEmployeesQuery.Response>>
                             Email = q.Email,
                             Phone = q.Phone
                     })
-                    .Take(3)
                     .ToList();
     }
 

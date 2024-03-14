@@ -28,7 +28,7 @@ public class CloseCartCommand : CommandBase
         order.Email = Email;
         order.Comment = Comment;
         order.Status = Order.OfStatus.New;
-        order.OrderDate = DateTime.UtcNow;
+        order.OrderDate = DateTime.Now;
         order.User = Repository.LoadById<User>(currentUser);
 
         foreach (var cartItem in cartItems)

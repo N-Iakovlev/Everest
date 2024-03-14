@@ -13,7 +13,7 @@ public class Content : EverestEntityBase
 {
     public virtual string ShortDescription { get; set; }
     public virtual string LongDescription { get; set; }
-    public virtual byte[] ContentPhoto { get; set; }
+    public virtual byte[] ContentImage { get; set; }
 
     [UsedImplicitly, Obsolete(ObsoleteMessage.ClassNotForDirectUsage, true), ExcludeFromCodeCoverage]
     public class Map : NHibernateEntityMap<Content>
@@ -23,7 +23,7 @@ public class Content : EverestEntityBase
             Id(q => q.Id).GeneratedBy.Identity();
             MapEscaping(q => q.ShortDescription);
             MapEscaping(q => q.LongDescription);
-            MapEscaping(pr => pr.ContentPhoto).Length(int.MaxValue);
+            MapEscaping(q => q.ContentImage).Length(int.MaxValue);
         }
     }
 }

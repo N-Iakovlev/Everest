@@ -1,0 +1,17 @@
+﻿@using Everest.API
+@using Everest.Domain
+@model Everest.Domain.AddOrEditPartnerCommand
+@{
+    Layout = "~/Views/Shared/_DialogLayout.cshtml";
+    ViewData["Title"] = DataResource.Add;
+    ViewData["Url"] = Url.Dispatcher().Push<AddOrEditPartnerCommand>();
+    ViewData["TriggerId"] = nameof(GetPartnerQuery);
+}
+
+@Html.HiddenFor(q=>q.Id)
+@Html.ForGroup(q => q.CompanyName).TextBox(control => { control.Label.Name = DataResource.CompanyName; })
+@Html.ForGroup(q => q.Site).TextBox(control => { control.Label.Name = DataResource.Site; })
+@Html.ForGroup(q => q.Label).File(control => { control.Label.Name = DataResource.Lable; })
+
+
+

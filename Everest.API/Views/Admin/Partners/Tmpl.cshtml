@@ -8,8 +8,8 @@
             <tr>
                 <th></th>
                 <th>@DataResource.CompanyName</th>
-                <th>@DataResource.Site</th>
-                <th>@DataResource.Lable</th>
+                <th>@DataResource.Contacts</th>
+                <th>@DataResource.Avatar</th>
                 
             </tr>
             </thead>
@@ -41,7 +41,7 @@
 
                         @(Html.When(JqueryBind.Click)
                               .Ajax(Url.Dispatcher()
-                                       .Push<DeletePartnerCommand>(new { Id = each.For(q => q.Id) }))
+                                .Push<DeletePartnerCommand>(new { Id = each.For(q => q.Id) }))
                                        .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
                                        .OnSuccess(dsl => dsl.WithId(nameof(GetPartnerQuery)).Trigger.Incoding())
                                        .AsHtmlAttributes()

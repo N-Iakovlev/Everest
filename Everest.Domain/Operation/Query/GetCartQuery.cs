@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using Incoding.Core.CQRS.Core;
-using Everest.Domain;
+﻿using Incoding.Core.CQRS.Core;
 
 namespace Everest.Domain
 {

@@ -17,17 +17,19 @@
     </div>
     <div class="d-flex gap-05" style="margin-left: auto;">
         <a href="#contacts" class="btn">@DataResource.Contacts</a>
-            @(Html.When(JqueryBind.Click)
-                .PreventDefault()
+
+        @(Html.When(JqueryBind.Click)
                 .OnSuccess(dsl => dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/App/Cart/Index.cshtml"), "Cart"))
                 .AsHtmlAttributes(new {
-                    href = "Cart",
+                href = @Url.Action("Cart", "Home"),
                     @class = "btn"})
                 .ToTag(HtmlTag.A,
                     @<span>
                         <span class="material-symbols-outlined">shopping_cart</span>
                         @DataResource.Cart
                     </span>))
+        
+
         <a href="@Url.Action("Admin", "Home")" class="btn">
             <span>@DataResource.Admin</span>
         </a>

@@ -31,6 +31,10 @@ namespace Everest.API.Controllers
         {
             return View("~/Views/App/Index.cshtml");
         }
+        public IActionResult Cart()
+        {
+            return View("~/Views/App/Cart/Index.cshtml");
+        }
     }
 
     [AllowAnonymous]

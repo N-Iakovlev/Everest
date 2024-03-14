@@ -4,9 +4,10 @@
 @using Incoding.Core.CQRS
 @using Incoding.Web.CQRS.Common.Command
 
-
-<div class="row">
-    <input></input>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content">
     <div class="col-sm-12 col-md-12">
         <div class="dt-buttons btn-group flex-wrap">
             @(Html.When(JqueryBind.InitIncoding)
@@ -19,12 +20,7 @@
             @if (Html.Dispatcher().Query(new GetCartItemsByCurrentUserQuery()).Any())
             {
                 @(Html.When(JqueryBind.Click)
-                    .Ajax(Url.Dispatcher().Push(new CloseCartCommand
-                    {
-                        CreatorOrderName = "",
-                        Email = Selector.Jquery.Self().Val()
-
-                    }))
+                    .Ajax(Url.Dispatcher().Push(new CloseCartCommand()))
                     .OnSuccess(dsl =>
                     {
                         dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append();

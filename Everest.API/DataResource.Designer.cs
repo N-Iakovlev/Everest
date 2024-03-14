@@ -106,6 +106,15 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Адрес.
+        /// </summary>
+        public static string Adress {
+            get {
+                return ResourceManager.GetString("Adress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Фото.
         /// </summary>
         public static string Avatar {
@@ -160,7 +169,7 @@ namespace Everest.API {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Оформить заказ.
+        ///   Looks up a localized string similar to Оформить.
         /// </summary>
         public static string Checkout {
             get {
@@ -232,7 +241,7 @@ namespace Everest.API {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Удалить из корзины.
+        ///   Looks up a localized string similar to Удалить.
         /// </summary>
         public static string DeleteFromCart {
             get {
@@ -358,6 +367,15 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Навигация по сайту.
+        /// </summary>
+        public static string Navigation {
+            get {
+                return ResourceManager.GetString("Navigation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Заказы.
         /// </summary>
         public static string Order {
@@ -385,7 +403,7 @@ namespace Everest.API {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ы.
+        ///   Looks up a localized string similar to Телефон.
         /// </summary>
         public static string Phone {
             get {

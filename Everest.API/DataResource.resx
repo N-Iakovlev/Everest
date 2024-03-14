@@ -193,7 +193,7 @@
     <value>Производитель</value>
   </data>
   <data name="Phone" xml:space="preserve">
-    <value>Телефон для связи</value>ы
+    <value>Телефон</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Электронная почта</value>
@@ -238,10 +238,10 @@
     <value>Корзина</value>
   </data>
   <data name="DeleteFromCart" xml:space="preserve">
-    <value>Удалить из корзины</value>
+    <value>Удалить</value>
   </data>
   <data name="Checkout" xml:space="preserve">
-    <value>Оформить заказ</value>
+    <value>Оформить</value>
   </data>
   <data name="EmailSettings" xml:space="preserve">
     <value>Настрйки Email</value>
@@ -276,4 +276,10 @@
   <data name="CompanyName" xml:space="preserve">
     <value>Компания</value>
   </data>
+  <data name="Adress" xml:space="preserve">
+    <value>Адрес</value>
+  </data>
+  <data name="Navigation" xml:space="preserve">
+    <value>Навигация по сайту</value>
+  </data>	
 </root>

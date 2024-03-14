@@ -15,7 +15,7 @@ public class DeletePartnerCommand : CommandBase
 
     protected override void Execute()
     {
-        Repository.Delete(Repository.GetById<Content>(Id));
+        Repository.Delete(Repository.GetById<Partner>(Id));
     }
 }
 
@@ -30,8 +30,6 @@ public class AddOrEditPartnerCommand : CommandBase
     {
         var isNew = Id.GetValueOrDefault() == 0;
         Partner partner = isNew ? new Partner() : Repository.GetById<Partner>(Id.GetValueOrDefault());
-        partner.Site = Site;
-        partner.CompanyName = CompanyName;
         if (Label != null && Label.Length > 0)
         {
             using (var memoryStream = new MemoryStream())
@@ -40,6 +38,8 @@ public class AddOrEditPartnerCommand : CommandBase
                 partner.Label = memoryStream.ToArray();
             }
         }
+        partner.Site = Site;
+        partner.CompanyName = CompanyName;
 
         Repository.SaveOrUpdate(partner);
     }

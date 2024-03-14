@@ -1,21 +1,25 @@
 ﻿@using Everest.API
 @using Everest.Domain
 @{
-    using (var template = Html.Incoding().Template<GetContentQuery.Response>())
+    using (var template = Html.Incoding().Template<GetContactsQuery.Response>())
     {
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
                 <th></th>
-                <th></th>
-                <th></th>
+                <th>@DataResource.CompanyName</th>
+                <th>@DataResource.Email</th>
+                <th>@DataResource.Phone</th>
+                <th>@DataResource.Site</th>
+                <th>@DataResource.Adress</th>
+               
             </tr>
             </thead>
             <tbody>
             @using (template.NotEach())
             {
                 <tr>
-                    <td colspan="3">
+                    <td colspan="6">
                         @DataResource.Empty
                     </td>
                 </tr>
@@ -24,14 +28,47 @@
             {
                 <tr>
                     <td>
+                        @(Html.When(JqueryBind.Click)
+                            .Ajax(Url.Dispatcher()
+                                .Query<AddOrEditContactsCommand.AsQuery>(new { Id = each.For(q => q.Id) })
+                                .AsView("~/Views/Admin/Contacts/AddOrEdit.cshtml"))
+                            .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
+                            .AsHtmlAttributes()
+                            .ToLink(@<text>
+                                         <i class="fas fa-pencil-alt">
+                                         </i>
+                                         @DataResource.Edit
+                                     </text>))
 
+
+                        @(Html.When(JqueryBind.Click)
+                            .Ajax(Url.Dispatcher()
+                            .Push<AddOrEditContactsCommand>(new { Id = each.For(q => q.Id) }))
+                            .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
+                            .OnSuccess(dsl => dsl.WithId(nameof(GetContactsQuery)).Trigger.Incoding())
+                            .AsHtmlAttributes()
+                            .ToLink(@<text>
+                                         <i class="fas fa-pencil-alt">
+                                         </i>
+                                         @DataResource.Delete
+                                     </text>))
                     </td>
                     <td>
-                       
+                        @each.For(q => q.Company)
                     </td>
                     <td>
-
+                        @each.For(q => q.Email)
                     </td>
+                    <td>
+                        @each.For(q => q.Phone)
+                    </td>
+                    <td>
+                        @each.For(q => q.Domen)
+                    </td>
+                    <td>
+                        @each.For(q => q.Adress)
+                    </td>
+                     
                 </tr>
             }
 

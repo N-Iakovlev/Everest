@@ -16,13 +16,13 @@ public class GetLabelPartnerQuery : QueryBase<byte[]>
        
         byte[] label = Repository.GetById<Partner>(Id).Label;
 
-        // Сжимаем изображение до 235x210
+        // Сжимаем изображение до 80x80
         using (var stream = new MemoryStream(label))
         {
             using (Image<Rgb24> image = Image.Load<Rgb24>(stream))
     
             {
-                image.Mutate(x => x.Resize(235, 210));
+                image.Mutate(x => x.Resize(80, 80));
 
                 using (MemoryStream ms = new MemoryStream())
                 {

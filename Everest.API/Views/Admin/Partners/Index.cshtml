@@ -21,15 +21,15 @@
                   .Ajax(Url.Dispatcher().Query(new GetPartnerQuery()).AsJson().AppendToQueryString(new { Search = Selector.Jquery.Self() }))
                   .OnSuccess(dsl =>
                   {
-                    dsl.WithId(nameof(GetPartnerQuery)).Insert.WithTemplateByView("~/Views/Admin/Partner/Tmpl.cshtml").Html();
+                    dsl.WithId(nameof(GetPartnerQuery)).Insert.WithTemplateByView("~/Views/Admin/Partners/Tmpl.cshtml").Html();
                   })
-                  .AsHtmlAttributes(new { placeholder = @DataResource.SearchEmployee })
+                  .AsHtmlAttributes(new { placeholder = @DataResource.Search })
                   .ToInput(HtmlInputType.Text,String.Empty))
         </div>
     </div>
    @(Html.When(JqueryBind.InitIncoding)
         .Ajax(new GetPartnerQuery())
-         .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/Admin/Employee/Tmpl.cshtml").Html())
+        .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/Admin/Partners/Tmpl.cshtml").Html())
         .AsHtmlAttributes(new { @class = "col-sm-12 col-md-12", id = nameof(GetPartnerQuery) })
          .ToDiv())
    

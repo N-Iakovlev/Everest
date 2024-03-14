@@ -1,0 +1,29 @@
+﻿@using Everest.Domain
+@using Everest.API
+@using Incoding.Web.Extensions
+@using (var template = Html.Incoding().Template<GetContactsQuery.Response>())
+{
+    @using (template.NotEach())
+    {
+        <div>@DataResource.Empty</div>
+    }
+
+    @using (var each = template.ForEach())
+    {
+        <a href="tel:+ @each.For(q => q.Phone)" class="d-flex gap-05">
+                <span class="material-symbols-outlined">call</span>
+
+                <span>+@each.For(q => q.Phone)</span>
+                </a>
+
+        <a href=" @each.For(q => q.Email)" class="d-flex gap-05">
+                <span class="material-symbols-outlined">mail</span>
+
+                <span>@each.For(q => q.Email)</span>
+            </a>
+
+            <span>@each.For(q => q.Company)</span>
+
+            <span>@each.For(q => q.Adress)</span>
+    }
+}

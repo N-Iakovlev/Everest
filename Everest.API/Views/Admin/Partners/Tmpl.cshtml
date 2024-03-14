@@ -29,7 +29,7 @@
                         @(Html.When(JqueryBind.Click)
                               .Ajax(Url.Dispatcher()
                                        .Query<AddOrEditPartnerCommand.AsQuery>(new { Id = each.For(q => q.Id) })
-                                       .AsView("~/Views/Admin/Partner/AddOrEdit.cshtml"))
+                                       .AsView("~/Views/Admin/Partners/AddOrEdit.cshtml"))
                                        .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
                                        .AsHtmlAttributes()
                                        .ToLink(@<text>

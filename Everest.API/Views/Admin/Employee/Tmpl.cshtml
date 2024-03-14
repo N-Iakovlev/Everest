@@ -1,69 +1,71 @@
-﻿@using Everest.API
-@using Everest.Domain
+﻿@using Everest.Domain
+@using Everest.API
+
 @{
-    using (var template = Html.Incoding().Template<GetPartnerQuery.Response>())
+    using (var template = Html.Incoding().Template<GetEmployeesQuery.Response>())
     {
         <table class="table table-bordered table-hover">
             <thead>
-            <tr>
-                <th></th>
-                <th>@DataResource.CompanyName</th>
-                <th>@DataResource.Site</th>
-                <th>@DataResource.Lable</th>
-                
-            </tr>
+                <tr>
+                    <th></th>
+                    <th>@DataResource.FullName</th>
+                    <th>@DataResource.Contacts</th>
+                    <th>@DataResource.Avatar</th>
+
+                </tr>
             </thead>
             <tbody>
-            @using (template.NotEach())
-            {
-                <tr>
-                    <td colspan="4">
-                        @DataResource.Empty
-                    </td>
-                </tr>
-            }
-            @using (var each = template.ForEach())
-            {
-                <tr>
-                    <td>
-                        @(Html.When(JqueryBind.Click)
-                              .Ajax(Url.Dispatcher()
-                                       .Query<AddOrEditPartnerCommand.AsQuery>(new { Id = each.For(q => q.Id) })
-                                       .AsView("~/Views/Admin/Partner/AddOrEdit.cshtml"))
-                                       .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
-                                       .AsHtmlAttributes()
-                                       .ToLink(@<text>
-                                           <i class="fas fa-pencil-alt">
-                                           </i>
-                                           @DataResource.Edit
-                                       </text>))
+                @using (template.NotEach())
+                {
+                    <tr>
+                        <td colspan="4">
+                            @DataResource.Empty
+                        </td>
+                    </tr>
+                }
+                @using (var each = template.ForEach())
+                {
+                    <tr>
+                        <td>
+                            @(Html.When(JqueryBind.Click)
+                            .Ajax(Url.Dispatcher()
+                            .Query<AddOrEditEmployeeCommand.AsQuery>(new { Id = each.For(q => q.Id) })
+                            .AsView("~/Views/Admin/Employee/AddOrEdit.cshtml"))
+                            .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
+                            .AsHtmlAttributes()
+                            .ToLink(@<text>
+                        <i class="fas fa-pencil-alt">
+                        </i>
+                        @DataResource.Edit
+                    </text>))
 
 
-                        @(Html.When(JqueryBind.Click)
-                              .Ajax(Url.Dispatcher()
-                                       .Push<DeletePartnerCommand>(new { Id = each.For(q => q.Id) }))
-                                       .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
-                                       .OnSuccess(dsl => dsl.WithId(nameof(GetPartnerQuery)).Trigger.Incoding())
-                                       .AsHtmlAttributes()
-                                       .ToLink(@<text>
-                                                    <i class="fas fa-pencil-alt">
-                                                    </i>
-                                                    @DataResource.Delete
-                                                </text>))
-                    </td>
-                    <td>
-                        @each.For(q => q.CompanyName)
-                        
-                    </td>
-                    <td>@each.For(q => q.Site)
-                    </td>
-                    <td>
-                        <img src="@(Url.Dispatcher()
-                                      .Query<GetLabelPartnerQuery>(new {Id = each.For(q=>q.Id)})
-                                      .AsFile(incContentType:"image/jpeg",incFileDownloadName:"avatar"))" /> 
-                    </td>
-                </tr>
-            }
+                            @(Html.When(JqueryBind.Click)
+                            .Ajax(Url.Dispatcher()
+                            .Push<DeleteEmployeeCommand>(new { Id = each.For(q => q.Id) }))
+                            .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
+                            .OnSuccess(dsl => dsl.WithId(nameof(GetEmployeesQuery)).Trigger.Incoding())
+                            .AsHtmlAttributes()
+                            .ToLink(@<text>
+                        <i class="fas fa-pencil-alt">
+                        </i>
+                        @DataResource.Delete
+                    </text>))
+                        </td>
+                        <td>
+                            @each.For(q => q.FullName)
+
+                        </td>
+                        <td>
+                            @each.For(q => q.Contacts)
+                        </td>
+                        <td>
+                            <img src="@(Url.Dispatcher()
+                                      .Query<GetAvatarEmployeeQuery>(new {Id = each.For(q=>q.Id)})
+                                      .AsFile(incContentType:"image/jpeg",incFileDownloadName:"avatar"))" />
+                        </td>
+                    </tr>
+                }
 
             </tbody>
         </table>

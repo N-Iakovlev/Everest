@@ -20,11 +20,9 @@
             @(Html.When(JqueryBind.Click)
                 .PreventDefault()
                 .OnSuccess(dsl => dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/App/Cart/Index.cshtml"), "Cart"))
-                .AsHtmlAttributes(new
-                {
+                .AsHtmlAttributes(new {
                     href = "Cart",
-                    @class = "btn"
-                })
+                    @class = "btn"})
                 .ToTag(HtmlTag.A,
                     @<span>
                         <span class="material-symbols-outlined">shopping_cart</span>
@@ -37,8 +35,6 @@
 </div>
 <!-- /navbar -->
 
-        
-               
 <!-- Body -->
 <div class="body d-flex-column">
     <div id="content-info" class="height-full">
@@ -66,6 +62,12 @@
         <h1>
             @DataResource.Partners
         </h1>
+        @(Html.When(JqueryBind.InitIncoding)
+            .Ajax(new GetPartnerQuery())
+            .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/App/Partners/Tmpl.cshtml").Html())
+            .AsHtmlAttributes(new { @class = "partners-list", id = "content-partners" })
+            .ToDiv())
+
 
     </div>
     <div id="content-products" class="d-flex-column gap-1 padding-1">
@@ -173,7 +175,7 @@
     </div>
     <div id="content-about" class="d-flex-column gap-1 padding-1">
         <h1>
-            О нас
+            @DataResource.About
         </h1>
 
         <div class="d-flex gap-1 about">
@@ -186,7 +188,7 @@
                 </span>
 
                 <span>
-                    Адрес: Советская улица, 1, Камышин, Волгоградская область
+                    @DataResource.Adress: Советская улица, 1, Камышин, Волгоградская область
                 </span>
             </div>
 
@@ -209,3 +211,25 @@
     </div>
 </div>
 <!-- /body -->
+
+<!-- Footer -->
+<div class="footer" id="contacts">
+    <div class="navigation">
+        <span>@DataResource.Navigation</span>
+        <a href="#content-info">@DataResource.Main</a>
+        <a href="#content-partners">@DataResource.Partners</a>
+        <a href="#content-products">@DataResource.Product</a>
+        <a href="#content-contact">Оставить заявку</a>
+        <a href="#content-about">@DataResource.About</a>
+        <a href="#content-peoples">@DataResource.Employee</a>
+        <a href="Cart">@DataResource.Cart</a>
+    </div>
+    <div class="d-flex-column gap-1 info">
+        @(Html.When(JqueryBind.InitIncoding)
+               .Ajax(new GetContactsQuery())
+               .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/App/Contacts/Tmpl.cshtml").Html())
+               .AsHtmlAttributes(new { @class = "d-flex-column gap-1 info" })
+               .ToDiv())
+    </div>
+</div>
+<!-- /footer -->

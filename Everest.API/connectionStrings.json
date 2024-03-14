@@ -1,5 +1,5 @@
 {
   "ConnectionStrings": {
-    "Main": "Host=1;Port=15432;Database=EverestMaster;Username=habrpguser221086;Password=pgpwd4habr221086;"
+    "Main": "Host=128.140.50.76;Port=15432;Database=EverestMaster;Username=habrpguser221086;Password=pgpwd4habr221086;"
   }
 }

@@ -1,38 +1,32 @@
 ﻿using Incoding.Core.CQRS.Core;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Incoding.Core.Block.IoC;
+using System.Net;
+using System.Net.Mail;
 
 namespace Everest.Domain;
 
 public class SendEmailCommand : CommandBase
 {
-   
+
+    private readonly EmailService _emailService;
 
     public string To { get; set; }
-    public string Subject { get; set; }
-    public string Body { get; set; }
-
- 
-
+    
     protected override void Execute()
     {
-        // Для примера, здесь можно добавить логику для получения адресата, темы и тела письма,
-        
-        try
+        void SendEmail(Order order)
         {
-            var _emailService = IoCFactory.Instance.TryResolve<EmailService>();
-            _emailService.SendEmailDefault(To, Subject, Body);
-        }
-        catch (Exception ex)
-        {
-            
-            throw new Exception("Ошибка при отправке электронного письма", ex);
+
+            string subject = "Ваш заказ успешно создан";
+            string body = $"Ваш заказ №{order.Id} успешно создан.";
+            _emailService.SendEmailDefault(order.Email, subject, body).Wait();
+
+
         }
     }
+
+
+
+
 }
+
 

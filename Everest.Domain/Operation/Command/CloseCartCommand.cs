@@ -14,7 +14,7 @@ namespace Everest.Domain;
 
 public class CloseCartCommand : CommandBase
 {
-    public string CreatorOrderName { get; set; }
+    public string Name { get; set; }
     public string Email { get; set; }
     public string Comment { get; set; }
     protected override void Execute()
@@ -24,7 +24,7 @@ public class CloseCartCommand : CommandBase
         var cartItems = Repository.Query<CartItem>()
             .Where(q => q.Cart.User.Id == currentUser)
             .ToList();
-        order.CreatorOrderName = CreatorOrderName;
+        order.Name = Name;
         order.Email = Email;
         order.Comment = Comment;
         order.Status = Order.OfStatus.New;
@@ -51,8 +51,7 @@ public class CloseCartCommand : CommandBase
     {
         public Validator()
         {
-            RuleFor(order => order.Email).NotEmpty();
-            RuleFor(order => order.CreatorOrderName).NotEmpty();
+           
         }
     }
 }

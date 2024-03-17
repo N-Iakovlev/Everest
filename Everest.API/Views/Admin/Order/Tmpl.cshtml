@@ -24,12 +24,13 @@
             {
                 <tr>
                     <td>
-                        </td>@each.For(q => q.Status)
+
+                    </td>@each.For(q => q.NameOfOrder)
                     <td>
-                       
+                        @each.For(q => q.Comment)
                     </td>
                     <td>
-
+                        @each.For(q => q.Status)
                     </td>
                 </tr>
             }

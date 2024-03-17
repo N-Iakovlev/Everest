@@ -19,7 +19,7 @@ public class DeleteOrderCommand : CommandBase
 public class AddOrderCommand : CommandBase
 {
     public int Id { get; set; }
-    public string CreatorOrderName { get; set; }
+    public string Name { get; set; }
     public string Email { get; set; }
     public string Comment { get; set; }
     private readonly EmailService _emailService;
@@ -34,7 +34,7 @@ public class AddOrderCommand : CommandBase
             .ToList();
 
         // Заполняем данные заказа
-        order.CreatorOrderName = CreatorOrderName;
+        order.Name = Name;
         order.Email = Email;
         order.Comment = Comment;
         order.Status = Order.OfStatus.New;
@@ -67,25 +67,19 @@ public class AddOrderCommand : CommandBase
 
     private void SendEmail(Order order)
     {
-        try
-        {
+        
             string subject = "Ваш заказ успешно создан";
             string body = $"Ваш заказ №{order.Id} успешно создан.";
             _emailService.SendEmailDefault(order.Email, subject, body).Wait();
-        }
-        catch (Exception ex)
-        {
-            // Обработка ошибок при отправке письма
-            Console.WriteLine("Ошибка при отправке письма: " + ex.Message);
-        }
+        
+       
     }
 
     public class Validator : AbstractValidator<AddOrderCommand>
     {
         public Validator()
         {
-            RuleFor(order => order.Email).NotEmpty();
-            RuleFor(order => order.CreatorOrderName).NotEmpty();
+            
         }
     }
     public class AsQuery : QueryBase<AddOrderCommand>
@@ -101,7 +95,7 @@ public class AddOrderCommand : CommandBase
             return new AddOrderCommand()
             {
                 Id = order.Id,
-                CreatorOrderName = order.CreatorOrderName,
+                Name = order.Name,
                 Email = order.Email,
                 Comment = order.Comment,
             };

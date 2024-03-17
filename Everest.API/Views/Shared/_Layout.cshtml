@@ -25,17 +25,20 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="/js/scripts.js"></script>
     <script src="/js/libs.js"></script>
+
+
+
     @await RenderSectionAsync("Head", required: false)
     <script>
         TemplateFactory.Version = '@Guid.NewGuid().ToString()';
         ExecutableBase.IsDebug = true;
     </script>
 </head>
-@await Html.PartialAsync("_HeaderLayout")
+
 <body>
-
-@await RenderSectionAsync("Body")
-
+    @await Html.PartialAsync("_HeaderLayout")
+    @await RenderSectionAsync("Body")
+    @await Html.PartialAsync("_FooterLayout")
 </body>
-@await Html.PartialAsync("_FooterLayout")
+
 </html>

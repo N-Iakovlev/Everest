@@ -1,8 +1,10 @@
 ﻿@using Everest.API
 @using Everest.Domain
+@using Incoding.Web.CQRS.Common.Query
+
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
+ }
 @section Body
 {
     <div class="body d-flex-column">
@@ -55,15 +57,16 @@
                         </span>
                     </button>
 
-                    <button class="btn">
-                        <span class="material-symbols-outlined">
-                            filter_list
-                        </span>
-
-                        <span>
-                            Тип
-                        </span>
-                    </button>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Выберите тип
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Тип 1</a>
+                            <a class="dropdown-item" href="#">Тип 2</a>
+                            <a class="dropdown-item" href="#">Тип 3</a>
+                        </div>
+                    </div>
                 </div>
                 @(Html.When(JqueryBind.InitIncoding)
                     .Ajax(new GetProductQuery())
@@ -130,15 +133,13 @@
                         <textarea rows="8" placeholder="Опишите подробнее вашу проблему"></textarea>
                     </div>
 
-                    <button class="btn width-fit align-self-end">
-                        <span class="material-symbols-outlined">
-                            mail
-                        </span>
+                    @(Html.When(JqueryBind.Click)
+                        .Ajax(Url.Dispatcher()
+                            .Push<SendEmailCommand>(new SendEmailCommand { To = "Kentarmy@gmail.com" }))
+                        .AsHtmlAttributes(new { @class = "btn width-fit align-self-end" })
+                        .ToLink(@<span><span class="material-symbols-outlined">mail</span>@DataResource.Send</span>))
 
-                        <span>
-                            Отправить запрос
-                        </span>
-                    </button>
+
                 </div>
             </div>
         </div>

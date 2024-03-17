@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-namespace Everest.Domain;
+﻿namespace Everest.Domain;
 #region << Using >>
-using FluentValidation;
+
 using Incoding.Core.CQRS.Core;
 #endregion
 

@@ -520,6 +520,15 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Отправить.
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Краткое описание.
         /// </summary>
         public static string ShortDescription {

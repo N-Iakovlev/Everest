@@ -22,16 +22,23 @@
             <div>
                 @if (Html.Dispatcher().Query(new GetCartItemsByCurrentUserQuery()).Any())
                 {@(Html.When(JqueryBind.Click)
-                            .Ajax(Url.Dispatcher().AsView("~/Views/App/Cart/AddOrder.cshtml"))
+                     .Ajax(Url.Dispatcher().Push(new CloseCartCommand()))
                      .OnSuccess(dsl =>
                      {
-                         dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append();
-                         dsl.WithId(nameof(GetCartItemsByCurrentUserQuery)).Trigger.Incoding();
-                     })
-                     .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5 mt-3" })
-                     .ToButton(@<text>
-                                   <span>@DataResource.Checkout</span>
-                                </text>))
+                                dsl.Self().Insert.WithTemplateByView("~/Views/App/Cart/AddOrder.cshtml");
+                                dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append();
+                                dsl.WithId(nameof(GetCartItemsByCurrentUserQuery)).Trigger.Incoding();
+                            })
+                            .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5 mt-3" })
+                            .ToButton(@<text>
+                                          <span>@DataResource.Checkout</span>
+                                       </text>))
+
+
+
+
+
+
                     @(Html.When(JqueryBind.Click)
                         .Ajax(Url.Dispatcher().Push(new CloseCartCommand()))
                         .OnSuccess(dsl =>

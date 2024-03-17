@@ -1,10 +1,10 @@
 ﻿@using Everest.API
 @using Everest.Domain
-@model Everest.Domain.AddOrderCommand
+@model Everest.Domain.CloseCartCommand
 @{
     Layout = "~/Views/Shared/_DialogLayout.cshtml";
     ViewData["Title"] = DataResource.Order;
-    ViewData["Url"] = Url.Dispatcher().Push<AddOrderCommand>();
+    ViewData["Url"] = Url.Dispatcher().Push<CloseCartCommand>();
     ViewData["TriggerId"] = nameof(GetOrderQuery);
 }
 

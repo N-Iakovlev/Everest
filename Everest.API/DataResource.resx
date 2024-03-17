@@ -202,7 +202,7 @@
     <value>Контакты</value>
   </data>
   <data name="Order" xml:space="preserve">
-    <value>Заказы</value>
+    <value>Заказ</value>
   </data>
   <data name="EditCategory" xml:space="preserve">
     <value>Категории</value>
@@ -265,7 +265,7 @@
     <value>О нас</value>
   </data>
 	<data name="Partners" xml:space="preserve">
-    <value>Патрнеры</value>
+    <value>Партнеры</value>
   </data>
 	<data name="Lable" xml:space="preserve">
     <value>Этикетка</value>
@@ -280,6 +280,9 @@
     <value>Адрес</value>
   </data>
   <data name="Navigation" xml:space="preserve">
-    <value>Навигация по сайту</value>
-  </data>	
+    <value>Навигация</value>
+  </data>
+	<data name="ApplicationName" xml:space="preserve">
+    <value>EVEREST TRADE</value>
+  </data>
 </root>

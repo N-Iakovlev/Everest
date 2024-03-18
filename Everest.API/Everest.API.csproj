@@ -56,10 +56,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\App\NewFolder\Index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="Views\Admin\Partners\Tmpl.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

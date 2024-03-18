@@ -36,9 +36,11 @@
 </head>
 
 <body>
-    @await Html.PartialAsync("_HeaderLayout")
-    @await RenderSectionAsync("Body")
-    @await Html.PartialAsync("_FooterLayout")
+<div class="content">
+@await Html.PartialAsync("_HeaderLayout")
+@await RenderSectionAsync("Body")
+@await Html.PartialAsync("_FooterLayout")
+</div>
 </body>
 
 </html>

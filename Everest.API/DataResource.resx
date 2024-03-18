@@ -285,7 +285,13 @@
 	<data name="ApplicationName" xml:space="preserve">
     <value>EVEREST TRADE</value>
   </data>
-  <data name="Send" xml:space="preserve">
+	<data name="Send" xml:space="preserve">
     <value>Отправить</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
+    <value>Выбранно товаров</value>
+  </data>
+  <data name="CheckoutOrder" xml:space="preserve">
+    <value>Подтверждение заказа</value>
   </data>
 </root>

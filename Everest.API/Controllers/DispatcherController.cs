@@ -26,7 +26,6 @@ namespace Everest.API.Controllers
         {
             return View("~/Views/Admin/Index.cshtml");
         }
-
         public IActionResult Main()
         {
             return View("~/Views/App/Index.cshtml");

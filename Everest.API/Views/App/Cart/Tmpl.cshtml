@@ -1,52 +1,39 @@
 ﻿@using Everest.API
 @using Everest.Domain
 @{
-    using (var template = Html.Incoding().Template<GetCartItemsByCurrentUserQuery.Response>())
+    @using (var template = Html.Incoding().Template<GetCartItemsByCurrentUserQuery.Response>())
     {
-        <table class="table table-bordered table-hover">
-            <thead>
-            <tr>
-                <th>@DataResource.Product</th>
-                <th>@DataResource.Price</th>
-                <th>@DataResource.Action</th>
+        @using (template.NotEach())
+        {
+            <div>@DataResource.Empty</div>
+        }
 
-            </tr>
-            </thead>
-            <tbody>
-            @using (template.NotEach())
-            {
-                <tr>
-                    <td colspan="3">
-                        @DataResource.AddToCart @DataResource.Product
-                    </td>
-                </tr>
-            }
-            @using (var each = template.ForEach())
-            {
-            <tr>
-                <td>
-                    @each.For(q => q.Product)
-                </td>
-                <td>
-                    @each.For(q => q.Price)
-                </td>
-                <td>@(Html.When(JqueryBind.Click)
+        @using (var each = template.ForEach())
+        {
+            <div class="product">
+            <span>
+                ЕС Ароматик СУ
+            </span>
 
-                        .Ajax(Url.Dispatcher()
-                        .Push<DeleteCartItemCommand>(new { Id = each.For(q => q.Id) }))
-                        .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
-                        .OnSuccess(dsl => dsl.WithId(nameof(GetCartItemsByCurrentUserQuery)).Trigger.Incoding())
-                        .AsHtmlAttributes()
-                        .ToLink(@<button type="submit" class="btn btn-sm btn-danger">
-                            @DataResource.DeleteFromCart</button>))
-                </td>
-            </tr>
-            }
-        <tr>
-        </tr>
-            </tbody>
-        </table>
-        
+            <div class="position-relative">
+                <div class="d-flex position-absolute top-05 left-05 gap-05">
+                    <span class="bg-yellow rounded padding-x-05">
+                            @each.For(q => q.Product)
+                    </span>
+                </div>
+
+                <img src="@(Url.Dispatcher().Query<GetAvatarProductQuery>(new { Id = each.For(q => q.ProductId) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: "avatar"))" class="width-15 height-15 rounded">
+            </div>
+
+            @(Html.When(JqueryBind.Click)
+                .Ajax(Url.Dispatcher()
+                    .Push<DeleteCartItemCommand>
+                    (new { Id = each.For(q => q.Id) }))
+                    .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
+                    .OnSuccess(dsl => dsl.WithId(nameof(GetCartItemsByCurrentUserQuery)).Trigger.Incoding())
+                    .AsHtmlAttributes(new { @class = "btn btn-danger align-self-center" })
+                    .ToLink(@<span><span class="material-symbols-outlined">delete</span>@DataResource.DeleteFromCart</span>))
+         </div>
+        }
     }
-
 }

@@ -6,53 +6,43 @@
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var cartItems = Html.Dispatcher().Query(new GetCartItemsByCurrentUserQuery()).ToList();
+    int numberOfItems = cartItems.Count;
 }
 @section Body {
-    <body>
-    <div class="content">
-        <div class="body d-flex-column">
-        
-            <div class="dt-buttons btn-group flex-wrap">
+    <div class="body d-flex-column gap-1">
+        <h1>
+            @DataResource.Cart
+        </h1>
+
+        <div class="d-flex gap-1 flex-shrink-0 bg-transparent">
+            
                 @(Html.When(JqueryBind.InitIncoding)
                     .Ajax(new GetCartItemsByCurrentUserQuery())
                     .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/App/Cart/Tmpl.cshtml").Html())
-                    .AsHtmlAttributes(new { @class = "col-sm-12 col-md-12", id = nameof(GetCartItemsByCurrentUserQuery) })
+                    .AsHtmlAttributes(new { @class = "d-flex flex-grow-1 gap-1 flex-wrap", id = nameof(GetCartItemsByCurrentUserQuery) })
                     .ToDiv())
-            </div>
-            <div>
-                @if (Html.Dispatcher().Query(new GetCartItemsByCurrentUserQuery()).Any())
-                {@(Html.When(JqueryBind.Click)
-                     .Ajax(Url.Dispatcher().Push(new CloseCartCommand()))
-                     .OnSuccess(dsl =>
-                     {
-                                dsl.Self().Insert.WithTemplateByView("~/Views/App/Cart/AddOrder.cshtml");
-                                dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append();
-                                dsl.WithId(nameof(GetCartItemsByCurrentUserQuery)).Trigger.Incoding();
-                            })
-                            .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5 mt-3" })
-                            .ToButton(@<text>
-                                          <span>@DataResource.Checkout</span>
-                                       </text>))
 
-
-
-
-
+            @if (numberOfItems > 0)
+            {
+                <div class="summary">
+                    <h3>@DataResource.CheckoutOrder</h3>
+                    <span>@DataResource.SelectProduct: @numberOfItems</span>
 
                     @(Html.When(JqueryBind.Click)
                         .Ajax(Url.Dispatcher().Push(new CloseCartCommand()))
-                        .OnSuccess(dsl =>
-                        {
-                            dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append();
-                            dsl.WithId(nameof(GetCartItemsByCurrentUserQuery)).Trigger.Incoding();
-                        })
-                        .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5 mt-3" })
-                        .ToButton(@<text>
-                                      <span>@DataResource.Checkout</span>
-                                   </text>))
-                }
-            </div>
+                        .OnSuccess(dsl => {
+                                                cartItems = Html.Dispatcher().Query(new GetCartItemsByCurrentUserQuery()).ToList();
+                                                numberOfItems = cartItems.Count;
+                                                dsl.WithId(nameof(GetCartItemsByCurrentUserQuery)).Trigger.Incoding();
+                                          })
+                        .AsHtmlAttributes(new { @class = "btn align-self-center"})
+                        .ToButton(@<span><span class="material-symbols-outlined">shopping_cart</span>@DataResource.Checkout</span>))
+                </div>
+            }
         </div>
     </div>
-    </body>
+
+
+
 }

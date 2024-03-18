@@ -15,13 +15,13 @@ public class GetImageContentQuery : QueryBase<byte[]>
         // Получаем изображение сотрудника по Id
         byte[] contentImage = Repository.GetById<Content>(Id).ContentImage;
 
-        // Сжимаем изображение до 1920x1080
+        // Сжимаем изображение до 1222*687
         using (var stream = new MemoryStream(contentImage))
         {
             using (Image<Rgb24> image = Image.Load<Rgb24>(stream))
 
             {
-                image.Mutate(x => x.Resize(1920, 1080));
+                image.Mutate(x => x.Resize(1222,687));
 
                 // Конвертируем сжатое изображение в массив байтов и возвращаем его
                 using (MemoryStream ms = new MemoryStream())

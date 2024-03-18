@@ -187,6 +187,15 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Подтверждение заказа.
+        /// </summary>
+        public static string CheckoutOrder {
+            get {
+                return ResourceManager.GetString("CheckoutOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Закрыть.
         /// </summary>
         public static string Close {
@@ -516,6 +525,15 @@ namespace Everest.API {
         public static string SelectCategory {
             get {
                 return ResourceManager.GetString("SelectCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Выбранно товаров.
+        /// </summary>
+        public static string SelectProduct {
+            get {
+                return ResourceManager.GetString("SelectProduct", resourceCulture);
             }
         }
         

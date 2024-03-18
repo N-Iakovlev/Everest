@@ -1,3 +1,350 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    font-family: "Inter", Arial;
+}
+
+.content {
+    height: 100%;
+    margin: auto;
+    position: relative;
+    z-index: 20;
+}
+
+    .content::before {
+        content: '';
+        display: block;
+        position: fixed;
+        top: 0;
+        width: calc(100vw - 10px);
+        height: 100vh;
+        background: linear-gradient(0deg, rgba(53,47,42,.08) 0%, rgba(255,255,255,0) 100%);
+        pointer-events: none;
+    }
+
+.header,
+.body,
+.footer {
+    padding: 0 17.5em;
+}
+
+.header {
+    background-color: #fff;
+    z-index: 30;
+    display: flex;
+    justify-content: space-between;
+    top: 0;
+    width: calc(100% - 35em);
+}
+
+    .header > * {
+        margin: 1em;
+    }
+
+.btn {
+    padding: .5em 1.5em;
+    border-radius: 8px;
+    background-color: transparent;
+    border: 0;
+    font-weight: 600;
+    border: 1px solid rgb(233, 233, 233);
+    cursor: pointer;
+    transition: all ease-in-out .25s;
+    display: flex;
+    gap: .5em;
+    align-items: center;
+    color: rgb(41, 41, 41);
+    font-size: 214px0px;
+    font-size: 16px;
+    background-color: #fff;
+    user-select: none;
+}
+
+    .btn:hover {
+        background-color: #4E8253;
+        color: #fff;
+    }
+
+input[type=text],
+textarea {
+    padding: .5em 1em;
+    border-radius: 1em;
+    border: 1px solid rgb(233, 233, 233);
+    resize: none;
+}
+
+.body {
+    margin: 1em 0;
+    z-index: 10;
+    position: relative;
+}
+
+    .body > * {
+        border-radius: 1em;
+    }
+
+    .body > .section:nth-child(even) {
+        background-color: rgb(240, 240, 240);
+    }
+
+
+.footer {
+    height: fit-content;
+    background: linear-gradient(0deg, rgba(53,47,42,1) 0%, rgba(53,47,42,0.98) 100%);
+    position: sticky;
+    top: 100%;
+    display: flex;
+    color: #fff;
+}
+
+    .footer > * {
+        margin: 4em;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .footer .navigation {
+        display: flex;
+        flex-direction: column;
+        gap: .5em;
+    }
+
+        .footer .navigation a:hover,
+        .footer .info a:hover span:last-child {
+            text-decoration: underline;
+        }
+
+
+
+
+
+
+
+
+
+
+
+.carousel {
+    position: relative;
+}
+
+    .carousel .btn {
+        position: absolute;
+        z-index: 15;
+        width: 2em;
+        height: 10em;
+        top: calc(50% - 6em);
+        padding: 0;
+    }
+
+        .carousel .btn > * {
+            position: absolute;
+            left: 6px;
+        }
+
+        .carousel .btn.prev {
+            left: 1em;
+        }
+
+        .carousel .btn.next {
+            right: 1em;
+        }
+
+.carousel-content {
+    height: fit-content;
+    position: relative;
+    flex-shrink: 0;
+    width: 1350px;
+}
+
+    .carousel-content > img.image {
+        z-index: 10;
+        width: calc(100% - 8em);
+        left: 4em;
+        top: 3em;
+        margin: 1em 4em;
+        border-radius: 1em;
+    }
+
+    .carousel-content > .text {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - 12em);
+        height: 8em;
+        z-index: 15;
+        left: 4em;
+        bottom: 1em;
+        padding: 2em;
+        gap: .5em;
+        color: #fff;
+    }
+
+        .carousel-content > .text::before {
+            background: linear-gradient(0deg, rgba(20, 20, 20, .5) 80%, rgba(255, 255, 255, 0) 100%);
+            border-radius: 0 0 1em 1em;
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            z-index: 15;
+        }
+
+        .carousel-content > .text > .description {
+            font-size: 20px;
+        }
+
+        .carousel-content > .text > * {
+            z-index: 20;
+        }
+
+
+
+
+
+
+
+
+
+.partners-list {
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+}
+
+
+.partner {
+    width: 136px;
+    padding: 1em;
+    opacity: .5;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    align-items: center;
+    transition: all .2s ease-in-out;
+    color: black;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+    .partner:hover {
+        opacity: .8;
+    }
+
+    .partner > img {
+        height: 88px;
+    }
+
+
+
+.about .image,
+.about .map {
+    width: 552px;
+    height: 272px;
+    border-radius: 1em;
+}
+
+
+
+.people {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
+    gap: .5em;
+    background-color: #fff;
+    border-radius: 1em;
+}
+
+    .people > img {
+        width: 176px;
+        height: 176px;
+        margin: 2em 2em 2.5em;
+        margin-bottom: .5em;
+        border-radius: 50%;
+    }
+
+    .people a {
+        display: flex;
+        gap: .5em;
+        cursor: pointer;
+        color: black;
+        transition: all .2s ease-in-out;
+    }
+
+        .people a:hover span:last-child {
+            text-decoration: underline;
+        }
+
+
+
+
+
+.material-symbols-outlined {
+    font-size: 20px !important;
+}
+
+
+
+
+
+
+
+
+.textbox {
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+}
+
+
+
+
+
+.product {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    border-radius: 1em;
+    gap: 1em;
+    width: 16em;
+    border: 1px solid rgb(233, 233, 233);
+    background-color: #fff;
+}
+
+    .product .btn {
+        position: absolute;
+        left: 3em;
+        bottom: -1.5em;
+    }
+
+        .product .btn.btn-danger {
+            position: inherit;
+        }
+
+
+
+
+
+
+
+
+/* Cart */
+.summary {
+    padding: 1em;
+    background-color: rgb(240, 240, 240);
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 30em;
+    height: fit-content;
+}
 .d-flex {
     display: flex;
     flex-direction: row;
@@ -141,4 +488,44 @@ a {
 
 .overflow-x-hidden {
     overflow-x: hidden;
+}
+
+.flex-shrink-0 {
+    flex-shrink: 0;
+}
+
+.margin-b-3 {
+    margin-bottom: 3em;
+}
+
+.align-self-center {
+    align-self: center;
+}
+
+.btn.btn-danger:hover {
+    background-color: rgb(202, 58, 58);
+}
+
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.width-2 {
+    width: 2em;
+}
+
+.height-10 {
+    height: 10em
+}
+
+.padding-0 {
+    padding: 0;
+}
+
+.margin-auto {
+    margin: auto;
 }

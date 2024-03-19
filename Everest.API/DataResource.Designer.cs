@@ -286,7 +286,7 @@ namespace Everest.API {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Электронная почта.
+        ///   Ищет локализованную строку, похожую на Почта.
         /// </summary>
         public static string Email {
             get {

@@ -1,13 +1,13 @@
 ﻿@using Everest.API
 @using Everest.Domain
-@model Everest.Domain.CloseCartCommand
+@model Everest.Domain.AddEditOrderCommand
 @{
     Layout = "~/Views/Shared/_DialogLayout.cshtml";
     ViewData["Title"] = DataResource.Order;
-    ViewData["Url"] = Url.Dispatcher().Push<CloseCartCommand>();
+    ViewData["Url"] = Url.Dispatcher().Push<AddEditOrderCommand>();
     ViewData["TriggerId"] = nameof(GetOrderQuery);
 }
-
+@Html.HiddenFor(q => q.Id)
 @Html.ForGroup(q => q.Comment).TextBox(control => { control.Label.Name = DataResource.Comment; })
 @Html.ForGroup(q => q.Email).TextBox(control => { control.Label.Name = DataResource.Email; })
 @Html.ForGroup(q => q.Name).TextBox(control => { control.Label.Name = DataResource.FullName; })

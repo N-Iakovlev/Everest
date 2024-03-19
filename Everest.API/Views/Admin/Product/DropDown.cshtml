@@ -11,7 +11,7 @@
             @Html.ForGroup(q => q).DropDown(control =>
                      {
                          control.Label.Name = DataResource.CategoryName;
-                         
+                         control.Input.Data = Html.Dispatcher().Query(new GetCategoryForDDQuery() { Type = Category.OfType.Product});
                      })
 
             <!-- Добавьте здесь остальные элементы управления или кнопки -->

@@ -3,6 +3,7 @@
 @using Incoding.Core
 @using Incoding.Core.CQRS
 @using Incoding.Web.CQRS.Common.Command
+@using Incoding.Web.Extensions
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -25,17 +26,29 @@
 
             @if (numberOfItems > 0)
             {
-                <div class="summary">
+                <div class="summary" id ="summary">
                     <h3>@DataResource.CheckoutOrder</h3>
                     <span>@DataResource.SelectProduct: @numberOfItems</span>
-
+                        <div>
+                            <label for="name">@DataResource.FullName:</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div>
+                            <label for="email">@DataResource.Email:</label>
+                            <input type="text" id="email" name="email" required>
+                        </div>
+                        <div>
+                            <label for="comment">@DataResource.Comment:</label>
+                            <textarea id="comment" name="comment"></textarea>
+                        </div>
                     @(Html.When(JqueryBind.Click)
-                        .Ajax(Url.Dispatcher().Push(new CloseCartCommand()))
-                        .OnSuccess(dsl => {
-                                                cartItems = Html.Dispatcher().Query(new GetCartItemsByCurrentUserQuery()).ToList();
-                                                numberOfItems = cartItems.Count;
-                                                dsl.WithId(nameof(GetCartItemsByCurrentUserQuery)).Trigger.Incoding();
-                                          })
+                        .Ajax(new CloseCartCommand())
+                        .OnSuccess(dsl =>
+                                    {
+                                        dsl.WithId(nameof(GetCartItemsByCurrentUserQuery)).Trigger.Incoding();
+                                        dsl.WithId("summary").Trigger.Incoding();
+                                    })
+                      
                         .AsHtmlAttributes(new { @class = "btn align-self-center"})
                         .ToButton(@<span><span class="material-symbols-outlined">shopping_cart</span>@DataResource.Checkout</span>))
                 </div>
@@ -44,5 +57,16 @@
     </div>
 
 
+<script>
+    function validateForm() {
+        var name = document.getElementById('name').value;
+        var email = document.getElementById('email').value;
 
+        if (name.trim() === '' || email.trim() === '') {
+            alert('Please fill in all required fields.');
+            return false; // Отмена отправки формы
+        }
+        return true; 
+    }
+</script>
 }

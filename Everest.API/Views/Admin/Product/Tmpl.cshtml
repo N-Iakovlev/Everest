@@ -1,6 +1,7 @@
 ﻿@using Everest.API
 @using Everest.Domain
 @{
+    var categories = Html.Dispatcher().Query(new GetCategoryForDDQuery()).ToList();
     using (var template = Html.Incoding().Template<GetProductQuery.Response>())
     {
         <table class="table table-bordered table-hover">

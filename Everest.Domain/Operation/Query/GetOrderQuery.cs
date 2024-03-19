@@ -12,7 +12,7 @@ namespace Everest.Domain
             public string Comment { get; set; }
             public string Email { get; set; }
             public IList<OrderItem> OrderItems { get; set; }
-            public string NameOfOrder { get; set; }
+            public string Name { get; set; }
         }
 
         protected override List<Response> ExecuteResult()

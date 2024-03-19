@@ -13,8 +13,9 @@ public class Order : EverestEntityBase
     {
         New,
         Processing,
+        Сanceled,
         Completed,
-        Сanceled
+       
     }
     public virtual OfStatus Status { get; set; }
     public virtual DateTime OrderDate { get; set; }
@@ -22,6 +23,7 @@ public class Order : EverestEntityBase
     public virtual string Email { get; set; }
     public virtual string Name { get; set; }
     public virtual User User { get; set; }
+    public virtual IList<OrderItem> OrderItems { get; set; }
     
     
 
@@ -38,6 +40,7 @@ public class Order : EverestEntityBase
             MapEscaping(o => o.Name);
             MapEscaping(o => o.Status).CustomType<OfStatus>();
             References(o => o.User);
+           
         }
     }
 }

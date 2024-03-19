@@ -14,9 +14,7 @@ namespace Everest.Domain;
 
 public class CloseCartCommand : CommandBase
 {
-    public string Name { get; set; }
-    public string Email { get; set; }
-    public string Comment { get; set; }
+   
     protected override void Execute()
     {
         var order = new Order();
@@ -24,11 +22,6 @@ public class CloseCartCommand : CommandBase
         var cartItems = Repository.Query<CartItem>()
             .Where(q => q.Cart.User.Id == currentUser)
             .ToList();
-        order.Name = Name;
-        order.Email = Email;
-        order.Comment = Comment;
-        order.Status = Order.OfStatus.New;
-        order.OrderDate = DateTime.Now;
         order.User = Repository.LoadById<User>(currentUser);
 
         foreach (var cartItem in cartItems)
@@ -45,13 +38,6 @@ public class CloseCartCommand : CommandBase
         foreach (var cartItem in cartItems)
         {
             Repository.Delete(cartItem);
-        }
-    }
-    public class Validator : AbstractValidator<CloseCartCommand>
-    {
-        public Validator()
-        {
-           
         }
     }
 }

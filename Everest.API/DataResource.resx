@@ -291,7 +291,20 @@
   <data name="SelectProduct" xml:space="preserve">
     <value>Выбранно товаров</value>
   </data>
-  <data name="CheckoutOrder" xml:space="preserve">
+  <data name="OrderId" xml:space="preserve">
+    <value>Номер заказа</value>
+  </data> 
+	  <data name="Status" xml:space="preserve">
+    <value>Статусы заказа</value>
+  </data> 
+	  <data name="CheckoutOrder" xml:space="preserve">
     <value>Подтверждение заказа</value>
+  </data>
+   
+  <data name="Date" xml:space="preserve">
+    <value>Дата заказа</value>
+  </data>
+  <data name="ProductList" xml:space="preserve">
+    <value>Список товаров</value>
   </data>
 </root>

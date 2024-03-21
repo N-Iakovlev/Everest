@@ -1,4 +1,5 @@
-﻿namespace Everest.API;
+﻿using Incoding.Core.ViewModel;
+namespace Everest.API;
 
 public class ContentLayoutModel
 {

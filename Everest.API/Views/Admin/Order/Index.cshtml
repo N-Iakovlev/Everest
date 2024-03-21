@@ -9,7 +9,32 @@
 <div class="row">
     <div class="col-sm-12 col-md-12">
         <div class="dt-buttons btn-group flex-wrap">
-          
+            @(Html.When(JqueryBind.Click)
+                .Ajax(Url.Dispatcher().Query(new AddOrEditOrderCommand.AsQuery()).AsView("~/Views/Admin/Order/AddOrEdit.cshtml"))
+                .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
+                .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5" })
+                .ToButton(@<text>
+                              <span>@DataResource.Add</span>
+                           </text>))
+         @*   @(Html.When(JqueryBind.KeyUp)
+                .Ajax(Url.Dispatcher().Query(new GetOrderQuery()).AsJson().AppendToQueryString(new { Search = Selector.Jquery.Self() }))
+                .OnSuccess(dsl =>
+                {
+                    dsl.WithId(nameof(GetOrderQuery)).Insert.WithTemplateByView("~/Views/Admin/Order/Tmpl.cshtml").Html();
+                })
+                .AsHtmlAttributes(new { placeholder = @DataResource.Search })
+                .ToInput(HtmlInputType.Text,String.Empty))*@
+
+           @* @(Html.When(JqueryBind.Click)
+                .Ajax(Url.Dispatcher().Query(new GetOrderQuery()).AsJson().AppendToQueryString(new { Status = Selector.Jquery.Self() }))
+                .OnSuccess(dsl =>
+                {
+                    dsl.WithId(nameof(GetOrderQuery)).Insert.WithTemplateByView("~/Views/Admin/Order/Tmpl.cshtml").Html();
+                })
+                .AsHtmlAttributes(new { @class = "btn btn-secondary", id = "filterByStatus" })
+                .ToButton(@<text>
+                <span>@DataResource.Total</span>
+            </text>))*@
         </div>
     </div>
     @(Html.When(JqueryBind.InitIncoding)

@@ -26,9 +26,13 @@
 
             @if (numberOfItems > 0)
             {
-                <div class="summary" id ="summary">
+                <form class="summary" id="summary" action="@Url.Dispatcher().Push(new CloseCartCommand())" method="POST">
                     <h3>@DataResource.CheckoutOrder</h3>
-                    <span>@DataResource.SelectProduct: @numberOfItems</span>
+                    <span>@DataResource.SelectProduct:
+                        <span id="check">
+                        @numberOfItems
+                    </span>
+                        </span>
                         <div>
                             <label for="name">@DataResource.FullName:</label>
                             <input type="text" id="name" name="name" required>
@@ -42,31 +46,21 @@
                             <textarea id="comment" name="comment"></textarea>
                         </div>
                     @(Html.When(JqueryBind.Click)
-                        .Ajax(new CloseCartCommand())
+                        
                         .OnSuccess(dsl =>
                                     {
                                         dsl.WithId(nameof(GetCartItemsByCurrentUserQuery)).Trigger.Incoding();
                                         dsl.WithId("summary").Trigger.Incoding();
                                     })
                       
-                        .AsHtmlAttributes(new { @class = "btn align-self-center"})
+                        .AsHtmlAttributes(new
+                        {
+                            @class = "btn align-self-center", type="submit"
+                        })
                         .ToButton(@<span><span class="material-symbols-outlined">shopping_cart</span>@DataResource.Checkout</span>))
-                </div>
+                </form>
             }
         </div>
     </div>
 
-
-<script>
-    function validateForm() {
-        var name = document.getElementById('name').value;
-        var email = document.getElementById('email').value;
-
-        if (name.trim() === '' || email.trim() === '') {
-            alert('Please fill in all required fields.');
-            return false; // Отмена отправки формы
-        }
-        return true; 
-    }
-</script>
 }

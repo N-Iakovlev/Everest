@@ -32,6 +32,8 @@ public class GetProductQuery : QueryBase<List<GetProductQuery.Response>>
                 LongDescription = q.LongDescription,
                 ShortDescription = q.ShortDescription,
                 ProductPhoto = q.ProductPhoto,
+                
+
 
         })
             .ToList();

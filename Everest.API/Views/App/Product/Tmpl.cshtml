@@ -12,7 +12,8 @@
     {
     <div class="product">
         <span>
-            @DataResource.Product</span>
+            @string.Format("${0:N2}", each.For(q => q.Price)) 
+            </span>
         <div class="position-relative margin-b-1">
             <div class="d-flex position-absolute top-05 left-05 gap-05">
                 <span class="bg-yellow rounded padding-x-05">

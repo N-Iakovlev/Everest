@@ -7,15 +7,7 @@ using Incoding.Core.CQRS.Core;
 using NHibernate.Criterion;
 
 #endregion
-public class DeleteOrderCommand : CommandBase
-{
-    public int Id { get; set; }
 
-    protected override void Execute()
-    {
-        Repository.Delete(Repository.GetById<Order>(Id));
-    }
-}
 public class AddOrderCommand : CommandBase
 {
     public int Id { get; set; }

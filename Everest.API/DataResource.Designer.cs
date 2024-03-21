@@ -250,6 +250,15 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Дата заказа.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Удалить.
         /// </summary>
         public static string Delete {
@@ -403,6 +412,15 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Номер заказа.
+        /// </summary>
+        public static string OrderId {
+            get {
+                return ResourceManager.GetString("OrderId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Партнеры.
         /// </summary>
         public static string Partners {
@@ -453,6 +471,15 @@ namespace Everest.API {
         public static string Product {
             get {
                 return ResourceManager.GetString("Product", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Список товаров.
+        /// </summary>
+        public static string ProductList {
+            get {
+                return ResourceManager.GetString("ProductList", resourceCulture);
             }
         }
         
@@ -570,6 +597,15 @@ namespace Everest.API {
         public static string SmtpServer {
             get {
                 return ResourceManager.GetString("SmtpServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Статусы заказа.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
             }
         }
         

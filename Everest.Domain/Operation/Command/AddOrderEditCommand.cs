@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
 using Incoding.Core.CQRS.Core;
+using Incoding.Web.MvcContrib;
 using Newtonsoft.Json.Linq;
 using NHibernate.Criterion;
 using NHibernate.Engine;
@@ -33,7 +34,6 @@ public class AddEditOrderCommand : CommandBase
         order.OrderDate = DateTime.Now;
         order.Status = Status;
         order.Email = Email;
-        order.Name = Name;
         order.Comment = Comment;
         OrderItems = new List<OrderItem>();
         
@@ -60,7 +60,6 @@ public class AddEditOrderCommand : CommandBase
                 return new AddEditOrderCommand();
             return new AddEditOrderCommand
             {
-                Name = order.Name,
                 Email = order.Email,
                 Comment = order.Comment,
                 

@@ -6,28 +6,20 @@
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
-                <th></th>
-                <th></th>
-                <th></th>
+                <td>@DataResource.OrderId</td>
+                <td>@DataResource.Status</td>
+                <td>@DataResource.Date</td>
+                <td>@DataResource.ProductList</td>
+                <td>@DataResource.FullName</td>
+                
+                
             </tr>
             </thead>
             <tbody>
             @using (template.NotEach())
             {
                     <tr>
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                Выпадающее меню
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="#">Пункт 1</a></li>
-                                <li><a class="dropdown-item" href="#">Пункт 2</a></li>
-                                <li><a class="dropdown-item" href="#">Пункт 3</a></li>
-                            </ul>
-                        </div>
-
-
-                    <td colspan="3">
+                    <td colspan="5">
                         @DataResource.Empty
                     </td>
                 </tr>
@@ -35,15 +27,21 @@
             @using (var each = template.ForEach())
             {
                 <tr>
-                    <td>
-
-                    </td>@each.For(q => q.Name)
-                    <td>
-                        @each.For(q => q.Comment)
-                    </td>
-                    <td>
-                        @each.For(q => q.Status)
-                    </td>
+                    <td>@(Html.When(JqueryBind.Click)
+                            .Ajax(Url.Dispatcher()
+                                .Query<AddOrEditOrderCommand.AsQuery>(new { Id = each.For(q => q.Id) })
+                                .AsView("~/Views/Admin/Order/AddOrEdit.cshtml"))
+                            .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
+                            .AsHtmlAttributes()
+                            .ToLink(@<text>
+                                        <i class="fas fa-pencil-alt">
+                                        </i>
+                                        @each.For(q => q.Id)
+                                     </text>))</td>
+                    <td>@each.For(q => q.Status)</td>
+                    <td>@each.For(q=>q.OrderDate)</td>
+                    <td>@each.For(q=>q.ProductList)</td>
+                    <td>@each.For(q => q.Name)</td>
                 </tr>
             }
 

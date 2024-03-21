@@ -15,7 +15,6 @@ public class Order : EverestEntityBase
         Processing,
         Сanceled,
         Completed,
-       
     }
     public virtual OfStatus Status { get; set; }
     public virtual DateTime OrderDate { get; set; }

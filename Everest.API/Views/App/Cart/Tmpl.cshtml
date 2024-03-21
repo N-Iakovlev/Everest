@@ -12,7 +12,7 @@
         {
             <div class="product">
             <span>
-                ЕС Ароматик СУ
+                @string.Format("${0:N2}", each.For(q => q.Price)) 
             </span>
 
             <div class="position-relative">
@@ -30,7 +30,15 @@
                     .Push<DeleteCartItemCommand>
                     (new { Id = each.For(q => q.Id) }))
                     .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
-                    .OnSuccess(dsl => dsl.WithId(nameof(GetCartItemsByCurrentUserQuery)).Trigger.Incoding())
+                    .OnSuccess(dsl =>
+                    {
+                    //  выводим количество товаров в корзине
+                    dsl.WithId("check").Insert.Use(Selector.Jquery.Class("product").Length()).Text();
+                        // $('#check').text($('.product').length)
+
+                    //  обновляем содержимое корзины
+                        dsl.WithId(nameof(GetCartItemsByCurrentUserQuery)).Trigger.Incoding();
+                    })
                     .AsHtmlAttributes(new { @class = "btn btn-danger align-self-center" })
                     .ToLink(@<span><span class="material-symbols-outlined">delete</span>@DataResource.DeleteFromCart</span>))
          </div>

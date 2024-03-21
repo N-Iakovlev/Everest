@@ -1,10 +1,7 @@
 ﻿@using Everest.API
 @using Everest.Domain
-@{
-    var categories = Html.Dispatcher().Query(new GetCategoryForDDQuery()).ToList();
-}
 
-<div class="row">to
+<div class="row">
     <div class="col-sm-12 col-md-12">
         <div class="dt-buttons btn-group flex-wrap">
             <!-- Выпадающий список для выбора категорий -->

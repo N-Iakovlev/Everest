@@ -1,4 +1,5 @@
 ﻿@using Everest.API
+@using Everest.Domain
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -132,3 +133,15 @@
     </div>
 </footer>
 <!-- /.footer -->
+
+                    
+                    
+                
+использование партиалки
+
+@await Html.PartialAsync("~/Views/Shared/_DropDown.cshtml", new DropDownModel
+       {
+           Text = @DataResource.Category,
+           Url = Url.Dispatcher().Query(new GetCategoryForDDQuery()).AsJson(),
+           Template = "~/Views/Shared/DropDownItem_Tmpl.cshtml"
+       })

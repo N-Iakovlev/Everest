@@ -17,8 +17,7 @@ namespace Everest.Domain
         {
             var currentUser = Dispatcher.Query(new GetCurrentUserQuery()).Id;
             return Repository.Query<CartItem>()
-                .Where(q => q.Cart.User.Id == currentUser) // Фильтруем элементы корзины по текущему пользователю
-                                                           // Преобразуем элементы корзины в объекты типа Response
+                .Where(q => q.Cart.User.Id == currentUser) 
                 .Select(q => new Response()
                 {
                     Id = q.Id,

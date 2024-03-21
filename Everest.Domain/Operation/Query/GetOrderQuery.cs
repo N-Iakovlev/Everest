@@ -13,11 +13,12 @@ namespace Everest.Domain
             public string Email { get; set; }
             public IList<OrderItem> OrderItems { get; set; }
             public string Name { get; set; }
+            public DateTime OrderDate { get; set; }
+            public string ProductList { get; set; } // Строка для списка товаров
         }
 
         protected override List<Response> ExecuteResult()
         {
-            var currentUser = Dispatcher.Query(new GetCurrentUserQuery());
             var statusMappings = new Dictionary<Order.OfStatus, string>
             {
                 { Order.OfStatus.New, "Новый" },
@@ -25,16 +26,17 @@ namespace Everest.Domain
                 { Order.OfStatus.Сanceled, "Отменен" },
                 { Order.OfStatus.Completed, "Завершен" },
             };
-
             return Repository.Query<Order>()
-                .Where(q => q.User.Id == currentUser.Id)
                 .Select(q => new Response()
                 {
                     Id = q.Id,
-                    Status = statusMappings[q.Status],
-                    UserId = q.User.Id,
+                    Name = q.Name,
+                    Status =  statusMappings[q.Status],
                     Comment = q.Comment,
                     Email = q.Email,
+                    OrderItems = q.OrderItems,
+                    OrderDate = q.OrderDate,
+                    // ProductList = string.Join(", ", q.OrderItems.Select(oi => oi.Product.ProductName))
 
                 })
                 .ToList();

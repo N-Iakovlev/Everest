@@ -43,24 +43,3 @@ public class MailSender
         }
     }
 }
-//public void SendMail(string to, string subject, string body)
-//     {
-//         using (var message = new MailMessage())
-//         {
-//             message.From = new MailAddress(_mailSettings.UserName);
-//             message.To.Add(new MailAddress(to));
-//             message.Subject = subject;
-//             message.Body = body;
-//             message.IsBodyHtml = true; // если ваше письмо содержит HTML
-//
-//             using (var smtpClient = new SmtpClient(_mailSettings.Host, _mailSettings.Port))
-//             {
-//                 smtpClient.UseDefaultCredentials = false;
-//                 smtpClient.Credentials = new NetworkCredential(_mailSettings.UserName, _mailSettings.Password);
-//                 smtpClient.EnableSsl = true;
-//
-//                 smtpClient.Send(message);
-//             }
-//         }
-//     }
-// }

@@ -307,4 +307,7 @@
   <data name="ProductList" xml:space="preserve">
     <value>Список товаров</value>
   </data>
+  <data name="Question" xml:space="preserve">
+    <value>Вопросы</value>
+  </data>
 </root>

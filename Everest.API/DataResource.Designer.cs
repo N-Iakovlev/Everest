@@ -520,6 +520,15 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Вопросы.
+        /// </summary>
+        public static string Question {
+            get {
+                return ResourceManager.GetString("Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Сохранить.
         /// </summary>
         public static string Save {

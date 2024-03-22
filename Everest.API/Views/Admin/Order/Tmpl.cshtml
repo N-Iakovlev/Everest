@@ -27,20 +27,25 @@
             @using (var each = template.ForEach())
             {
                 <tr>
-                    <td>@(Html.When(JqueryBind.Click)
+                        <td>
+                            @(Html.When(JqueryBind.Click)
                             .Ajax(Url.Dispatcher()
-                                .Query<AddOrEditOrderCommand.AsQuery>(new { Id = each.For(q => q.Id) })
-                                .AsView("~/Views/Admin/Order/AddOrEdit.cshtml"))
+                            .Query<AddOrEditOrderCommand.AsQuery>(new { Id = each.For(q => q.Id) })
+                            .AsView("~/Views/Admin/Order/AddOrEdit.cshtml"))
                             .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
-                            .AsHtmlAttributes()
-                            .ToLink(@<text>
-                                        <i class="fas fa-pencil-alt">
-                                        </i>
-                                        @each.For(q => q.Id)
-                                     </text>))</td>
+                            .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5" })
+                            .ToButton(@<text>№@each.For(q => q.Id)</text>))
+                        </td>
                     <td>@each.For(q => q.Status)</td>
-                    <td>@each.For(q=>q.OrderDate)</td>
-                    <td>@each.For(q=>q.ProductList)</td>
+                    <td>@each.For(q => q.OrderDate)</td>
+                    <td>@(Html.When(JqueryBind.Click)
+                            .Ajax<GetOrderItemsQuery>(new { OrderId = each.For(q => q.Id) })
+                            .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/Admin/Order/ListProductTmpl.cshtml").Html())
+                            .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5" })
+                            .ToButton(@<text>
+                        @DataResource.ProductList
+                                       </text>))
+                    </td>
                     <td>@each.For(q => q.Name)</td>
                 </tr>
             }

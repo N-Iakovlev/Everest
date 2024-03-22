@@ -26,7 +26,7 @@ public class AddOrEditOrderCommand : CommandBase
     public string Email { get; set; }
     public string Name { get; set; }
     public string Comment { get; set; }
-    public IList<OrderItem> OrderItems { get; set; }
+    
     public Order.OfStatus Status { get; set; }
     public User User { get; set; }
 
@@ -47,7 +47,7 @@ public class AddOrEditOrderCommand : CommandBase
         order.Email = Email;
         order.Name = Name;
         order.Comment = Comment;
-        order.OrderItems = OrderItems;
+        
         order.Status = Status;
         order.User = User;
         Repository.SaveOrUpdate(order);
@@ -77,7 +77,7 @@ public class AddOrEditOrderCommand : CommandBase
                 Email = order.Email,
                 Comment = order.Comment,
                 Status = order.Status,
-                OrderItems = order.OrderItems
+              
             };
         }
 

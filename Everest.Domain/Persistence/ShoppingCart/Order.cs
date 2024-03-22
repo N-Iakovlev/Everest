@@ -13,7 +13,7 @@ public class Order : EverestEntityBase
     {
         New,
         Processing,
-        Сanceled,
+        Canceled,
         Completed,
     }
     public virtual OfStatus Status { get; set; }
@@ -39,7 +39,10 @@ public class Order : EverestEntityBase
             MapEscaping(o => o.Name);
             MapEscaping(o => o.Status).CustomType<OfStatus>();
             References(o => o.User);
-           
+            HasMany(o => o.OrderItems)
+                .Cascade.All() // Указываем каскадное удаление
+                .Inverse(); // Обратное отображение
+
         }
     }
 }

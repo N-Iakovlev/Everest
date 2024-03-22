@@ -51,6 +51,7 @@ namespace Everest.API
         {
             var connectionString = this.configuration.GetConnectionString("Main");
             var smtpSettings = configuration.GetSection("SmtpSettings").Get<MailSettings>();
+
             LoggingFactory.Instance.Initialize(logging =>
             {
                 var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Log");

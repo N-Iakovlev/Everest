@@ -3,7 +3,7 @@
 @model Everest.Domain.AddOrEditOrderCommand
 @{
     Layout = "~/Views/Shared/_DialogLayout.cshtml";
-    ViewData["Title"] = DataResource.Add;
+    ViewData["Title"] = DataResource.Edit;
     ViewData["Url"] = Url.Dispatcher().Push<AddOrEditOrderCommand>();
     ViewData["TriggerId"] = nameof(GetOrderQuery);
 }
@@ -12,7 +12,7 @@
 @Html.ForGroup(q => q.Name).TextBox(control => { control.Label.Name = DataResource.FullName; })
 @Html.ForGroup(q => q.Email).TextBox(control => { control.Label.Name = DataResource.Email; })
 @Html.ForGroup(q => q.Comment).TextBox(control => { control.Label.Name = DataResource.Comment; })
-@Html.ForGroup(q=>q.OrderItems).ListBox()
+
 @Html.ForGroup(q => q.Status).DropDown(control =>
     {
         control.Label.Name = @DataResource.Status;

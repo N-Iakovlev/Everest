@@ -51,11 +51,11 @@
                                     {
                                         dsl.WithId(nameof(GetCartItemsByCurrentUserQuery)).Trigger.Incoding();
                                         dsl.WithId("summary").Trigger.Incoding();
+                                        
                                     })
-                      
                         .AsHtmlAttributes(new
                         {
-                            @class = "btn align-self-center", type="submit"
+                            @class = "btn align-self-center"
                         })
                         .ToButton(@<span><span class="material-symbols-outlined">shopping_cart</span>@DataResource.Checkout</span>))
                 </form>

@@ -8,13 +8,12 @@ namespace Everest.Domain
         {
             public int Id { get; set; }
             public string Status { get; set; }
-            public int UserId { get; set; }
+           
             public string Comment { get; set; }
             public string Email { get; set; }
-            public IList<OrderItem> OrderItems { get; set; }
             public string Name { get; set; }
             public DateTime OrderDate { get; set; }
-            public string ProductList { get; set; } // Строка для списка товаров
+           
         }
 
         protected override List<Response> ExecuteResult()
@@ -23,21 +22,19 @@ namespace Everest.Domain
             {
                 { Order.OfStatus.New, "Новый" },
                 { Order.OfStatus.Processing, "В обработке" },
-                { Order.OfStatus.Сanceled, "Отменен" },
+                { Order.OfStatus.Canceled, "Отменен" },
                 { Order.OfStatus.Completed, "Завершен" },
             };
             return Repository.Query<Order>()
                 .Select(q => new Response()
                 {
+                    
                     Id = q.Id,
                     Name = q.Name,
                     Status =  statusMappings[q.Status],
                     Comment = q.Comment,
                     Email = q.Email,
-                    OrderItems = q.OrderItems,
                     OrderDate = q.OrderDate,
-                    // ProductList = string.Join(", ", q.OrderItems.Select(oi => oi.Product.ProductName))
-
                 })
                 .ToList();
         }

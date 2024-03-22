@@ -19,13 +19,8 @@ public class SendEmailCommand : CommandBase
             string subject = "Ваш заказ успешно создан";
             string body = $"Ваш заказ №{order.Id} успешно создан.";
             _emailService.SendEmailDefault(order.Email, subject, body).Wait();
-
-
         }
     }
-
-
-
 
 }
 

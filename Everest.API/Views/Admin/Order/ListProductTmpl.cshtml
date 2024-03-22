@@ -1,0 +1,34 @@
+﻿@using Everest.API
+@using Everest.Domain
+@{
+    using (var template = Html.Incoding().Template<GetOrderItemsQuery.Response>())
+    {
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <td>@DataResource.Product</td>
+                    <td>@DataResource.Price</td>
+                </tr>
+            </thead>
+            <tbody>
+                @using (template.NotEach())
+                {
+                    <tr>
+                        <td colspan="2">
+                            @DataResource.Empty
+                        </td>
+                    </tr>
+                }
+                @using (var each = template.ForEach())
+                {
+                    <tr>
+                        
+                        <td>@each.For(q => q.ProductName)</td>
+                        <td>@each.For(q => q.Price)</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
+}

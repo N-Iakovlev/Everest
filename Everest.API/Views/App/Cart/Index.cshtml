@@ -26,7 +26,7 @@
 
             @if (numberOfItems > 0)
             {
-                <form class="summary" id="summary" action="@Url.Dispatcher().Push(new CloseCartCommand())" method="POST">
+                <form class="summary" id="summary" href="@Url.Action("Main", "Home")">
                     <h3>@DataResource.CheckoutOrder</h3>
                     <span>@DataResource.SelectProduct:
                         <span id="check">
@@ -41,12 +41,27 @@
                             <label for="email">@DataResource.Email:</label>
                             <input type="text" id="email" name="email" required>
                         </div>
-                        <div>
-                            <label for="comment">@DataResource.Comment:</label>
-                            <textarea id="comment" name="comment"></textarea>
-                        </div>
+                    <div>
+                        <label for="comment">@DataResource.Comment:</label>
+                        <textarea id="comment" name="comment"></textarea>
+                    </div>
+
+
                     @(Html.When(JqueryBind.Click)
-                        
+                        .Ajax(Url.Dispatcher()
+                            .Push(new CloseCartCommand()
+                            {
+                                Comment = Selector.Jquery.Name("comment"),
+                                Email = Selector.Jquery.Name("email"),
+                                Name = Selector.Jquery.Name("name"),
+                            }))
+                        .AsHtmlAttributes(new {
+                            @class = "btn align-self-center",
+                            type="submit"})
+                        .ToButton(@<span><span class="material-symbols-outlined">shopping_cart</span>@DataResource.Checkout</span>))
+                   
+
+                  @*  @(Html.When(JqueryBind.Click)"
                         .OnSuccess(dsl =>
                                     {
                                         dsl.WithId(nameof(GetCartItemsByCurrentUserQuery)).Trigger.Incoding();
@@ -57,7 +72,7 @@
                         {
                             @class = "btn align-self-center", type="submit"
                         })
-                        .ToButton(@<span><span class="material-symbols-outlined">shopping_cart</span>@DataResource.Checkout</span>))
+                        .ToButton(@<span><span class="material-symbols-outlined">shopping_cart</span>@DataResource.Checkout</span>))*@
                 </form>
             }
         </div>

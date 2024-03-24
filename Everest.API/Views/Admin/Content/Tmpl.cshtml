@@ -59,7 +59,7 @@
                         @each.For(q => q.ShortDescription)
                     </td>
                         <td>
-                            <a href='@(Url.Dispatcher().Query<GetAvatarContentQuery>(new { Id = each.For(q => q.Id) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: $"{each.For(q => q.ShortDescription)}.jpeg"))' target="_blank" class="btn btn-secondary">@DataResource.Download</a>
+                            <a href='@(Url.Dispatcher().Query<GetImageContentQuery>(new { Id = each.For(q => q.Id) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: $"{each.For(q => q.ShortDescription)}.jpeg"))' target="_blank" class="btn btn-secondary">@DataResource.Download</a>
                         </td>
                 </tr>
             }

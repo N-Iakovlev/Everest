@@ -6,36 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
  }
 @section Body
-{<div class="header">
-        <div class="d-flex gap-05">
-        
-            <a href="@Url.Action("Main", "Home")" class="btn">
-                <span class="material-symbols-outlined">
-                    home
-                </span>
-                <span>@DataResource.Main</span>
-            </a>
-            <a href="#content-products" class="btn">@DataResource.Product</a>
-            <a href="#content-about" class="btn">@DataResource.About</a>
-        </div>
-        <div class="d-flex gap-05">
-            <a href="#contacts" class="btn">@DataResource.Contacts</a>
-
-            @(Html.When(JqueryBind.Click)
-                .OnSuccess(dsl => dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/App/Cart/Index.cshtml"), "Cart"))
-                .AsHtmlAttributes(new
-                {
-                    href = @Url.Action("Cart", "Home"),
-                    @class = "btn"
-                })
-                .ToTag(HtmlTag.A,
-                    @<span>
-                        <span class="material-symbols-outlined">shopping_cart</span>
-                        @DataResource.Cart
-                    </span>))
-        </div>
-    </div>
-    <div class="body d-flex-column">
+{<div class="body d-flex-column">
         <div id="content-info" class="height-full section">
             <div class="carousel">
                 <a class="prev btn" id="carousel-prev">
@@ -75,16 +46,7 @@
                <div class="d-flex gap-05 padding-05">
                     @await Html.PartialAsync("~/Views/Shared/_FilterDropdown.cshtml",
                                Html.Dispatcher().Query(new GetCategoryForDDQuery() { Type = Category.OfType.Product }).Select(item => item.Text))
-
-                  @*  <button class="btn">
-                        <span class="material-symbols-outlined">
-                            filter_list
-                        </span>
-
-                        <span>
-                            Тип
-                        </span>
-                    </button>*@
+                    
                 </div>
                 <div class="d-flex gap-1 padding-05">
                     <a class="btn width-2 height-10 padding-0 flex-shrink-0 justify-content-center margin-auto" id="products-left">
@@ -94,7 +56,7 @@
                     </a>
 
                     @(Html.When(JqueryBind.InitIncoding)
-                        .Ajax(new GetProductQuery())
+                        .Ajax(new GetProductQuery { Count = 5 })
                         .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/App/Product/Tmpl.cshtml").Html())
                         .AsHtmlAttributes(new { @class = "d-flex gap-1 overflow-x-hidden", id = "products" })
                         .ToDiv())
@@ -108,11 +70,27 @@
                 </div>
                 <div class="padding-05">
                     <div class="d-flex gap-05 margin-l-auto width-fit">
-                        <button class="btn">
-                            Показать всё
-                        </button>
+                        <button class="btn">Показать всё</button>
+                        @* @(Html.When(JqueryBind.Click)
+                                .Ajax(new GetProductQuery())
+                                .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/App/Product/Tmpl.cshtml").Html())
+                                .AsHtmlAttributes(new
+                                {@class = "btn",
+                                id = "products"
+
+                            })
+                            .ToButton(@<span><span class="btn"></span>@DataResource.P</span>))  *@ 
                     </div>
                 </div>
+                
+                
+                
+                
+                
+                
+                
+                
+
             </div>
         </div>
         <div id="content-contact" class="d-flex-column gap-1 padding-1 section">

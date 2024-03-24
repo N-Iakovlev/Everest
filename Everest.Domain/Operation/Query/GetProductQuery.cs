@@ -10,6 +10,7 @@ public class GetProductQuery : QueryBase<List<GetProductQuery.Response>>
 {
     public string Search { get; set; }
     public int? CategoryId { get; set; } 
+    public int? Count { get; set; }
     protected override List<Response> ExecuteResult()
     {
     
@@ -17,27 +18,44 @@ public class GetProductQuery : QueryBase<List<GetProductQuery.Response>>
 
         if (!string.IsNullOrEmpty(Search))
         {
-            query = query.Where(e => e.ProductName.Contains(Search));
+            string searchLower = Search.ToLower();
+
+            query = query.Where(e => e.ProductName.ToLower().Contains(searchLower));
         }
         if (CategoryId.HasValue) 
         {
             query = query.Where(e => e.Category.Id == CategoryId.Value);
         }
+        if (Count.HasValue && Count > 0)
+        {
+            return query.Select(q => new Response
+                {
+                    Id = q.Id,
+                    ProductName = q.ProductName,
+                    Price = q.Price,
+                    LongDescription = q.LongDescription,
+                    ShortDescription = q.ShortDescription,
+                    ProductPhoto = q.ProductPhoto
+                })
+                .Take(Count.Value)
+                .ToList();
+        }
+        else
+        {
+           
+            return query.Select(q => new Response
+                {
+                    Id = q.Id,
+                    ProductName = q.ProductName,
+                    Price = q.Price,
+                    LongDescription = q.LongDescription,
+                    ShortDescription = q.ShortDescription,
+                    ProductPhoto = q.ProductPhoto
+                })
+                .ToList();
+        }
 
-        return query.Select(q => new Response
-            {
-                Id = q.Id,
-                ProductName = q.ProductName,
-                Price = q.Price,
-                LongDescription = q.LongDescription,
-                ShortDescription = q.ShortDescription,
-                ProductPhoto = q.ProductPhoto,
-                
-
-
-        })
-            .ToList();
-    
+        
     }
 
     public class Response

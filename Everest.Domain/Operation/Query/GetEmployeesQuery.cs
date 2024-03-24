@@ -12,8 +12,12 @@ public class GetEmployeesQuery : QueryBase<List<GetEmployeesQuery.Response>>
         var query = Repository.Query<Employee>();
         if (!string.IsNullOrEmpty(Search))
         {
-            query = query.Where(e => e.FirstName.Contains(Search) || e.LastName.Contains(Search));
+            string searchLower = Search.ToLower(); // Приводим строку поиска к нижнему регистру
+
+            query = query.Where(e => e.FirstName.ToLower().Contains(searchLower) ||
+                                     e.LastName.ToLower().Contains(searchLower));
         }
+
         return query.Select(q => new Response
                     {
                             Id = q.Id,

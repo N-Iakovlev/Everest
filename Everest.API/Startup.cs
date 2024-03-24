@@ -198,8 +198,8 @@ namespace Everest.API
 
             app.UseRouting();
 
-            //app.UseHsts();
-            //app.UseHttpsRedirection();
+            app.UseHsts();
+            app.UseHttpsRedirection();
 
             app.UseWebOptimizer();
             app.UseStaticFiles(new StaticFileOptions
@@ -216,8 +216,8 @@ namespace Everest.API
                 }
             });
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            //app.UseAuthentication();
+            //app.UseAuthorization();
 
             app.UseStatusCodePages(async context =>
             {

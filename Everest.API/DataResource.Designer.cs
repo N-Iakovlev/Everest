@@ -277,6 +277,15 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Скачать.
+        /// </summary>
+        public static string Download {
+            get {
+                return ResourceManager.GetString("Download", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Редактировать.
         /// </summary>
         public static string Edit {
@@ -403,7 +412,7 @@ namespace Everest.API {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Заказ.
+        ///   Ищет локализованную строку, похожую на Заказы.
         /// </summary>
         public static string Order {
             get {

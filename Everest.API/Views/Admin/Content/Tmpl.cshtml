@@ -6,7 +6,7 @@
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
-                <th></th>
+                    <th style="width: 108px;"></th>
                 <th>@DataResource.ShortDescription</th>
                 <th>@DataResource.Avatar</th>
             </tr>
@@ -23,40 +23,44 @@
             @using (var each = template.ForEach())
             {
                 <tr>
-                    <td>
+                <td style="padding-right: 10px;">
+                <span>
                         @(Html.When(JqueryBind.Click)
                             .Ajax(Url.Dispatcher()
                                 .Query<AddOrEditContentCommand.AsQuery>(new { Id = each.For(q => q.Id) })
                                 .AsView("~/Views/Admin/Content/AddOrEdit.cshtml"))
                             .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
-                            .AsHtmlAttributes()
-                            .ToLink(@<text>
-                                         <i class="fas fa-pencil-alt">
-                                         </i>
-                                         @DataResource.Edit
-                                     </text>))
+                            .AsHtmlAttributes(new
+                            {
+                                @class = "btn btn-secondary bi bi-pencil",
+                                type = "button",
+                                width = "16",
+                                height = "16",
+                                fill = "currentColor",
+                            })
+                            .ToButton(@<span></span>))
 
                         @(Html.When(JqueryBind.Click)
                             .Ajax(Url.Dispatcher()
                             .Push<AddOrEditContentCommand>(new { Id = each.For(q => q.Id) }))
                             .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
                             .OnSuccess(dsl => dsl.WithId(nameof(GetContentQuery)).Trigger.Incoding())
-                            .AsHtmlAttributes()
-                            .ToLink(@<text>
-                                         <i class="fas fa-pencil-alt">
-                                         </i>
-                                         @DataResource.Delete
-                                     </text>))
-
+                            .AsHtmlAttributes(new
+                            {
+                                @class = "btn btn-secondary bi bi-trash3",
+                                type = "button",
+                                width = "16",
+                                height = "16",
+                                fill = "currentColor",
+                            })
+                            .ToButton(@<span></span>))</span>
                     </td>
                     <td>
-                        @each.For(q => q.LongDescription)
+                        @each.For(q => q.ShortDescription)
                     </td>
                         <td>
-                            <img src="@(Url.Dispatcher()
-                                      .Query<GetAvatarContentQuery>(new {Id = each.For(q=>q.Id)})
-                                      .AsFile(incContentType:"image/jpeg",incFileDownloadName:"avatar"))" />
-                    </td>
+                            <a href='@(Url.Dispatcher().Query<GetAvatarContentQuery>(new { Id = each.For(q => q.Id) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: $"{each.For(q => q.ShortDescription)}.jpeg"))' target="_blank" class="btn btn-secondary">@DataResource.Download</a>
+                        </td>
                 </tr>
             }
 

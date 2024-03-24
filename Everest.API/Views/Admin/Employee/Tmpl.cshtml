@@ -7,7 +7,7 @@
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
-                    <th></th>
+                    <th style="width: 108px;"></th>
                     <th>@DataResource.FullName</th>
                     <th>@DataResource.Contacts</th>
                     <th>@DataResource.Avatar</th>
@@ -26,31 +26,39 @@
                 @using (var each = template.ForEach())
                 {
                     <tr>
-                        <td>
+                        <td style="padding-right: 10px;">
+                            <div>
                             @(Html.When(JqueryBind.Click)
-                            .Ajax(Url.Dispatcher()
-                            .Query<AddOrEditEmployeeCommand.AsQuery>(new { Id = each.For(q => q.Id) })
-                            .AsView("~/Views/Admin/Employee/AddOrEdit.cshtml"))
-                            .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
-                            .AsHtmlAttributes()
-                            .ToLink(@<text>
-                        <i class="fas fa-pencil-alt">
-                        </i>
-                        @DataResource.Edit
-                    </text>))
+                                .Ajax(Url.Dispatcher()
+                                    .Query<AddOrEditEmployeeCommand.AsQuery>(new { Id = each.For(q => q.Id) })
+                                    .AsView("~/Views/Admin/Employee/AddOrEdit.cshtml"))
+                                .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
+                                .AsHtmlAttributes(new
+                                {
+                                    @class = "btn btn-secondary bi bi-pencil",
+                                    type = "button",
+                                    width = "16",
+                                    height = "16",
+                                    fill = "currentColor",
+                                })
+                                .ToButton(@<span></span>))
 
 
                             @(Html.When(JqueryBind.Click)
-                            .Ajax(Url.Dispatcher()
-                            .Push<DeleteEmployeeCommand>(new { Id = each.For(q => q.Id) }))
-                            .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
-                            .OnSuccess(dsl => dsl.WithId(nameof(GetEmployeesQuery)).Trigger.Incoding())
-                            .AsHtmlAttributes()
-                            .ToLink(@<text>
-                        <i class="fas fa-pencil-alt">
-                        </i>
-                        @DataResource.Delete
-                    </text>))
+                                .Ajax(Url.Dispatcher()
+                                    .Push<DeleteEmployeeCommand>(new { Id = each.For(q => q.Id) }))
+                                .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
+                                .OnSuccess(dsl => dsl.WithId(nameof(GetEmployeesQuery)).Trigger.Incoding())
+                                .AsHtmlAttributes(new
+                                {
+                                    @class = "btn btn-secondary bi bi-trash3",
+                                    type = "button",
+                                    width = "16",
+                                    height = "16",
+                                    fill = "currentColor",
+                                })
+                                .ToButton(@<span></span>))
+                            </div>
                         </td>
                         <td>
                             @each.For(q => q.FullName)
@@ -60,10 +68,9 @@
                             @each.For(q => q.Contacts)
                         </td>
                         <td>
-                            <img src="@(Url.Dispatcher()
-                                      .Query<GetAvatarEmployeeQuery>(new {Id = each.For(q=>q.Id)})
-                                      .AsFile(incContentType:"image/jpeg",incFileDownloadName:"avatar"))" />
-                        </td>
+                            <a href='@(Url.Dispatcher().Query<GetAvatarEmployeeQuery>(new { Id = each.For(q => q.Id) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: $"{each.For(q => q.FullName)}.jpeg"))' target="_blank" class="btn btn-secondary">@DataResource.Download</a>
+
+                       </td>
                     </tr>
                 }
 

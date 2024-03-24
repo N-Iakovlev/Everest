@@ -18,11 +18,11 @@
                 .ToButton(@<text>
                                <span>@DataResource.Add</span>
                            </text>))
-            @(Html.When(JqueryBind.KeyUp)
+          @* @(Html.When(JqueryBind.KeyUp)
                 .Ajax(Url.Dispatcher().Query(new GetContentQuery()).AsJson().AppendToQueryString(new { Search = Selector.Jquery.Self() }))
                 .OnSuccess(dsl => { dsl.WithId(nameof(GetContentQuery)).Insert.WithTemplateByView("~/Views/Admin/Content/Tmpl.cshtml").Html(); })
                 .AsHtmlAttributes(new { placeholder = @DataResource.Search })
-                .ToInput(HtmlInputType.Text, String.Empty))
+                .ToInput(HtmlInputType.Text, String.Empty))*@
         </div>
     </div>
     @(Html.When(JqueryBind.InitIncoding)

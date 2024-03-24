@@ -2,32 +2,31 @@
 
 <div class="header">
     <div class="d-flex gap-05">
-        <a href="@Url.Action("Main", "Home")" class="btn">
-            <span class="material-symbols-outlined">
-                home
-            </span>
-            <span>@DataResource.Main</span>
-        </a>
-        <a href="#content-products" class="btn">@DataResource.Product</a>
-        <a href="#content-about" class="btn">@DataResource.About</a>
-    </div>
-    <div class="d-flex gap-05" style="margin-left: auto;">
+        
+            <a href="@Url.Action("Main", "Home")" class="btn">
+                <span class="material-symbols-outlined">
+                    home
+                </span>
+                <span>@DataResource.Main</span>
+            </a>
+            <a href="#content-products" class="btn">@DataResource.Product</a>
+            <a href="#content-about" class="btn">@DataResource.About</a>
+        </div>
+    <div class="d-flex gap-05">
         <a href="#contacts" class="btn">@DataResource.Contacts</a>
 
         @(Html.When(JqueryBind.Click)
             .OnSuccess(dsl => dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/App/Cart/Index.cshtml"), "Cart"))
-            .AsHtmlAttributes(new {
+            .AsHtmlAttributes(new
+            {
                 href = @Url.Action("Cart", "Home"),
-                @class = "btn"})
+                @class = "btn"
+            })
             .ToTag(HtmlTag.A,
                 @<span>
                     <span class="material-symbols-outlined">shopping_cart</span>
                     @DataResource.Cart
                 </span>))
-        
-
-        <a href="@Url.Action("Admin", "Home")" class="btn">
-            <span>@DataResource.Admin</span>
-        </a>
     </div>
-</div>
+ </div>
+

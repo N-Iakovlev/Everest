@@ -1,0 +1,744 @@
+﻿@using Everest.API
+@using Everest.Domain
+@using Incoding.Web.CQRS.Common.Query
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Body
+{
+    <div class="content">
+    <div class="header">
+        <div class="header d-flex justify-content-between">
+            <div class="d-flex gap-05">
+                <a href="#content-info" class="btn">
+                    <span class="material-symbols-outlined">
+                        home
+                    </span>
+        
+                    <span>
+                        Главная
+                    </span>
+                </a>
+                <a href="#content-products" class="btn">
+                    Продукция
+                </a>
+                <a href="#content-about" class="btn">
+                    О нас
+                </a>
+            </div>
+            <div class="d-flex gap-05">
+                <a href="#contacts" class="btn">
+                    Контакты
+                </a>
+                <a class="btn" href="cart.html">
+                    <span class="material-symbols-outlined">
+                        shopping_cart
+                    </span>
+            
+                    <span>
+                        Корзина
+                    </span>                        
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="body d-flex-column">
+    <div id="content-info" class="height-full section">
+        <div class="carousel">
+            <a class="prev btn" id="carousel-prev">
+                <span class="material-symbols-outlined">
+                    chevron_left
+                </span>
+            </a>
+
+            <div class="d-flex overflow-x-hidden" id="carousel-container">
+                <div class="carousel-content show" name="carousel-item">
+                    <img src="resources/images/carousel-1.jpg" class="image">
+
+                    <div class="text">
+                        <h1>
+                            Нижегородский Кремль
+                        </h1>
+
+                        <span class="description">
+                            Крепость в историческом центре Нижнего Новгорода и его древнейшая часть, главный общественно-политический и историко-художественный комплекс города
+                        </span>
+                    </div>
+                </div>
+
+                <div class="carousel-content" name="carousel-item">
+                    <img src="resources/images/carousel-1.jpg" class="image">
+
+                    <div class="text">
+                        <h1>
+                            Нижегородский Кремль
+                        </h1>
+
+                        <span class="description">
+                            Крепость в историческом центре Нижнего Новгорода и его древнейшая часть, главный общественно-политический и историко-художественный комплекс города
+                        </span>
+                    </div>
+                </div>
+
+                <div class="carousel-content" name="carousel-item">
+                    <img src="resources/images/carousel-1.jpg" class="image">
+
+                    <div class="text">
+                        <h1>
+                            Нижегородский Кремль
+                        </h1>
+
+                        <span class="description">
+                            Крепость в историческом центре Нижнего Новгорода и его древнейшая часть, главный общественно-политический и историко-художественный комплекс города
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <a class="next btn" id="carousel-next">
+                <span class="material-symbols-outlined">
+                    chevron_right
+                </span>
+            </a>
+        </div>
+    </div>
+
+    <div id="content-partners" class="d-flex-column gap-1 padding-1 section">
+        <h1>
+            Наши партнёры
+        </h1>
+
+        <div class="partners-list">
+            <a href="https://www.apple.com" class="partner">
+                <img src="resources/images/apple.svg">
+
+                <span>
+                    Apple
+                </span>
+            </a>
+
+            <a href="https://www.hp.com" class="partner">
+                <img src="resources/images/hp.svg">
+
+                <span>
+                    HP
+                </span>
+            </a>
+
+            <a href="https://www.dell.com" class="partner">
+                <img src="resources/images/dell.svg">
+
+                <span>
+                    Dell
+                </span>
+            </a>
+
+            <a href="https://www.apple.com" class="partner">
+                <img src="resources/images/apple.svg">
+
+                <span>
+                    Apple
+                </span>
+            </a>
+
+            <a href="https://www.hp.com" class="partner">
+                <img src="resources/images/hp.svg">
+
+                <span>
+                    HP
+                </span>
+            </a>
+
+            <a href="https://www.dell.com" class="partner">
+                <img src="resources/images/dell.svg">
+
+                <span>
+                    Dell
+                </span>
+            </a>
+
+            <a href="https://www.apple.com" class="partner">
+                <img src="resources/images/apple.svg">
+
+                <span>
+                    Apple
+                </span>
+            </a>
+        </div>
+    </div>
+
+    <div id="content-products" class="d-flex-column gap-1 padding-1 section">
+    <h1>
+        Продукция
+    </h1>
+
+    <div class="d-flex-column">
+    <div class="d-flex gap-05 padding-05">
+        <button class="btn">
+            <span class="material-symbols-outlined">
+                sort
+            </span>
+
+            <span>
+                Сортировка
+            </span>
+        </button>
+
+        <button class="btn">
+            <span class="material-symbols-outlined">
+                filter_list
+            </span>
+
+            <span>
+                Тип
+            </span>
+        </button>
+    </div>
+
+    <div class="d-flex gap-1 padding-05">
+    <a class="btn width-2 height-10 padding-0 flex-shrink-0 justify-content-center margin-auto" id="products-left">
+        <span class="material-symbols-outlined">
+            chevron_left
+        </span>
+    </a>
+
+    <div class="d-flex gap-1 overflow-x-hidden" id="products">
+    <div class="product">
+        <span>
+            ЕС Ароматик СУ
+        </span>
+
+        <div class="position-relative margin-b-1">
+            <div class="d-flex position-absolute top-05 left-05 gap-05">
+                <span class="bg-yellow rounded padding-x-05">
+                    Подсолнечник
+                </span>
+            </div>
+
+            <img src="resources/images/product.png" class="width-15 height-15 rounded">
+
+            <button class="btn">
+                <span class="material-symbols-outlined">
+                    shopping_cart
+                </span>
+
+                <span>
+                    В корзину
+                </span>
+            </button>
+        </div>
+
+        <span class="text-align-justify">
+            Гибрид умеренно-интенсивного типа для технологии SULFO*** Устойчив к гербицидам группы трибенурон- метил зарегистрированным на подсолнечнике. Пригоден для No till.
+        </span>
+    </div>
+
+    <div class="product">
+        <span>
+            ЕС Ароматик СУ
+        </span>
+
+        <div class="position-relative margin-b-1">
+            <div class="d-flex position-absolute top-05 left-05 gap-05">
+                <span class="bg-yellow rounded padding-x-05">
+                    Подсолнечник
+                </span>
+            </div>
+
+            <img src="resources/images/product.png" class="width-15 height-15 rounded">
+
+            <button class="btn">
+                <span class="material-symbols-outlined">
+                    shopping_cart
+                </span>
+
+                <span>
+                    В корзину
+                </span>
+            </button>
+        </div>
+
+        <span class="text-align-justify">
+            Гибрид умеренно-интенсивного типа для технологии SULFO*** Устойчив к гербицидам группы трибенурон- метил зарегистрированным на подсолнечнике. Пригоден для No till.
+        </span>
+    </div>
+
+    <div class="product">
+        <span>
+            ЕС Ароматик СУ
+        </span>
+
+        <div class="position-relative margin-b-1">
+            <div class="d-flex position-absolute top-05 left-05 gap-05">
+                <span class="bg-yellow rounded padding-x-05">
+                    Подсолнечник
+                </span>
+            </div>
+
+            <img src="resources/images/product.png" class="width-15 height-15 rounded">
+
+            <button class="btn">
+                <span class="material-symbols-outlined">
+                    shopping_cart
+                </span>
+
+                <span>
+                    В корзину
+                </span>
+            </button>
+        </div>
+
+        <span class="text-align-justify">
+            Гибрид умеренно-интенсивного типа для технологии SULFO*** Устойчив к гербицидам группы трибенурон- метил зарегистрированным на подсолнечнике. Пригоден для No till.
+        </span>
+    </div>
+
+    <div class="product">
+        <span>
+            ЕС Ароматик СУ
+        </span>
+
+        <div class="position-relative margin-b-1">
+            <div class="d-flex position-absolute top-05 left-05 gap-05">
+                <span class="bg-yellow rounded padding-x-05">
+                    Подсолнечник
+                </span>
+            </div>
+
+            <img src="resources/images/product.png" class="width-15 height-15 rounded">
+
+            <button class="btn">
+                <span class="material-symbols-outlined">
+                    shopping_cart
+                </span>
+
+                <span>
+                    В корзину
+                </span>
+            </button>
+        </div>
+
+        <span class="text-align-justify">
+            Гибрид умеренно-интенсивного типа для технологии SULFO*** Устойчив к гербицидам группы трибенурон- метил зарегистрированным на подсолнечнике. Пригоден для No till.
+        </span>
+    </div>
+
+    <div class="product">
+        <span>
+            ЕС Ароматик СУ
+        </span>
+
+        <div class="position-relative margin-b-1">
+            <div class="d-flex position-absolute top-05 left-05 gap-05">
+                <span class="bg-yellow rounded padding-x-05">
+                    Подсолнечник
+                </span>
+            </div>
+
+            <img src="resources/images/product.png" class="width-15 height-15 rounded">
+
+            <button class="btn">
+                <span class="material-symbols-outlined">
+                    shopping_cart
+                </span>
+
+                <span>
+                    В корзину
+                </span>
+            </button>
+        </div>
+
+        <span class="text-align-justify">
+            Гибрид умеренно-интенсивного типа для технологии SULFO*** Устойчив к гербицидам группы трибенурон- метил зарегистрированным на подсолнечнике. Пригоден для No till.
+        </span>
+    </div>
+
+    <div class="product">
+        <span>
+            ЕС Ароматик СУ
+        </span>
+
+        <div class="position-relative margin-b-1">
+            <div class="d-flex position-absolute top-05 left-05 gap-05">
+                <span class="bg-yellow rounded padding-x-05">
+                    Подсолнечник
+                </span>
+            </div>
+
+            <img src="resources/images/product.png" class="width-15 height-15 rounded">
+
+            <button class="btn">
+                <span class="material-symbols-outlined">
+                    shopping_cart
+                </span>
+
+                <span>
+                    В корзину
+                </span>
+            </button>
+        </div>
+
+        <span class="text-align-justify">
+            Гибрид умеренно-интенсивного типа для технологии SULFO*** Устойчив к гербицидам группы трибенурон- метил зарегистрированным на подсолнечнике. Пригоден для No till.
+        </span>
+    </div>
+
+    <div class="product">
+        <span>
+            ЕС Ароматик СУ
+        </span>
+
+        <div class="position-relative margin-b-1">
+            <div class="d-flex position-absolute top-05 left-05 gap-05">
+                <span class="bg-yellow rounded padding-x-05">
+                    Подсолнечник
+                </span>
+            </div>
+
+            <img src="resources/images/product.png" class="width-15 height-15 rounded">
+
+            <button class="btn">
+                <span class="material-symbols-outlined">
+                    shopping_cart
+                </span>
+
+                <span>
+                    В корзину
+                </span>
+            </button>
+        </div>
+
+        <span class="text-align-justify">
+            Гибрид умеренно-интенсивного типа для технологии SULFO*** Устойчив к гербицидам группы трибенурон- метил зарегистрированным на подсолнечнике. Пригоден для No till.
+        </span>
+    </div>
+
+    <div class="product">
+        <span>
+            ЕС Ароматик СУ
+        </span>
+
+        <div class="position-relative margin-b-1">
+            <div class="d-flex position-absolute top-05 left-05 gap-05">
+                <span class="bg-yellow rounded padding-x-05">
+                    Подсолнечник
+                </span>
+            </div>
+
+            <img src="resources/images/product.png" class="width-15 height-15 rounded">
+
+            <button class="btn">
+                <span class="material-symbols-outlined">
+                    shopping_cart
+                </span>
+
+                <span>
+                    В корзину
+                </span>
+            </button>
+        </div>
+
+        <span class="text-align-justify">
+            Гибрид умеренно-интенсивного типа для технологии SULFO*** Устойчив к гербицидам группы трибенурон- метил зарегистрированным на подсолнечнике. Пригоден для No till.
+        </span>
+    </div>
+
+    <div class="product">
+        <span>
+            ЕС Ароматик СУ
+        </span>
+
+        <div class="position-relative margin-b-1">
+            <div class="d-flex position-absolute top-05 left-05 gap-05">
+                <span class="bg-yellow rounded padding-x-05">
+                    Подсолнечник
+                </span>
+            </div>
+
+            <img src="resources/images/product.png" class="width-15 height-15 rounded">
+
+            <button class="btn">
+                <span class="material-symbols-outlined">
+                    shopping_cart
+                </span>
+
+                <span>
+                    В корзину
+                </span>
+            </button>
+        </div>
+
+        <span class="text-align-justify">
+            Гибрид умеренно-интенсивного типа для технологии SULFO*** Устойчив к гербицидам группы трибенурон- метил зарегистрированным на подсолнечнике. Пригоден для No till.
+        </span>
+    </div>
+    </div>
+
+    <button class="btn width-2 height-10 padding-0 flex-shrink-0 justify-content-center margin-auto" id="products-right">
+        <span class="material-symbols-outlined">
+            chevron_right
+        </span>
+    </button>
+    </div>
+
+    <div class="padding-05">
+        <div class="d-flex gap-05 margin-l-auto width-fit">
+            <button class="btn">
+                Показать всё
+            </button>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <div id="content-contact" class="d-flex-column gap-1 padding-1 section">
+        <h1>
+            Остались вопросы?
+        </h1>
+
+        <div class="d-flex-column gap-1">
+            <span>
+                Позвоните по номеру +7 (000) 000-00-00 или напишите на почту mail@mail.com
+            </span>
+
+            <span>
+                Или оставьте свои контакты и мы с Вами свяжемся.
+            </span>
+
+            <div class="width-half d-flex-column gap-1 padding-1 bg-white rounded">
+                <div class="textbox">
+                    <label>
+                        Как к вам обращаться?
+                    </label>
+
+                    <input type="text" placeholder="Имя">
+                </div>
+
+                <div class="textbox">
+                    <label>
+                        Как с вами связаться?
+                    </label>
+
+                    <input type="text" placeholder="Номер телефона, email">
+                </div>
+
+                <div class="textbox">
+                    <label>
+                        Дополнительная информация
+                    </label>
+
+                    <textarea rows="8" placeholder="Опишите подробнее вашу проблему"></textarea>
+                </div>
+
+                <button class="btn width-fit align-self-end">
+                    <span class="material-symbols-outlined">
+                        mail
+                    </span>
+
+                    <span>
+                        Отправить запрос
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="content-about" class="d-flex-column gap-1 padding-1 section">
+        <h1>
+            О нас
+        </h1>
+
+        <div class="d-flex gap-1 about">
+            <div class="d-flex-column gap-1 justify-content-between">
+                <span>
+                    Здание построено по проекту архитектора А. Т. Тимофеева в 1901 году по мотивам московско-ярославского зодчества XVII века.
+                    <br/>
+                    <br/>
+                    Здание двухэтажное, кирпичное, в плане в форме буквы Г, имеет круговой опоясыващий и завершающий карнизы с сухариками. В здании высокие крыши со слуховыми окнами, широкие балконы по фасаду. На первом этаже здания — полуциркульные окна. Архитектурные элементы здания выделяются жёлтым и красным цветом. Территория перед музеем благоустроена. Здание имеет пристройки.
+                </span>
+
+                <span>
+                    Адрес: Советская улица, 1, Камышин, Волгоградская область
+                </span>
+            </div>
+
+            <div class="d-flex-column gap-1">
+                <img class="image shadowed" src="resources/images/kamyshyn.png" alt="photo">
+
+                <img class="map shadowed" src="resources/images/map.png" alt="map">
+            </div>
+        </div>
+    </div>
+
+    <div id="content-peoples" class="d-flex-column gap-1 padding-1 section">
+        <h1>
+            Представители
+        </h1>
+
+        <div class="d-flex justify-content-center gap-1">
+            <div class="people">
+                <img src="resources/images/avatar.jpeg" alt="people">
+
+                <span>
+                    А. С. Пушкин
+                </span>
+
+                <span>
+                    Генеральный директор
+                </span>
+
+                <a href="tel:+70000000001">
+                    <span class="material-symbols-outlined">
+                        call
+                    </span>
+
+                    <span>
+                        + 7 (000) 000-00-01
+                    </span>
+                </a>
+
+                <a href="mailto:pushkin@mail.com">
+                    <span class="material-symbols-outlined">
+                        mail
+                    </span>
+
+                    <span>
+                        pushkin@mail.com
+                    </span>
+                </a>
+            </div>
+
+            <div class="people">
+                <img src="resources/images/avatar.jpeg" alt="people">
+
+                <span>
+                    М. Ю. Лермонтов
+                </span>
+
+                <span>
+                    Главный бухгалтер
+                </span>
+
+                <a href="tel:+70000000002">
+                    <span class="material-symbols-outlined">
+                        call
+                    </span>
+
+                    <span>
+                        + 7 (000) 000-00-02
+                    </span>
+                </a>
+
+                <a href="mailto:lermontov@mail.com">
+                    <span class="material-symbols-outlined">
+                        mail
+                    </span>
+
+                    <span>
+                        lermontov@mail.com
+                    </span>
+                </a>
+            </div>
+
+            <div class="people">
+                <img src="resources/images/avatar.jpeg" alt="people">
+
+                <span>
+                    М. Фаулер
+                </span>
+
+                <span>
+                    Главный агроном
+                </span>
+
+                <a href="tel:+70000000003">
+                    <span class="material-symbols-outlined">
+                        call
+                    </span>
+
+                    <span>
+                        + 7 (000) 000-00-03
+                    </span>
+                </a>
+
+                <a href="mailto:fauler@mail.com">
+                    <span class="material-symbols-outlined">
+                        mail
+                    </span>
+
+                    <span>
+                        fauler@mail.com
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="footer" id="contacts">
+        <div class="navigation">
+            <span>Навигация по сайту</span>
+
+            <a href="#content-info">
+                Главная
+            </a>
+
+            <a href="#content-partners">
+                Наши партнёры
+            </a>
+
+            <a href="#content-products">
+                Продукция
+            </a>
+
+            <a href="#content-contact">
+                Оставить заявку
+            </a>
+
+            <a href="#content-about">
+                О нас
+            </a>
+
+            <a href="#content-peoples">
+                Представители
+            </a>
+
+            <a href="#cart">
+                Корзина
+            </a>
+        </div>
+
+        <div class="d-flex-column gap-1 info">
+            <a href="tel:+70000000000" class="d-flex gap-05">
+                <span class="material-symbols-outlined">
+                    call
+                </span>
+
+                <span>
+                    +7 (000) 000-00-00
+                </span>
+            </a>
+
+            <a href="mailto:company@mail.com" class="d-flex gap-05">
+                <span class="material-symbols-outlined">
+                    mail
+                </span>
+
+                <span>
+                    company@mail.com
+                </span>
+            </a>
+
+            <span>
+                OOO "OOO"
+            </span>
+
+            <span>
+                Российская Федерация, Ростовская область, город Таганрог, улица Фрунзе, дом 41
+            </span>
+        </div>
+    </div>
+    </div>
+}

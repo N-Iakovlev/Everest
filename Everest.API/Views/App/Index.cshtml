@@ -6,7 +6,35 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
  }
 @section Body
-{
+{<div class="header">
+        <div class="d-flex gap-05">
+        
+            <a href="@Url.Action("Main", "Home")" class="btn">
+                <span class="material-symbols-outlined">
+                    home
+                </span>
+                <span>@DataResource.Main</span>
+            </a>
+            <a href="#content-products" class="btn">@DataResource.Product</a>
+            <a href="#content-about" class="btn">@DataResource.About</a>
+        </div>
+        <div class="d-flex gap-05">
+            <a href="#contacts" class="btn">@DataResource.Contacts</a>
+
+            @(Html.When(JqueryBind.Click)
+                .OnSuccess(dsl => dsl.Document.PushState(Url.Dispatcher().AsView("~/Views/App/Cart/Index.cshtml"), "Cart"))
+                .AsHtmlAttributes(new
+                {
+                    href = @Url.Action("Cart", "Home"),
+                    @class = "btn"
+                })
+                .ToTag(HtmlTag.A,
+                    @<span>
+                        <span class="material-symbols-outlined">shopping_cart</span>
+                        @DataResource.Cart
+                    </span>))
+        </div>
+    </div>
     <div class="body d-flex-column">
         <div id="content-info" class="height-full section">
             <div class="carousel">
@@ -48,7 +76,7 @@
                     @await Html.PartialAsync("~/Views/Shared/_FilterDropdown.cshtml",
                                Html.Dispatcher().Query(new GetCategoryForDDQuery() { Type = Category.OfType.Product }).Select(item => item.Text))
 
-                    <button class="btn">
+                  @*  <button class="btn">
                         <span class="material-symbols-outlined">
                             filter_list
                         </span>
@@ -56,7 +84,7 @@
                         <span>
                             Тип
                         </span>
-                    </button>
+                    </button>*@
                 </div>
                 <div class="d-flex gap-1 padding-05">
                     <a class="btn width-2 height-10 padding-0 flex-shrink-0 justify-content-center margin-auto" id="products-left">

@@ -24,14 +24,14 @@
            @* @await Html.PartialAsync("~/Views/Shared/_FilterDropdown.cshtml",
                        Html.Dispatcher().Query(new GetCategoryForDDQuery() { Type = Category.OfType.Product }).Select(item => item.Text))
 
-            *@
+          
 
                @await Html.PartialAsync("~/Views/Shared/_DropDown.cshtml", new DropDownModel
                    {
                        Text = @DataResource.Category,
                        Url = Url.Dispatcher().Query(new GetCategoryForDDQuery() { Type = Category.OfType.Product }).AsJson(),
                        Template = "~/Views/Admin/Product/DropDown1.cshtml"
-                   })
+       })*@
             
 
             @(Html.When(JqueryBind.KeyUp)

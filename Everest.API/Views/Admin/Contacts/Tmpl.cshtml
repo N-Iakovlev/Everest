@@ -6,7 +6,7 @@
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
-                <th></th>
+                <th style="width: 108px;"></th>
                 <th>@DataResource.CompanyName</th>
                 <th>@DataResource.Email</th>
                 <th>@DataResource.Phone</th>
@@ -27,31 +27,40 @@
             @using (var each = template.ForEach())
             {
                 <tr>
-                    <td>
+                    <td style="padding-right: 10px;">
+                        <span>
                         @(Html.When(JqueryBind.Click)
                             .Ajax(Url.Dispatcher()
                                 .Query<AddOrEditContactsCommand.AsQuery>(new { Id = each.For(q => q.Id) })
                                 .AsView("~/Views/Admin/Contacts/AddOrEdit.cshtml"))
                             .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
-                            .AsHtmlAttributes()
-                            .ToLink(@<text>
-                                         <i class="fas fa-pencil-alt">
-                                         </i>
-                                         @DataResource.Edit
-                                     </text>))
-
+                            .AsHtmlAttributes(new
+                            {
+                                @class = "btn btn-secondary bi bi-pencil",
+                                type = "button",
+                                width = "16",
+                                height = "16",
+                                fill = "currentColor",
+                            })
+                            .ToButton(@<span></span>))
 
                         @(Html.When(JqueryBind.Click)
                             .Ajax(Url.Dispatcher()
-                            .Push<AddOrEditContactsCommand>(new { Id = each.For(q => q.Id) }))
+                                .Push<AddOrEditContactsCommand>(new { Id = each.For(q => q.Id) }))
                             .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
                             .OnSuccess(dsl => dsl.WithId(nameof(GetContactsQuery)).Trigger.Incoding())
-                            .AsHtmlAttributes()
-                            .ToLink(@<text>
-                                         <i class="fas fa-pencil-alt">
-                                         </i>
-                                         @DataResource.Delete
-                                     </text>))
+                            .AsHtmlAttributes(new
+                            {
+                                @class = "btn btn-secondary bi bi-trash3",
+                                type = "button",
+                                width = "16",
+                                height = "16",
+                                fill = "currentColor",
+                            })
+                            .ToButton(@<span></span>))
+                    </span>
+
+
                     </td>
                     <td>
                         @each.For(q => q.Company)

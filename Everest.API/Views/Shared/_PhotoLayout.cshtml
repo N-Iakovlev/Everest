@@ -1,6 +1,7 @@
 ﻿@using Everest.API
 @{
     var header = ViewData[nameof(ContentLayoutModel.Header)];
+    var photoUrl = ViewData["PhotoUrl"] as string; // URL изображения
 }
 
 <div class="content-wrapper" style="min-height: 1199px;">
@@ -21,9 +22,13 @@
             <div class="row" style="margin-left: -250; margin-right: 0;">
                 <div class="col-12 card">
                     
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            @RenderBody()
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <!-- Your photo here -->
+                        <img src="@photoUrl" alt="Photo" class="img-fluid">
+                        
+                        <!-- Your content here -->
+                        @RenderBody()
                         
                     </div>
                 </div>

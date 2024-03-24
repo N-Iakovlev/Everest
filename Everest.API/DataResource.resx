@@ -202,7 +202,7 @@
     <value>Контакты</value>
   </data>
   <data name="Order" xml:space="preserve">
-    <value>Заказ</value>
+    <value>Заказы</value>
   </data>
   <data name="EditCategory" xml:space="preserve">
     <value>Категории</value>
@@ -309,5 +309,8 @@
   </data>
   <data name="Question" xml:space="preserve">
     <value>Вопросы</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Скачать</value>
   </data>
 </root>

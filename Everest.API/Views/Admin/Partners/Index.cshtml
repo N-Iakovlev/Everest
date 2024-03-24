@@ -17,14 +17,6 @@
                   .ToButton(@<text>
                                  <span>@DataResource.Add</span>
                              </text>))
-            @(Html.When(JqueryBind.KeyUp)
-                  .Ajax(Url.Dispatcher().Query(new GetPartnerQuery()).AsJson().AppendToQueryString(new { Search = Selector.Jquery.Self() }))
-                  .OnSuccess(dsl =>
-                  {
-                    dsl.WithId(nameof(GetPartnerQuery)).Insert.WithTemplateByView("~/Views/Admin/Partners/Tmpl.cshtml").Html();
-                  })
-                  .AsHtmlAttributes(new { placeholder = @DataResource.Search })
-                  .ToInput(HtmlInputType.Text,String.Empty))
         </div>
     </div>
    @(Html.When(JqueryBind.InitIncoding)

@@ -6,20 +6,19 @@
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
+                <td style="width: 108px;"></td>
                 <td>@DataResource.OrderId</td>
                 <td>@DataResource.Status</td>
                 <td>@DataResource.Date</td>
                 <td>@DataResource.ProductList</td>
                 <td>@DataResource.FullName</td>
-                
-                
             </tr>
             </thead>
             <tbody>
             @using (template.NotEach())
             {
                     <tr>
-                    <td colspan="5">
+                    <td colspan="6">
                         @DataResource.Empty
                     </td>
                 </tr>
@@ -27,15 +26,39 @@
             @using (var each = template.ForEach())
             {
                 <tr>
-                        <td>
+                   
+                    <td style="padding-right: 10px;">
+                        <span>
                             @(Html.When(JqueryBind.Click)
-                            .Ajax(Url.Dispatcher()
-                            .Query<AddOrEditOrderCommand.AsQuery>(new { Id = each.For(q => q.Id) })
-                            .AsView("~/Views/Admin/Order/AddOrEdit.cshtml"))
-                            .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
-                            .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5" })
-                            .ToButton(@<text>№@each.For(q => q.Id)</text>))
-                        </td>
+                                .Ajax(Url.Dispatcher()
+                                    .Query<AddOrEditOrderCommand.AsQuery>(new { Id = each.For(q => q.Id) })
+                                    .AsView("~/Views/Admin/Order/AddOrEdit.cshtml"))
+                                .OnSuccess(dsl => dsl.With(q => q.Tag(HtmlTag.Body)).Insert.Append())
+                                .AsHtmlAttributes(new
+                                {
+                                    @class = "btn btn-secondary bi bi-pencil",
+                                    type = "button",
+                                    width = "16",
+                                    height = "16",
+                                    fill = "currentColor",
+                                })
+                                .ToButton(@<span></span>))
+
+                            @(Html.When(JqueryBind.Click)
+                                .Ajax(Url.Dispatcher()
+                                    .Push<DeleteOrderCommand>(new { Id = each.For(q => q.Id) }))
+                                .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
+                                .OnSuccess(dsl => dsl.WithId(nameof(GetOrderQuery)).Trigger.Incoding())
+                                .AsHtmlAttributes(new
+                                {
+                                    @class = "btn btn-secondary bi bi-trash3",
+                                    type = "button",
+                                    fill = "currentColor",
+                                })
+                                .ToButton(@<span></span>))
+                        </span>
+                    </td>
+                    <td>№ @each.For(q=>q.Id)</td>
                     <td>@each.For(q => q.Status)</td>
                     <td>@each.For(q => q.OrderDate)</td>
                     <td>@(Html.When(JqueryBind.Click)
@@ -43,7 +66,7 @@
                             .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/Admin/Order/ListProductTmpl.cshtml").Html())
                             .AsHtmlAttributes(new { @class = "btn btn-secondary buttons-copy buttons-html5" })
                             .ToButton(@<text>
-                        @DataResource.ProductList
+                                          @DataResource.ProductList
                                        </text>))
                     </td>
                     <td>@each.For(q => q.Name)</td>

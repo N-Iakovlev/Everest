@@ -115,6 +115,15 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Остались вопросы.
+        /// </summary>
+        public static string AnytQuestion {
+            get {
+                return ResourceManager.GetString("AnytQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на EVEREST TRADE.
         /// </summary>
         public static string ApplicationName {
@@ -327,6 +336,15 @@ namespace Everest.API {
         public static string Employee {
             get {
                 return ResourceManager.GetString("Employee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Представители.
+        /// </summary>
+        public static string Employees {
+            get {
+                return ResourceManager.GetString("Employees", resourceCulture);
             }
         }
         
@@ -624,6 +642,15 @@ namespace Everest.API {
         public static string Status {
             get {
                 return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Оставить заявку.
+        /// </summary>
+        public static string SubmitQuestion {
+            get {
+                return ResourceManager.GetString("SubmitQuestion", resourceCulture);
             }
         }
         

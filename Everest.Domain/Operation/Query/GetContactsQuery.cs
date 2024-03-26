@@ -16,7 +16,9 @@ public class GetContactsQuery : QueryBase<List<GetContactsQuery.Response>>
                 Phone = q.Phone,
                 Email = q.Email,
                 Company = q.Company,
-                Domen = q.Domen
+                Domen = q.Domen,
+                AboutShort = q.ShortDescriptionAbout,
+                AboutLong = q.LongDescriptionAbout,
 
             })
             .ToList();
@@ -24,6 +26,8 @@ public class GetContactsQuery : QueryBase<List<GetContactsQuery.Response>>
 
     public class Response
     {
+        public string AboutShort { get; set; }
+        public string AboutLong { get; set; }
         public int? Id { get; set; }
         public string Adress { get; set; }
         public int Phone { get; set; }

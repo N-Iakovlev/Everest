@@ -16,7 +16,7 @@
             </span>
 
             <span>
-                Должность
+                @each.For(q=>q.CategoryName)
             </span>
 
             <a href="tel:@each.For(q => q.Phone)">
@@ -29,7 +29,7 @@
                 </span>
             </a>
 
-            <a href="@each.For(q => q.Email)">
+            <a href="mailto:@each.For(q => q.Email)">
                 <span class="material-symbols-outlined">
                     mail
                 </span>

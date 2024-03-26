@@ -1,0 +1,48 @@
+﻿@using Everest.API
+@using Everest.Domain
+
+<h1>
+    @DataResource.AnytQuestion
+</h1>
+
+<div class="d-flex-column gap-1">
+    <span>
+        Позвоните по номеру +7 (000) 000-00-00 или напишите на почту mail@mail.com
+    </span>
+
+    <span>
+        Или оставьте свои контакты и мы с Вами свяжемся.
+    </span>
+
+    <form class="width-half d-flex-column gap-1 padding-1 bg-white rounded" id="content-contact-send" @*action="@Url.Dispatcher().Push(new SendEmailCommand())" method="POST"*@>
+        <div class="textbox">
+            <label for="name">@DataResource.FullName:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="textbox">
+            <label for="contacts">@DataResource.Email:</label>
+            <input type="text" id="contacts" name="contacts" required>
+        </div>
+
+        <div class="textbox">
+            <label for="question">@DataResource.Question:</label>
+            <textarea id="question" name="question"></textarea>
+        </div>
+                    
+        @(Html.When(JqueryBind.Click)
+            .Ajax(Url.Dispatcher()
+                .Push(new SendQuestionCommand()
+                {
+                    Contacts = Selector.Jquery.Name("contacts"),
+                    Question = Selector.Jquery.Name("question"),
+                    Name = Selector.Jquery.Name("name"),
+                }))
+            .AsHtmlAttributes(new
+            {
+                @class = "btn width-fit align-self-end"
+
+            })
+            .ToButton(@<span>@DataResource.Send</span>))
+    </form>
+</div>

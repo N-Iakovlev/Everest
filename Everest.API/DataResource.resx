@@ -120,6 +120,9 @@
   <data name="Employee" xml:space="preserve">
     <value>Сотрудники</value>
   </data>
+  <data name="Employees" xml:space="preserve">
+    <value>Представители</value>
+  </data>
   <data name="Product" xml:space="preserve">
     <value>Товары</value>
   </data>
@@ -312,5 +315,11 @@
   </data>
   <data name="Download" xml:space="preserve">
     <value>Скачать</value>
+  </data>
+  <data name="SubmitQuestion" xml:space="preserve">
+    <value>Оставить заявку</value>
+  </data>
+  <data name="AnytQuestion" xml:space="preserve">
+    <value>Остались вопросы</value>
   </data>
 </root>

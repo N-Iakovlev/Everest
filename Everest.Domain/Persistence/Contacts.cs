@@ -16,7 +16,9 @@ public class Contacts : EverestEntityBase
     public virtual string Email { get; set; }
     public virtual string Company { get; set; }
     public virtual string Domen { get; set; }
-    
+    public virtual string LongDescriptionAbout { get; set; }
+    public virtual string ShortDescriptionAbout {get; set; }
+
 
     [UsedImplicitly, Obsolete(ObsoleteMessage.ClassNotForDirectUsage, true), ExcludeFromCodeCoverage]
     public class Map : NHibernateEntityMap<Contacts>
@@ -29,6 +31,8 @@ public class Contacts : EverestEntityBase
             MapEscaping(q => q.Email);
             MapEscaping(q => q.Company);
             MapEscaping(q => q.Domen);
+            MapEscaping(q => q.LongDescriptionAbout);
+            MapEscaping(q => q.ShortDescriptionAbout);
         }
     }
 }

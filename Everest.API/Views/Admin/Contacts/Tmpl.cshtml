@@ -12,6 +12,8 @@
                 <th>@DataResource.Phone</th>
                 <th>@DataResource.Site</th>
                 <th>@DataResource.Adress</th>
+                <th>@DataResource.ShortDescription</th>
+                <th>@DataResource.LongDescription</th>
                
             </tr>
             </thead>
@@ -19,7 +21,7 @@
             @using (template.NotEach())
             {
                 <tr>
-                    <td colspan="6">
+                    <td colspan="8">
                         @DataResource.Empty
                     </td>
                 </tr>
@@ -77,6 +79,8 @@
                     <td>
                         @each.For(q => q.Adress)
                     </td>
+                    <td>@each.For(q=>q.AboutShort)</td>
+                    <td>@each.For(q=>q.AboutLong)</td>
                      
                 </tr>
             }

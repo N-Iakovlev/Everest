@@ -25,6 +25,8 @@ public class AddOrEditContactsCommand : CommandBase
     public string Email { get; set; }
     public string Company { get; set; }
     public string Domen { get; set; }
+    public string AboutShort { get; set; }
+    public string AboutLong { get; set; }
 
     protected override void Execute()
     {
@@ -35,6 +37,8 @@ public class AddOrEditContactsCommand : CommandBase
         contact.Email = Email;
         contact.Company = Company;
         contact.Domen = Domen;
+        contact.ShortDescriptionAbout =AboutShort;
+        contact.LongDescriptionAbout =AboutLong;
 
 
         Repository.SaveOrUpdate(contact);
@@ -64,7 +68,9 @@ public class AddOrEditContactsCommand : CommandBase
                 Phone = contact.Phone,
                 Email = contact.Email,
                 Company = contact.Company,
-                Domen = contact.Domen
+                Domen = contact.Domen,
+                AboutLong = contact.LongDescriptionAbout,
+                AboutShort = contact.ShortDescriptionAbout
             };
         }
     }

@@ -2,11 +2,11 @@
 @using Everest.Domain
 <Footer class="footer" id="contacts">
         <div class="navigation">
-            <span>@DataResource.Navigation</span>
+            
             <a href="#content-info">@DataResource.Main</a>
             <a href="#content-partners">@DataResource.Partners</a>
             <a href="#content-products">@DataResource.Product</a>
-            <a href="#content-contact">Оставить заявку</a>
+            <a href="#content-contact">@DataResource.SubmitQuestion</a>
             <a href="#content-about">@DataResource.About</a>
             <a href="#content-peoples">@DataResource.Employee</a>
             <a href="@Url.Action("Cart", "Home")">@DataResource.Cart</a>

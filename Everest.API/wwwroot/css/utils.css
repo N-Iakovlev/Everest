@@ -366,10 +366,10 @@ textarea {
 .gap-05 {
     gap: .5em;
 }
-
-.gap-1 {
-    gap: 1em;
+body .gap-1 {
+    gap: 2em !important;
 }
+
 
 .justify-content-between {
     justify-content: space-between;

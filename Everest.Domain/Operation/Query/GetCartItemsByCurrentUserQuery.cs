@@ -11,6 +11,7 @@ namespace Everest.Domain
             public string Product { get; set; }
             public decimal Price { get; set; }
             public int ProductId { get; set; }
+            public string CategoryName { get; set; }
           
         }
         protected override List<Response> ExecuteResult()
@@ -25,6 +26,7 @@ namespace Everest.Domain
                     Product = q.Product.ProductName,
                     ProductId = q.Product.Id,
                     Price = q.Product.Price,
+                    CategoryName = q.Product.Category.Name,
                 })
                 .ToList();
         }

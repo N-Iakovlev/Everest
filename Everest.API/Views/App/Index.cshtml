@@ -25,7 +25,7 @@
                 </a>
             </div>
         </div>
-        <div id="content-partners" class="d-flex-column gap-1 padding-1">
+        <div id="content-partners" class="d-flex-column gap-1 padding-1 section">
             <h1>
                 @DataResource.Partners
             </h1>
@@ -95,95 +95,45 @@
                             .ToButton(@<span><span class="btn"></span>@DataResource.P</span>))  
                 </div>
           *@      
-                
-                
-                
-                
-                
-                
-                
-
             </div>
         </div>
         <div id="content-contact" class="d-flex-column gap-1 padding-1 section">
-            <h1>
-                Остались вопросы?
-            </h1>
+           
+            <div class="form-sing_left_title">Получите бесплатную консультацию</div>
+            <div class="form-sing_left_desc">Заполните форму и мы свяжемся с Вами в ближайшее время</div>
+            
+                            <div class="form-sing_right">
+                                <form class="send_mail_raba" onsubmit="yaCounter67865461.reachGoal('send-get-free'); gtag('event', 'formconsult_click', {'event_category': 'formconsult', 'event_action': 'click', }); return true;">
+                                    <input type="hidden" name="titile" value="Получите бесплатную консультацию">
+                                    
+                                    <input type="text" name="name" placeholder="Ваше имя">
+                                    <input type="tel" name="phone" id="" placeholder="Телефон">
+                                    <div>
+                                        <input type="checkbox" name="agreement_required" checked="checked" id="agreement-sing" class="agreement_required">
+                                        <label for="agreement-sing" class="checked">
+                                            Даю согласие на обработку персональных данных
+                                        </label>
+                                        <div class="btn">
+                                            <button type="submit">
+                                                Отправить                                   
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="clickField" class="clickField" value="click_true"><input type="hidden" name="inputField" class="inputField" value="2GSI2FQJiD">
+                                </form>
+                            </div>
+                        
+                   
+            
+            
 
-            <div class="d-flex-column gap-1">
-                <span>
-                    Позвоните по номеру +7 (000) 000-00-00 или напишите на почту mail@mail.com
-                </span>
-
-                <span>
-                    Или оставьте свои контакты и мы с Вами свяжемся.
-                </span>
-
-                <form class="width-half d-flex-column gap-1 padding-1 bg-white rounded" id="content-contact-send" @*action="@Url.Dispatcher().Push(new SendEmailCommand())" method="POST"*@>
-                    <div class="textbox">
-                        <label for="name">@DataResource.FullName:</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-
-                    <div class="textbox">
-                        <label for="contacts">@DataResource.Email:</label>
-                        <input type="text" id="contacts" name="contacts" required>
-                    </div>
-
-                    <div class="textbox">
-                        <label for="question">@DataResource.Question:</label>
-                        <textarea id="question" name="question"></textarea>
-                    </div>
-
-                    @(Html.When(JqueryBind.Click)
-                        .Ajax(Url.Dispatcher()
-                            .Push(new SendQuestionCommand()
-                            {
-                                Contacts = Selector.Jquery.Name("contacts"),
-                                Question = Selector.Jquery.Name("question"),
-                                Name = Selector.Jquery.Name("name"),
-                            }))
-                        .AsHtmlAttributes(new { @class = "btn width-fit align-self-end", type = "submit" })
-                        .ToButton(@<span><span class="material-symbols-outlined">mail</span>@DataResource.Send</span>))
-
-                </form>
-            </div>
+          @*  @await Html.PartialAsync("~/Views/App/AnyQuestion/Index.cshtml")*@
         </div>
         <div id="content-about" class="d-flex-column gap-1 padding-1">
-            <h1>
-                @DataResource.About
-            </h1>
-
-            <div class="d-flex gap-1 about">
-                <div class="d-flex-column gap-1 justify-content-between">
-                    <span>
-                        Здание построено по проекту архитектора А. Т. Тимофеева в 1901 году по мотивам московско-ярославского зодчества XVII века.
-                        <br/>
-                        <br/>
-                        Здание двухэтажное, кирпичное, в плане в форме буквы Г, имеет круговой опоясыващий и завершающий карнизы с сухариками. В здании высокие крыши со слуховыми окнами, широкие балконы по фасаду. На первом этаже здания — полуциркульные окна. Архитектурные элементы здания выделяются жёлтым и красным цветом. Территория перед музеем благоустроена. Здание имеет пристройки.
-                    </span>
-
-                    <span>
-                        @DataResource.Adress: Советская улица, 1, Камышин, Волгоградская область
-                    </span>
-                </div>
-
-                <div class="d-flex-column gap-1">
-                    <img class="image shadowed" src="resources/images/kamyshyn.png" alt="photo">
-
-                    <img class="map shadowed" src="resources/images/map.png" alt="map">
-                </div>
-            </div>
-        </div>
-        <div id="content-peoples" class="d-flex-column gap-1 padding-1">
-            <h1>
-                @DataResource.Employee
-            </h1>
-            @(Html.When(JqueryBind.InitIncoding)
-                .Ajax(new GetEmployeesQuery())
-                .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/App/Employee/Tmpl.cshtml").Html())
-                .AsHtmlAttributes(new { @class = "d-flex justify-content-center gap-1" })
-                .ToDiv())
+            @await Html.PartialAsync("~/Views/App/About/Index.cshtml")
+         </div>
+        <div id="content-peoples" class="d-flex-column gap-1 padding-1 section">
+            @await Html.PartialAsync("~/Views/App/Employee/Index.cshtml")
         </div>
     </div>
 }

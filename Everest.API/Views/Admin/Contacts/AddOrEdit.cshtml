@@ -9,8 +9,10 @@
 }
 
 @Html.HiddenFor(q=>q.Id)
-@Html.ForGroup(q => q.Adress).TextBox(control => { control.Label.Name = DataResource.Adress; })
+@Html.ForGroup(q => q.Adress).TextArea(control => { control.Label.Name = DataResource.Adress; })
 @Html.ForGroup(q => q.Company).TextBox(control => { control.Label.Name = DataResource.CompanyName; })
 @Html.ForGroup(q => q.Email).TextBox(control => { control.Label.Name = DataResource.Email; })
 @Html.ForGroup(q => q.Phone).TextBox(control => { control.Label.Name = DataResource.Phone; })
 @Html.ForGroup(q => q.Domen).TextBox(control => { control.Label.Name = DataResource.Site; })
+@Html.ForGroup(q => q.AboutShort).TextArea(control => { control.Label.Name = DataResource.About; })
+@Html.ForGroup(q => q.AboutLong).TextArea(control => { control.Label.Name = DataResource.About; })

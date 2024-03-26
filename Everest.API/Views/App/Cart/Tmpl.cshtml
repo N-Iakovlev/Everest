@@ -10,11 +10,8 @@
 
         @using (var each = template.ForEach())
         {
-            <div class="product">
-            <span>
-                @string.Format("${0:N2}", each.For(q => q.Price)) 
-            </span>
-
+            <div class="product">s
+                    <span>@each.For(q => q.CategoryName)</span>
             <div class="position-relative">
                 <div class="d-flex position-absolute top-05 left-05 gap-05">
                     <span class="bg-yellow rounded padding-x-05">

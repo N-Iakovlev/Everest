@@ -19,6 +19,7 @@
                 <span class="bg-yellow rounded padding-x-05">
                     @each.For(q => q.ProductName)
                 </span>
+                    <span>@each.For(q => q.CategoryName)</span>
             </div>
             <img src="@(Url.Dispatcher().Query<GetAvatarProductQuery>(new { Id = each.For(q => q.Id) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: "avatar"))" class="width-15 height-15 rounded">
             @(Html.When(JqueryBind.Click)

@@ -11,6 +11,7 @@ public class GetProductQuery : QueryBase<List<GetProductQuery.Response>>
     public string Search { get; set; }
     public int? CategoryId { get; set; } 
     public int? Count { get; set; }
+    
     protected override List<Response> ExecuteResult()
     {
     
@@ -35,8 +36,9 @@ public class GetProductQuery : QueryBase<List<GetProductQuery.Response>>
                     Price = q.Price,
                     LongDescription = q.LongDescription,
                     ShortDescription = q.ShortDescription,
-                    ProductPhoto = q.ProductPhoto
-                })
+                    ProductPhoto = q.ProductPhoto,
+                    CategoryName = q.Category.Name,
+            })
                 .Take(Count.Value)
                 .ToList();
         }
@@ -50,8 +52,9 @@ public class GetProductQuery : QueryBase<List<GetProductQuery.Response>>
                     Price = q.Price,
                     LongDescription = q.LongDescription,
                     ShortDescription = q.ShortDescription,
-                    ProductPhoto = q.ProductPhoto
-                })
+                    ProductPhoto = q.ProductPhoto,
+                    CategoryName = q.Category.Name
+            })
                 .ToList();
         }
 
@@ -66,6 +69,7 @@ public class GetProductQuery : QueryBase<List<GetProductQuery.Response>>
         public string LongDescription { get; set; }
         public string ShortDescription { get; set; }
         public byte[] ProductPhoto { get; set; }
+        public string CategoryName { get; set; }
 
     }
 

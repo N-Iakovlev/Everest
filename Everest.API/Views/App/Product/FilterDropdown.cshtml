@@ -1,0 +1,20 @@
+﻿@using Everest.API
+@using Everest.Domain
+@model IEnumerable<string>
+
+<div class="dropdown">
+    <button class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="material-symbols-outlined">sort</span>
+        <span> @DataResource.Category</span>
+    </button>
+    <ul class="dropdown-menu">
+        <!-- Вставляем элементы выпадающего списка -->
+        @foreach (var item in Model)
+        {
+            <li><a class="dropdown-item" href="javascript:void(0)">@item</a></li>
+        }
+     
+    </ul>
+ 
+</div>
+

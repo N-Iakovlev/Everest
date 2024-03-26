@@ -55,6 +55,8 @@
                                 Email = Selector.Jquery.Name("email"),
                                 Name = Selector.Jquery.Name("name"),
                             }))
+                        .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm(@DataResource.ProductsAddToCart)))
+                        .OnComplete(dsl => dsl.Self().Form.Validation.Refresh())
                         .AsHtmlAttributes(new {
                             @class = "btn align-self-center",
                             type="submit"})

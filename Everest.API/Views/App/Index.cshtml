@@ -45,9 +45,22 @@
             <div class="d-flex-column">
                <div class="d-flex gap-05 padding-05">
                     @await Html.PartialAsync("~/Views/Shared/_FilterDropdown.cshtml",
-                               Html.Dispatcher().Query(new GetCategoryForDDQuery() { Type = Category.OfType.Product }).Select(item => item.Text))
+                               Html.Dispatcher().Query(new GetCategoryForDDQuery(){Type = Category.OfType.Product}).Select(item => item.Text))
                     
-                </div>
+                @*    @await Html.PartialAsync("~/Views/Shared/_DropDown.cshtml", new DropDownModel
+       {
+           Text = @DataResource.Category,
+           Url = Url.Dispatcher().Query(new GetCategoryForDDQuery()).AsJson(),
+           Template = "~/Views/Shared/DropDownItem_Tmpl.cshtml"
+       })
+                    
+                  *@  
+                    
+                    
+                    
+
+                    
+               </div>
                 <div class="d-flex gap-1 padding-05">
                     <a class="btn width-2 height-10 padding-0 flex-shrink-0 justify-content-center margin-auto" id="products-left">
                         <span class="material-symbols-outlined">
@@ -56,7 +69,7 @@
                     </a>
 
                     @(Html.When(JqueryBind.InitIncoding)
-                        .Ajax(new GetProductQuery { Count = 5 })
+                        .Ajax(new GetProductQuery { Count = 10})
                         .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/App/Product/Tmpl.cshtml").Html())
                         .AsHtmlAttributes(new { @class = "d-flex gap-1 overflow-x-hidden", id = "products" })
                         .ToDiv())
@@ -68,7 +81,7 @@
                         </span>
                     </button>
                 </div>
-                <div class="padding-05">
+        @*        <div class="padding-05">
                     <div class="d-flex gap-05 margin-l-auto width-fit">
                         <button class="btn">Показать всё</button>
                         @* @(Html.When(JqueryBind.Click)
@@ -79,10 +92,9 @@
                                 id = "products"
 
                             })
-                            .ToButton(@<span><span class="btn"></span>@DataResource.P</span>))  *@ 
-                    </div>
+                            .ToButton(@<span><span class="btn"></span>@DataResource.P</span>))  
                 </div>
-                
+          *@      
                 
                 
                 

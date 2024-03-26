@@ -1,5 +1,7 @@
 ﻿namespace Everest.Domain;
 
+using System.ComponentModel.DataAnnotations;
+
 #region << Using >>
 
 using System.Diagnostics.CodeAnalysis;
@@ -16,6 +18,8 @@ public class Contacts : EverestEntityBase
     public virtual string Email { get; set; }
     public virtual string Company { get; set; }
     public virtual string Domen { get; set; }
+    
+    [MaxLength(1000)]
     public virtual string LongDescriptionAbout { get; set; }
     public virtual string ShortDescriptionAbout {get; set; }
 

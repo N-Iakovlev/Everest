@@ -6,13 +6,12 @@
 </h1>
 
 <div class="d-flex gap-1 about">
-    
-        @(Html.When(JqueryBind.InitIncoding)
-            .Ajax(new GetContactsQuery())
-            .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/App/About/Tmpl.cshtml").Html())
-            .AsHtmlAttributes(new { @class = "d-flex-column gap-1 justify-content-between" })
-            .ToDiv()) 
-        <div style="position:relative;overflow:hidden; margin-left: auto;">
+    @(Html.When(JqueryBind.InitIncoding)
+        .Ajax(new GetContactsQuery())
+        .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView("~/Views/App/About/Tmpl.cshtml").Html())
+        .AsHtmlAttributes(new { @class = "d-flex-column gap-1 justify-content-between", style = "width: 50%;" })
+        .ToDiv())
+    <div style="position:relative;overflow:hidden; margin-left: auto;">
 
             <div style="position:relative;"><a href="https://yandex.ru/maps/225/russia/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;left:0px;">Россия</a><a href="https://yandex.ru/maps/971/taganrog/house/ulitsa_frunze_41/Z0EYfwVoS0IAQFptfX5wcnlgYA==/?ll=38.928618%2C47.213557&utm_medium=mapframe&utm_source=maps&z=19.12" style="color:#eee;font-size:12px;position:absolute;top:14px;left:0px;">Улица Фрунзе, 41 — Яндекс Карты</a><iframe src="https://yandex.ru/map-widget/v1/?ll=38.928618%2C47.213557&mode=whatshere&whatshere%5Bpoint%5D=38.928426%2C47.213618&whatshere%5Bzoom%5D=17&z=19.12" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe></div>
             </div>

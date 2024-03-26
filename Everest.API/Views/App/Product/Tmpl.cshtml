@@ -11,7 +11,9 @@
     @using (var each = template.ForEach())
     {
     <div class="product">
-            <span>@each.For(q => q.CategoryName)</span>
+        <span>
+                @each.For(q => q.CategoryName)
+            </span>
         <div class="position-relative margin-b-1">
             <div class="d-flex position-absolute top-05 left-05 gap-05">
                 <span class="bg-yellow rounded padding-x-05">
@@ -19,16 +21,17 @@
                 </span>
             </div>
             <img src="@(Url.Dispatcher().Query<GetAvatarProductQuery>(new { Id = each.For(q => q.Id) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: "avatar"))" class="width-15 height-15 rounded">
-            </div>
+            @(Html.When(JqueryBind.Click)
+                .Ajax(Url.Dispatcher()
+                .Push<AddProductToCartCommand>(new { ProductId = each.For(q => q.Id) }))
+                .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm(@DataResource.ProductsAddToCart)))
+                .AsHtmlAttributes(new { @class = "btn" })
+                .ToLink(@<span >
+                            <span class="material-symbols-outlined">shopping_cart</span>
+                            @DataResource.AddToCart
+                        </span>))
+        </div>
         <span class="text-align-justify">@each.For(q => q.ShortDescription)</span>
-        @(Html.When(JqueryBind.Click)
-            .Ajax(Url.Dispatcher()
-            .Push<AddProductToCartCommand>(new { ProductId = each.For(q => q.Id) }))
-            .AsHtmlAttributes(new { @class = "btn" })
-            .ToLink(@<span >
-                        <span class="material-symbols-outlined">shopping_cart</span>
-                        @DataResource.AddToCart
-                    </span>))
     </div>
     }
 }

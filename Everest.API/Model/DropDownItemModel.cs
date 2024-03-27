@@ -3,10 +3,8 @@ namespace Everest.API;
 
 public class DropDownItemModel
 {
-    // Значение элемента списка
     public object Value { get; set; }
-
-    // Текст, отображаемый для элемента списка
+    
     public string Text { get; set; }
     public string Search { get; set; }
 

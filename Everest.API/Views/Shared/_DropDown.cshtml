@@ -1,7 +1,8 @@
 ﻿@model Everest.API.DropDownModel 
 <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        @Model.Text <!-- Предполагается, что Text не должно быть null -->
+    <button class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class=@Model.ClassIcon>@Model.Icon</span>
+        <span> @Model.Text</span>
     </button>
     <ul class="dropdown-menu">
         @if (Model.Items != null) 
@@ -9,7 +10,7 @@
         @foreach (var item in Model.Items)
         {
             <li>
-                <a class="dropdown-item" href="javascript:void(0)" data-value="@item?.Value">@item?.Text</a> <!-- Предполагается, что item и его свойства не null -->
+                <a class="dropdown-item" href="javascript:void(0)" data-value="@item?.Value">@item?.Text</a> 
             </li>
         }
         }
@@ -18,7 +19,7 @@
     <!-- Проверяем, что Url и Template не null перед использованием -->
     @if (Model.Url != null && Model.Template != null)
     {
-        @(Html.When(JqueryBind.InitIncoding)
+        @(Html.When(JqueryBind.Click)
             .Ajax(Model.Url)
             .OnSuccess(dsl => dsl.Self().Insert.WithTemplateByView(Model.Template))
             .AsHtmlAttributes(new { @class = "dropdown-item"})

@@ -44,22 +44,20 @@
 
             <div class="d-flex-column">
                <div class="d-flex gap-05 padding-05">
-                    @await Html.PartialAsync("~/Views/Shared/_FilterDropdown.cshtml",
-                               Html.Dispatcher().Query(new GetCategoryForDDQuery(){Type = Category.OfType.Product}).Select(item => item.Text))
-                    
-                @*    @await Html.PartialAsync("~/Views/Shared/_DropDown.cshtml", new DropDownModel
-       {
-           Text = @DataResource.Category,
-           Url = Url.Dispatcher().Query(new GetCategoryForDDQuery()).AsJson(),
-           Template = "~/Views/Shared/DropDownItem_Tmpl.cshtml"
-       })
-                    
-                  *@  
-                    
-                    
-                    
+               @*     @await Html.PartialAsync("~/Views/App/Product/FilterDropdown.cshtml",
+                               Html.Dispatcher().Query(new GetCategoryForDDQuery(){Type = Category.OfType.Product}).Select(item => item.Text))*@
 
-                    
+               @await Html.PartialAsync("~/Views/Shared/_DropDown.cshtml", new DropDownModel
+                      {
+                                Items = Html.Dispatcher().Query(new GetCategoryForDDQuery() { Type = Category.OfType.Product }),
+                                Id = "products",
+                                Text = @DataResource.Category,
+                                Icon ="sort",
+                                ClassIcon = "material-symbols-outlined",
+                                Url = Url.Dispatcher().Query(new GetProductQuery()).AsJson(),
+                                Template = "~/Views/App/Product/Tmpl.cshtml"
+                      })
+
                </div>
                 <div class="d-flex gap-1 padding-05">
                     <a class="btn width-2 height-10 padding-0 flex-shrink-0 justify-content-center margin-auto" id="products-left">

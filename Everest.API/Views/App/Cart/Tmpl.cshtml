@@ -26,7 +26,7 @@
                 .Ajax(Url.Dispatcher()
                     .Push<DeleteCartItemCommand>
                     (new { Id = each.For(q => q.Id) }))
-                    .OnBegin(dsl => dsl.Break.If(() => !Selector.JS.Confirm("Are you sure delete ?")))
+                   
                     .OnSuccess(dsl =>
                     {
                     //  выводим количество товаров в корзине

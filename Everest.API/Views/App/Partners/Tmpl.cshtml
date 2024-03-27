@@ -10,7 +10,7 @@
     @using (var each = template.ForEach())
     {
         <div class="partners-list">
-            <a href="@each.For(q => q.Site)" class="partner">
+            <a href="@each.For(q => q.Site)" class="partner" target="_blank">
                 <img src="@(Url.Dispatcher().Query<GetLabelPartnerQuery>(new { Id = each.For(q => q.Id) }).AsFile(incContentType: "image/jpeg", incFileDownloadName: "avatar"))" />
 
 

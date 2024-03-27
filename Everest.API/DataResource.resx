@@ -270,6 +270,9 @@
 	<data name="Partners" xml:space="preserve">
     <value>Партнеры</value>
   </data>
+  <data name="OurPartners" xml:space="preserve">
+    <value>Наши партнеры</value>
+  </data>
 	<data name="Lable" xml:space="preserve">
     <value>Этикетка</value>
   </data>
@@ -321,5 +324,8 @@
   </data>
   <data name="AnytQuestion" xml:space="preserve">
     <value>Остались вопросы</value>
+  </data>
+  <data name="EmptyCart" xml:space="preserve">
+    <value>Ваша корзина пуста, добавте товар в корзину!</value>
   </data>
 </root>

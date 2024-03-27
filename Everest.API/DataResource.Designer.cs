@@ -358,6 +358,15 @@ namespace Everest.API {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Ваша корзина пуста, добавте товар в корзину!.
+        /// </summary>
+        public static string EmptyCart {
+            get {
+                return ResourceManager.GetString("EmptyCart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Имя.
         /// </summary>
         public static string First {
@@ -444,6 +453,15 @@ namespace Everest.API {
         public static string OrderId {
             get {
                 return ResourceManager.GetString("OrderId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Наши партнеры.
+        /// </summary>
+        public static string OurPartners {
+            get {
+                return ResourceManager.GetString("OurPartners", resourceCulture);
             }
         }
         

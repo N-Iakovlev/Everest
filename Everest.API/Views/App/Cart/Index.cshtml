@@ -61,20 +61,6 @@
                             @class = "btn align-self-center",
                             type="submit"})
                         .ToButton(@<span><span class="material-symbols-outlined">shopping_cart</span>@DataResource.Checkout</span>))
-                   
-
-                  @*  @(Html.When(JqueryBind.Click)"
-                        .OnSuccess(dsl =>
-                                    {
-                                        dsl.WithId(nameof(GetCartItemsByCurrentUserQuery)).Trigger.Incoding();
-                            dsl.WithId("d-flex gap-1 flex-shrink-0 bg-transparent").Trigger.Incoding();
-                                        
-                                    })
-                        .AsHtmlAttributes(new
-                        {
-                            @class = "btn align-self-center", type="submit"
-                        })
-                        .ToButton(@<span><span class="material-symbols-outlined">shopping_cart</span>@DataResource.Checkout</span>))*@
                 </form>
             }
         </div>
